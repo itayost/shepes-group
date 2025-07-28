@@ -194,3 +194,33 @@ export const getServicesPreview = () => {
     link: `/services#${service.id}`
   }));
 };
+
+// נתוני תהליך העבודה הכללי
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export const processSteps: ProcessStep[] = [
+  {
+    step: '01',
+    title: 'פגישת היכרות',
+    description: 'נכיר, נבין את הצרכים שלכם ונתאים את השירות המושלם'
+  },
+  {
+    step: '02',
+    title: 'תכנון אסטרטגיה',
+    description: 'נבנה תוכנית פעולה מותאמת אישית להשגת המטרה'
+  },
+  {
+    step: '03',
+    title: 'ביצוע מקצועי',
+    description: 'נפעל בשטח עם כל הכלים והניסיון שלנו'
+  },
+  {
+    step: '04',
+    title: 'השלמת העסקה',
+    description: 'נלווה אתכם עד לחתימה ומסירת המפתחות'
+  }
+];
