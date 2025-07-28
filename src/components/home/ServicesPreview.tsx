@@ -1,33 +1,11 @@
+// src/components/home/ServicesPreview.tsx
+
+import { getServicesPreview } from '@/data/services';
 import Link from 'next/link';
 
-const services = [
-  {
-    icon: '🏠',
-    title: 'מכירת נכס',
-    description: 'נשווק את הנכס שלך בצורה המקצועית ביותר ונשיג את המחיר הטוב ביותר',
-    link: '/services#selling'
-  },
-  {
-    icon: '🔑',
-    title: 'קניית נכס',
-    description: 'נמצא עבורך את הבית המושלם התואם לצרכים ולתקציב שלך',
-    link: '/services#buying'
-  },
-  {
-    icon: '📋',
-    title: 'השכרה',
-    description: 'ליווי מלא בתהליך ההשכרה - למשכירים ולשוכרים',
-    link: '/services#rental'
-  },
-  {
-    icon: '📊',
-    title: 'הערכת שווי',
-    description: 'הערכת שווי מקצועית ומדויקת לנכס שלך',
-    link: '/services#valuation'
-  }
-];
-
 const ServicesPreview = () => {
+  const servicesPreview = getServicesPreview();
+  
   return (
     <section className="py-16 bg-gray-50">
       <div className="container">
@@ -39,7 +17,7 @@ const ServicesPreview = () => {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
+          {servicesPreview.map((service, index) => (
             <Link
               key={index}
               href={service.link}

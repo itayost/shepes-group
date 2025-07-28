@@ -1,3 +1,6 @@
+// src/app/about/page.tsx
+
+import AboutTestimonials from '@/components/about/AboutTestimonials';
 import AgentCard from '@/components/about/AgentCard';
 import TeamAchievementsSection from '@/components/about/TeamAchievementsSection';
 import TimelineSection from '@/components/about/TimelineSection';
@@ -117,53 +120,8 @@ export default function AboutPage() {
       {/* הישגים משותפים */}
       <TeamAchievementsSection />
 
-      {/* המלצות לקוחות */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            מה הלקוחות אומרים
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                name: 'משפחת אברהם',
-                content: 'גלית וחיים היו מדהימים! המקצועיות והיחס האישי הפכו את תהליך הקנייה לחוויה נעימה.',
-                role: 'קנו בית באחוזה',
-                agent: 'גלית וחיים'
-              },
-              {
-                name: 'רונית ודני כהן',
-                content: 'גלית ליוותה אותנו במכירת הדירה שלנו. מקצועית, חמה ותמיד זמינה. ממליצים בחום!',
-                role: 'מכרו דירה בכרמל',
-                agent: 'גלית'
-              },
-              {
-                name: 'יוסי לוי - משקיע',
-                content: 'חיים הוא מומחה אמיתי בהשקעות נדל"ן. הידע והניסיון שלו עזרו לי למצוא עסקאות מצוינות.',
-                role: 'השקעות נדל"ן',
-                agent: 'חיים'
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-                <div className="flex justify-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-2xl text-yellow-400">★</span>
-                  ))}
-                </div>
-                <blockquote className="text-gray-700 text-center mb-4 italic">
-                  "{testimonial.content}"
-                </blockquote>
-                <div className="text-center">
-                  <p className="font-bold">{testimonial.name}</p>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  <p className="text-xs text-primary-600 mt-1">עבדו עם: {testimonial.agent}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* המלצות לקוחות - קומפוננטה חדשה */}
+      <AboutTestimonials />
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-600 text-white">
@@ -198,20 +156,12 @@ export default function AboutPage() {
             </a>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/services"
-              className="bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors"
-            >
-              השירותים שלנו
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-8 rounded-lg transition-colors border-2 border-white"
-            >
-              צרו קשר בווטסאפ
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="inline-block bg-white/20 hover:bg-white/30 border-2 border-white text-white font-bold py-3 px-8 rounded-lg transition-colors"
+          >
+            או השאירו פרטים ונחזור אליכם
+          </Link>
         </div>
       </section>
     </main>

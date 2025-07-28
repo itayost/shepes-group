@@ -34,7 +34,7 @@
 
   /* סגנונות לקישורים */
   a {
-    @apply transition-colors duration-200;
+    @apply transition-all duration-300;
   }
 
   /* סגנון לטפסים */
@@ -46,7 +46,7 @@
 
   /* כפתורים */
   button {
-    @apply transition-all duration-200;
+    @apply transition-all duration-300;
   }
 }
 
@@ -58,27 +58,69 @@
     @apply max-w-7xl;
   }
 
-  /* כפתור ראשי */
+  /* כפתור ראשי - זהב */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white;
+    @apply bg-primary-500 hover:bg-primary-600 text-white;
     @apply font-bold py-3 px-6 rounded-lg;
-    @apply transition-colors duration-200;
-    @apply shadow-md hover:shadow-lg;
+    @apply transition-all duration-300;
+    @apply shadow-md hover:shadow-gold-lg;
+    @apply hover:-translate-y-0.5;
   }
 
-  /* כפתור משני */
+  /* כפתור משני - שחור עם מסגרת זהב */
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-primary-600;
+    @apply bg-secondary-900 hover:bg-secondary-950 text-white;
     @apply font-bold py-3 px-6 rounded-lg;
-    @apply border-2 border-primary-600;
-    @apply transition-colors duration-200;
+    @apply border-2 border-primary-500;
+    @apply transition-all duration-300;
+    @apply hover:shadow-gold;
+  }
+
+  /* כפתור outline - רק מסגרת זהב */
+  .btn-outline {
+    @apply bg-transparent hover:bg-primary-500 text-primary-600 hover:text-white;
+    @apply font-bold py-3 px-6 rounded-lg;
+    @apply border-2 border-primary-500;
+    @apply transition-all duration-300;
+  }
+
+  /* כפתור יוקרתי */
+  .btn-luxury {
+    @apply bg-gradient-gold text-white;
+    @apply font-bold py-3 px-8 rounded-lg;
+    @apply shadow-luxury hover:shadow-gold-lg;
+    @apply transition-all duration-300;
+    @apply hover:-translate-y-1;
+    @apply relative overflow-hidden;
+  }
+  
+  .btn-luxury::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply -translate-x-full;
+    @apply transition-transform duration-700;
+  }
+  
+  .btn-luxury:hover::before {
+    @apply translate-x-full;
   }
 
   /* כרטיס */
   .card {
     @apply bg-white rounded-lg shadow-md;
-    @apply hover:shadow-xl transition-shadow duration-300;
+    @apply hover:shadow-xl transition-all duration-300;
     @apply overflow-hidden;
+    @apply border border-gray-100;
+  }
+
+  /* כרטיס יוקרתי */
+  .card-luxury {
+    @apply bg-white rounded-lg;
+    @apply shadow-luxury hover:shadow-gold-lg;
+    @apply transition-all duration-300;
+    @apply overflow-hidden;
+    @apply border border-primary-200;
+    @apply hover:-translate-y-1;
   }
 
   /* גריד רספונסיבי */
@@ -92,10 +134,25 @@
     @apply py-16 md:py-20;
   }
 
-  /* טקסט gradient */
-  .gradient-text {
-    @apply bg-gradient-to-l from-primary-600 to-primary-400;
+  /* טקסט gradient זהב */
+  .gradient-text-gold {
+    @apply bg-gradient-to-l from-primary-600 to-accent-500;
     @apply bg-clip-text text-transparent;
+  }
+
+  /* הדגשת זהב לכותרות */
+  .heading-luxury {
+    @apply relative inline-block;
+  }
+  
+  .heading-luxury::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1 bg-gradient-gold;
+    @apply transform scale-x-0 transition-transform duration-300;
+  }
+  
+  .heading-luxury:hover::after {
+    @apply scale-x-100;
   }
 }
 
@@ -114,6 +171,12 @@
     animation: slideInRight 0.6s ease-out;
   }
 
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.1) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
   /* Hover states */
   .hover-lift {
     @apply transition-transform duration-300 hover:-translate-y-1;
@@ -121,6 +184,10 @@
 
   .hover-scale {
     @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-glow-gold {
+    @apply transition-all duration-300 hover:shadow-gold-lg;
   }
 
   /* טקסט מוגבל */
@@ -147,6 +214,16 @@
   .shadow-strong {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
                 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* רקע שחור יוקרתי */
+  .bg-luxury-dark {
+    @apply bg-gradient-luxury;
+  }
+
+  /* טקסט זהב על רקע כהה */
+  .text-gold-on-dark {
+    @apply text-primary-400 hover:text-primary-300 transition-colors duration-300;
   }
 }
 
@@ -182,6 +259,24 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+  }
+}
+
 /* Scrollbar מותאם */
 ::-webkit-scrollbar {
   width: 10px;
@@ -193,13 +288,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-400 rounded-full;
-  @apply hover:bg-primary-500;
+  @apply bg-primary-500 rounded-full;
+  @apply hover:bg-primary-600;
 }
 
 /* Selection color */
 ::selection {
-  @apply bg-primary-200 text-primary-900;
+  @apply bg-primary-100 text-primary-900;
 }
 
 /* Focus styles לנגישות */
@@ -244,9 +339,39 @@
 /* Override לכפתורי WhatsApp */
 .whatsapp-float {
   @apply fixed bottom-6 left-6 z-50;
-  @apply bg-green-500 hover:bg-green-600;
+  @apply bg-success-500 hover:bg-success-600;
   @apply text-white p-4 rounded-full;
   @apply shadow-lg hover:shadow-xl;
   @apply transition-all duration-300;
   @apply hover:-translate-y-1;
+}
+
+/* סגנונות מיוחדים לנכסים שנמכרו */
+.sold-badge {
+  @apply bg-gradient-gold text-white;
+  @apply px-3 py-1 rounded-full text-sm font-bold;
+  @apply shadow-gold;
+}
+
+/* סגנון למחירים */
+.price-tag {
+  @apply text-2xl font-bold;
+  @apply gradient-text-gold;
+}
+
+/* דירוג כוכבים */
+.star-rating {
+  @apply text-primary-500;
+}
+
+/* רקע יוקרתי לסקשנים */
+.section-luxury {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 50%, #fafafa 100%);
+}
+
+.section-luxury::before {
+  content: '';
+  @apply absolute inset-0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
 }
