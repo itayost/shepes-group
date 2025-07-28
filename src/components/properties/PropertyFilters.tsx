@@ -20,7 +20,7 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({
   resultsCount
 }) => {
   return (
-    <section className="py-8 bg-white border-y">
+    <section className="py-8 bg-white border-y border-gray-200">
       <div className="container">
         <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
           {/* פילטרים */}
@@ -29,7 +29,7 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent hover:border-primary-300 transition-colors"
             >
               <option value="all">כל סוגי הנכסים</option>
               {PROPERTY_TYPES.map(type => (
@@ -43,7 +43,7 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({
             <select
               value={selectedNeighborhood}
               onChange={(e) => setSelectedNeighborhood(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent hover:border-primary-300 transition-colors"
             >
               <option value="all">כל השכונות</option>
               {HAIFA_NEIGHBORHOODS.map(neighborhood => (
@@ -57,7 +57,7 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent hover:border-primary-300 transition-colors"
             >
               <option value="date">תאריך מכירה - חדש לישן</option>
               <option value="price">מחיר - גבוה לנמוך</option>
@@ -66,8 +66,8 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({
           </div>
 
           {/* מספר תוצאות */}
-          <div className="text-gray-600">
-            נמצאו <span className="font-bold text-primary-600">{resultsCount}</span> נכסים
+          <div className="text-text-secondary bg-primary-50 px-4 py-2 rounded-lg">
+            נמצאו <span className="font-bold gradient-text-gold text-lg">{resultsCount}</span> נכסים
           </div>
         </div>
       </div>

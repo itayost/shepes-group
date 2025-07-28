@@ -11,14 +11,14 @@ const FeaturedSoldProperties = () => {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">נכסים שמכרנו לאחרונה</h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-text-secondary">
             הצטרפו למאות לקוחות מרוצים שמכרו את הנכס שלהם במחיר הטוב ביותר
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProperties.map((property) => (
-            <div key={property.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div key={property.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-gold-lg transition-all duration-300 hover:-translate-y-1">
               <div className="relative h-64">
                 <Image
                   src={property.images[0]}
@@ -26,7 +26,8 @@ const FeaturedSoldProperties = () => {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute top-4 left-4 bg-secondary-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                {/* תגית "נמכר!" מעודכנת */}
+                <div className="absolute top-4 left-4 sold-badge">
                   נמכר!
                 </div>
               </div>
@@ -35,22 +36,22 @@ const FeaturedSoldProperties = () => {
                 <h3 className="text-xl font-bold mb-2">
                   {property.title}
                 </h3>
-                <p className="text-gray-600 mb-3">{property.neighborhood}</p>
+                <p className="text-text-secondary mb-3">{property.neighborhood}</p>
                 
-                <div className="flex gap-4 text-gray-600 mb-4 text-sm">
+                <div className="flex gap-4 text-text-muted mb-4 text-sm">
                   <span>🛏️ {property.rooms} חד׳</span>
                   <span>📐 {property.size} מ״ר</span>
                   {property.floor > 0 && <span>🏢 קומה {property.floor}</span>}
                 </div>
                 
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-sm text-text-muted mb-4">
                   נמכר תוך {property.daysOnMarket} ימים
                 </p>
                 
                 {property.testimonial && (
-                  <blockquote className="italic text-gray-600 border-r-4 border-primary-500 pr-4 text-sm">
+                  <blockquote className="italic text-text-secondary border-r-4 border-primary-500 pr-4 text-sm">
                     "{property.testimonial.content}"
-                    <cite className="block text-xs mt-2 not-italic font-semibold">
+                    <cite className="block text-xs mt-2 not-italic font-semibold text-primary-600">
                       - {property.testimonial.name}
                     </cite>
                   </blockquote>
@@ -63,7 +64,7 @@ const FeaturedSoldProperties = () => {
         <div className="text-center mt-10">
           <Link
             href="/sold-properties"
-            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+            className="btn-primary inline-block"
           >
             צפה בכל הנכסים שמכרנו
           </Link>

@@ -52,33 +52,33 @@ const PropertyStats: React.FC = () => {
 
         {/* טאבים */}
         <div className="flex justify-center mb-8">
-          <div className="bg-gray-100 rounded-lg p-1 inline-flex">
+          <div className="bg-primary-50 rounded-lg p-1 inline-flex">
             <button
               onClick={() => setActiveTab('time')}
-              className={`px-6 py-2 rounded-md transition-colors ${
+              className={`px-6 py-2 rounded-md transition-all duration-300 ${
                 activeTab === 'time'
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-gradient-gold text-white shadow-gold'
+                  : 'text-text-secondary hover:text-primary-700'
               }`}
             >
               זמן מכירה ממוצע
             </button>
             <button
               onClick={() => setActiveTab('accuracy')}
-              className={`px-6 py-2 rounded-md transition-colors ${
+              className={`px-6 py-2 rounded-md transition-all duration-300 ${
                 activeTab === 'accuracy'
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-gradient-gold text-white shadow-gold'
+                  : 'text-text-secondary hover:text-primary-700'
               }`}
             >
               דיוק במחיר
             </button>
             <button
               onClick={() => setActiveTab('neighborhoods')}
-              className={`px-6 py-2 rounded-md transition-colors ${
+              className={`px-6 py-2 rounded-md transition-all duration-300 ${
                 activeTab === 'neighborhoods'
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-gradient-gold text-white shadow-gold'
+                  : 'text-text-secondary hover:text-primary-700'
               }`}
             >
               נתוני שכונות
@@ -90,67 +90,55 @@ const PropertyStats: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           {/* זמן מכירה ממוצע */}
           {activeTab === 'time' && (
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-gray-50 rounded-lg p-6 text-center">
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-primary-50 rounded-lg p-6 text-center hover:shadow-gold transition-all duration-300">
                 <div className="text-4xl mb-2">🏢</div>
                 <h3 className="font-bold text-lg mb-2">דירות</h3>
-                <div className="text-3xl font-bold text-primary-600">
-                  {statsData.averageDaysOnMarket.apartment} ימים
+                <div className="text-3xl font-bold gradient-text-gold mb-1">
+                  {statsData.averageDaysOnMarket.apartment}
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  זמן ממוצע למכירת דירה
-                </p>
+                <div className="text-sm text-text-secondary">ימים בממוצע</div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-6 text-center">
-                <div className="text-4xl mb-2">🏡</div>
+              <div className="bg-primary-50 rounded-lg p-6 text-center hover:shadow-gold transition-all duration-300">
+                <div className="text-4xl mb-2">🏠</div>
                 <h3 className="font-bold text-lg mb-2">בתים פרטיים</h3>
-                <div className="text-3xl font-bold text-primary-600">
-                  {statsData.averageDaysOnMarket.house} ימים
+                <div className="text-3xl font-bold gradient-text-gold mb-1">
+                  {statsData.averageDaysOnMarket.house}
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  זמן ממוצע למכירת בית
-                </p>
+                <div className="text-sm text-text-secondary">ימים בממוצע</div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-6 text-center">
-                <div className="text-4xl mb-2">🏙️</div>
+              <div className="bg-primary-50 rounded-lg p-6 text-center hover:shadow-gold transition-all duration-300">
+                <div className="text-4xl mb-2">🌆</div>
                 <h3 className="font-bold text-lg mb-2">פנטהאוזים</h3>
-                <div className="text-3xl font-bold text-primary-600">
-                  {statsData.averageDaysOnMarket.penthouse} ימים
+                <div className="text-3xl font-bold gradient-text-gold mb-1">
+                  {statsData.averageDaysOnMarket.penthouse}
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  זמן ממוצע למכירת פנטהאוז
-                </p>
+                <div className="text-sm text-text-secondary">ימים בממוצע</div>
               </div>
             </div>
           )}
 
           {/* דיוק במחיר */}
           {activeTab === 'accuracy' && (
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-48 h-48 bg-primary-100 rounded-full mb-6">
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary-600">
-                    {statsData.priceAccuracy}%
-                  </div>
-                  <div className="text-sm text-gray-600 mt-2">דיוק בהערכת מחיר</div>
-                </div>
+            <div className="text-center bg-primary-50 rounded-lg p-8">
+              <div className="text-6xl font-bold gradient-text-gold mb-4">
+                {statsData.priceAccuracy}%
               </div>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-                הניסיון והמומחיות שלנו מאפשרים לנו להעריך את שווי הנכס שלכם בדיוק מרשים.
-                97.5% מהנכסים שלנו נמכרים בטווח של 5% מהמחיר המוערך.
+              <p className="text-xl text-text-secondary mb-6">
+                מהנכסים שלנו נמכרים בטווח של 5% מהמחיר המוערך
               </p>
               <div className="grid grid-cols-3 gap-4 mt-8 max-w-lg mx-auto">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">45%</div>
-                  <div className="text-sm text-gray-600">נמכרו במחיר המבוקש</div>
+                  <div className="text-2xl font-bold text-primary-600">45%</div>
+                  <div className="text-sm text-text-secondary">נמכרו במחיר המבוקש</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">38%</div>
-                  <div className="text-sm text-gray-600">נמכרו עד 5% פחות</div>
+                  <div className="text-2xl font-bold text-primary-600">38%</div>
+                  <div className="text-sm text-text-secondary">נמכרו עד 5% פחות</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">14.5%</div>
-                  <div className="text-sm text-gray-600">נמכרו מעל המבוקש</div>
+                  <div className="text-2xl font-bold text-accent-600">14.5%</div>
+                  <div className="text-sm text-text-secondary">נמכרו מעל המבוקש</div>
                 </div>
               </div>
             </div>
@@ -160,17 +148,17 @@ const PropertyStats: React.FC = () => {
           {activeTab === 'neighborhoods' && (
             <div className="space-y-4">
               {statsData.neighborhoodStats.map((neighborhood, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-6">
+                <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-bold text-lg mb-1">{neighborhood.name}</h3>
-                      <p className="text-gray-600">
-                        זמן מכירה ממוצע: <span className="font-semibold">{neighborhood.avgDays} ימים</span>
+                      <p className="text-text-secondary">
+                        זמן מכירה ממוצע: <span className="font-semibold text-primary-600">{neighborhood.avgDays} ימים</span>
                       </p>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm text-gray-600">מחיר ממוצע</div>
-                      <div className="text-xl font-bold text-primary-600">
+                      <div className="text-sm text-text-secondary">מחיר ממוצע</div>
+                      <div className="text-xl font-bold price-tag">
                         {formatPrice(neighborhood.avgPrice)}
                       </div>
                     </div>
@@ -179,7 +167,7 @@ const PropertyStats: React.FC = () => {
                   <div className="mt-4">
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div 
-                        className="bg-primary-600 h-2 rounded-full transition-all duration-500"
+                        className="bg-gradient-gold h-2 rounded-full transition-all duration-500"
                         style={{ width: `${100 - (neighborhood.avgDays / 40) * 100}%` }}
                       />
                     </div>

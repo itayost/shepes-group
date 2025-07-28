@@ -20,12 +20,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   className = ''
 }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 ${className}`}>
+    <div className={`bg-white rounded-lg shadow-lg hover:shadow-gold-lg transition-all duration-300 p-6 hover:-translate-y-1 ${className}`}>
       {/* Icon & Title */}
       <div className="text-center mb-6">
-        <div className="text-5xl mb-4">{icon}</div>
+        <div className="text-5xl mb-4 animate-shimmer inline-block">{icon}</div>
         <h3 className="text-2xl font-bold mb-3">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-text-secondary">{description}</p>
       </div>
 
       {/* Features List */}
@@ -45,7 +45,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
                 d="M5 13l4 4L19 7" 
               />
             </svg>
-            <span className="text-gray-700 text-sm">{feature}</span>
+            <span className="text-text-secondary text-sm">{feature}</span>
           </div>
         ))}
       </div>
@@ -53,7 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       {/* CTA Button */}
       <Link
         href={ctaLink}
-        className="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+        className="btn-primary block w-full text-center"
       >
         {ctaText}
       </Link>

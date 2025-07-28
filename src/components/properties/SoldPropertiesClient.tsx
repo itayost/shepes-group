@@ -4,6 +4,7 @@ import PropertyFilters from '@/components/properties/PropertyFilters';
 import SoldPropertyCard from '@/components/properties/SoldPropertyCard';
 import { soldProperties } from '@/data/soldProperties';
 import { SITE_CONFIG, STATISTICS } from '@/lib/constants';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function SoldPropertiesClient() {
@@ -41,7 +42,7 @@ export default function SoldPropertiesClient() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               נכסים שמכרנו בהצלחה
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-text-secondary">
               עשרות משפחות מרוצות שמצאו את הבית המושלם בעזרתנו.
               כל נכס מספר סיפור של הצלחה ושביעות רצון מלאה.
             </p>
@@ -53,29 +54,29 @@ export default function SoldPropertiesClient() {
       <section className="py-12 bg-white">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-4xl font-bold text-primary-600 mb-2">
+            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
+              <div className="text-4xl font-bold gradient-text-gold mb-2">
                 {STATISTICS.propertiesSold}
               </div>
-              <div className="text-gray-600">נכסים נמכרו</div>
+              <div className="text-text-secondary">נכסים נמכרו</div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-4xl font-bold text-primary-600 mb-2">
+            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
+              <div className="text-4xl font-bold gradient-text-gold mb-2">
                 {STATISTICS.satisfiedClients}
               </div>
-              <div className="text-gray-600">לקוחות מרוצים</div>
+              <div className="text-text-secondary">לקוחות מרוצים</div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-4xl font-bold text-primary-600 mb-2">
+            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
+              <div className="text-4xl font-bold gradient-text-gold mb-2">
                 {STATISTICS.avgDaysToSell}
               </div>
-              <div className="text-gray-600">ימים בממוצע למכירה</div>
+              <div className="text-text-secondary">ימים בממוצע למכירה</div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-4xl font-bold text-primary-600 mb-2">
+            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
+              <div className="text-4xl font-bold gradient-text-gold mb-2">
                 {STATISTICS.yearsExperience}
               </div>
-              <div className="text-gray-600">שנות ניסיון</div>
+              <div className="text-text-secondary">שנות ניסיון</div>
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@ export default function SoldPropertiesClient() {
       />
 
       {/* גלריית נכסים */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-background-secondary">
         <div className="container">
           {sortedProperties.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -103,7 +104,7 @@ export default function SoldPropertiesClient() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-text-secondary">
                 לא נמצאו נכסים התואמים את החיפוש שלך
               </p>
             </div>
@@ -112,31 +113,39 @@ export default function SoldPropertiesClient() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary-600 text-white">
-        <div className="container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+      <section className="py-16 bg-gradient-luxury text-white relative overflow-hidden">
+        {/* אפקט רקע דקורטיבי */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
             רוצים להצטרף לרשימת הלקוחות המרוצים שלנו?
           </h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto animate-slide-up">
             בין אם אתם מוכרים או קונים, אנחנו כאן כדי להפוך את החלום שלכם למציאות.
             צרו איתנו קשר עוד היום ותגלו למה מאות לקוחות בחרו בנו.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="bg-white text-primary-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition-colors inline-block"
-            >
-              קבעו פגישת ייעוץ חינם
-            </a>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
             <a
               href={`tel:${SITE_CONFIG.phone}`}
-              className="bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-8 rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+              className="btn-primary shadow-gold-lg animate-glow inline-flex items-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              {SITE_CONFIG.phone}
+              התקשרו עכשיו
             </a>
+            
+            <Link
+              href="/contact"
+              className="btn-secondary hover:shadow-gold inline-block"
+            >
+              מלאו פרטים ונחזור אליכם
+            </Link>
           </div>
         </div>
       </section>

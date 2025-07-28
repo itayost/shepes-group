@@ -44,7 +44,7 @@ const TimelineSection = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
           הסיפור שלנו
         </h2>
-        <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <p className="text-xl text-text-secondary text-center mb-12 max-w-2xl mx-auto">
           מסע משותף של שני מתווכים מקצועיים שהפכו לצוות מוביל בשוק הנדל"ן בחיפה
         </p>
         
@@ -67,20 +67,20 @@ const TimelineSection = () => {
                     index % 2 === 0 ? 'text-left pl-8' : 'text-right pr-8'
                   }`}
                 >
-                  <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-gold-lg transition-all duration-300 hover:-translate-y-0.5">
                     <span className="text-primary-600 font-bold text-lg">
                       {event.year}
                     </span>
                     <h3 className="text-xl font-bold mt-2 mb-2">
                       {event.title}
                     </h3>
-                    <p className="text-gray-600 mb-2">
+                    <p className="text-text-secondary mb-2">
                       {event.description}
                     </p>
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                      event.agent === 'גלית' ? 'bg-pink-100 text-pink-700' :
-                      event.agent === 'חיים' ? 'bg-blue-100 text-blue-700' :
-                      'bg-purple-100 text-purple-700'
+                      event.agent === 'גלית' ? 'bg-accent-50 text-accent-700' :
+                      event.agent === 'חיים' ? 'bg-primary-50 text-primary-700' :
+                      'bg-gradient-gold text-white'
                     }`}>
                       {event.agent}
                     </span>
@@ -88,7 +88,7 @@ const TimelineSection = () => {
                 </div>
                 
                 {/* נקודה מרכזית */}
-                <div className="absolute right-1/2 transform translate-x-1/2 w-4 h-4 bg-primary-600 rounded-full border-4 border-white shadow" />
+                <div className="absolute right-1/2 transform translate-x-1/2 w-4 h-4 bg-primary-600 rounded-full border-4 border-white shadow-gold" />
               </div>
             ))}
           </div>
