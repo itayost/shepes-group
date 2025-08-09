@@ -34,7 +34,10 @@ export const metadata: Metadata = {
     'מכירת דירה חיפה',
     'קניית דירה חיפה',
     'הערכת שווי נדל"ן',
-    'ייעוץ נדל"ן חיפה'
+    'ייעוץ נדל"ן חיפה',
+    'שפס נדל"ן',
+    'גלית שפס',
+    'חיים שפס'
   ],
   authors: [{ name: SITE_CONFIG.name }],
   creator: SITE_CONFIG.name,
@@ -74,6 +77,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: SITE_CONFIG.logo, type: 'image/png' }
+    ],
+    apple: [
+      { url: SITE_CONFIG.logo }
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -84,13 +96,8 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <head>
-        {/* פייבקון */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-        
         {/* תגי Meta נוספים */}
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="theme-color" content="#f59e0b" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         
@@ -104,6 +111,8 @@ export default function RootLayout({
               name: SITE_CONFIG.name,
               description: SITE_CONFIG.description,
               url: SITE_CONFIG.url,
+              logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
+              image: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
               telephone: SITE_CONFIG.phone,
               email: SITE_CONFIG.email,
               address: {
@@ -113,11 +122,18 @@ export default function RootLayout({
                 postalCode: SITE_CONFIG.address.zip,
                 addressCountry: 'IL',
               },
-              areaServed: {
-                '@type': 'City',
-                name: 'חיפה',
-              },
+              areaServed: [
+                {
+                  '@type': 'City',
+                  name: 'חיפה',
+                },
+                {
+                  '@type': 'State',
+                  name: 'צפון',
+                }
+              ],
               priceRange: '₪₪₪',
+              sameAs: Object.values(SITE_CONFIG.social),
             }),
           }}
         />
@@ -138,7 +154,7 @@ export default function RootLayout({
         <WhatsAppButton />
         
         {/* Google Analytics - החלף את ה-ID */}
-        {process.env.NODE_ENV === 'production' && (
+        {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <script
               async

@@ -91,18 +91,18 @@ export function generateSEO({
 
 // JSON-LD Schema Component
 interface SchemaProps {
-  type: 'Organization' | 'LocalBusiness' | 'Article' | 'Product' | 'FAQPage';
-  data: any;
+  type: 'Organization' | 'LocalBusiness' | 'Article' | 'Product' | 'FAQPage' | 'RealEstateAgent';
+  data?: any;
 }
 
-export function Schema({ type, data }: SchemaProps) {
+export function Schema({ type, data = {} }: SchemaProps) {
   const schemas = {
     Organization: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
-      logo: `${SITE_CONFIG.url}/logo.png`,
+      logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
       sameAs: Object.values(SITE_CONFIG.social || {}),
       ...data,
     },
@@ -111,8 +111,37 @@ export function Schema({ type, data }: SchemaProps) {
       '@type': 'LocalBusiness',
       name: SITE_CONFIG.name,
       url: SITE_CONFIG.url,
+      logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
       telephone: SITE_CONFIG.phone,
-      address: SITE_CONFIG.address,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SITE_CONFIG.address.street,
+        addressLocality: SITE_CONFIG.address.city,
+        postalCode: SITE_CONFIG.address.zip,
+        addressCountry: 'IL',
+      },
+      ...data,
+    },
+    RealEstateAgent: {
+      '@context': 'https://schema.org',
+      '@type': 'RealEstateAgent',
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+      logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
+      telephone: SITE_CONFIG.phone,
+      email: SITE_CONFIG.email,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SITE_CONFIG.address.street,
+        addressLocality: SITE_CONFIG.address.city,
+        postalCode: SITE_CONFIG.address.zip,
+        addressCountry: 'IL',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'חיפה',
+      },
+      priceRange: '₪₪₪',
       ...data,
     },
     Article: {
@@ -123,7 +152,7 @@ export function Schema({ type, data }: SchemaProps) {
         name: SITE_CONFIG.name,
         logo: {
           '@type': 'ImageObject',
-          url: `${SITE_CONFIG.url}/logo.png`,
+          url: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
         },
       },
       ...data,

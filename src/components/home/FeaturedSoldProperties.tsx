@@ -1,4 +1,5 @@
 import { getFeaturedProperties } from '@/data/soldProperties';
+import { Bed, Building2, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -39,9 +40,20 @@ const FeaturedSoldProperties = () => {
                 <p className="text-text-secondary mb-3">{property.neighborhood}</p>
                 
                 <div className="flex gap-4 text-text-muted mb-4 text-sm">
-                  <span>🛏️ {property.rooms} חד׳</span>
-                  <span>📐 {property.size} מ״ר</span>
-                  {property.floor > 0 && <span>🏢 קומה {property.floor}</span>}
+                  <span className="flex items-center gap-1">
+                    <Bed className="w-4 h-4" />
+                    {property.rooms} חד׳
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Maximize2 className="w-4 h-4" />
+                    {property.size} מ״ר
+                  </span>
+                  {property.floor > 0 && (
+                    <span className="flex items-center gap-1">
+                      <Building2 className="w-4 h-4" />
+                      קומה {property.floor}
+                    </span>
+                  )}
                 </div>
                 
                 <p className="text-sm text-text-muted mb-4">

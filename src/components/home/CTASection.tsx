@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from '@/lib/constants';
+import { CheckCircle, Home, Phone, PhoneCall } from 'lucide-react';
 import Link from 'next/link';
 
 const CTASection = () => {
@@ -30,9 +31,7 @@ const CTASection = () => {
               href={`tel:${SITE_CONFIG.phone}`}
               className="btn-secondary flex items-center justify-center gap-2 hover:shadow-gold"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
+              <Phone className="w-5 h-5" />
               התקשרו לגלית
             </a>
           </div>
@@ -40,17 +39,23 @@ const CTASection = () => {
           {/* מידע נוסף עם אייקונים זהב */}
           <div className="mt-12 grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="text-center group">
-              <div className="text-5xl mb-3 group-hover:animate-shimmer inline-block">📱</div>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-3 group-hover:bg-white/20 transition-colors">
+                <PhoneCall className="w-8 h-8" />
+              </div>
               <h3 className="font-bold mb-1 text-primary-300">2 מתווכים זמינים</h3>
               <p className="opacity-80">גלית וחיים - תמיד זמינים עבורכם</p>
             </div>
             <div className="text-center group">
-              <div className="text-5xl mb-3 group-hover:animate-shimmer inline-block">🏡</div>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-3 group-hover:bg-white/20 transition-colors">
+                <Home className="w-8 h-8" />
+              </div>
               <h3 className="font-bold mb-1 text-primary-300">ייעוץ חינם</h3>
               <p className="opacity-80">פגישת ייעוץ ללא עלות</p>
             </div>
             <div className="text-center group">
-              <div className="text-5xl mb-3 group-hover:animate-shimmer inline-block">💯</div>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-3 group-hover:bg-white/20 transition-colors">
+                <CheckCircle className="w-8 h-8" />
+              </div>
               <h3 className="font-bold mb-1 text-primary-300">ללא התחייבות</h3>
               <p className="opacity-80">נשמח לענות על כל שאלה</p>
             </div>

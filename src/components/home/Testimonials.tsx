@@ -1,6 +1,7 @@
 'use client';
 
 import { getHomePageTestimonials } from '@/data/testimonials';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useState } from 'react';
 
 const Testimonials = () => {
@@ -28,9 +29,12 @@ const Testimonials = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-gold p-8 relative">
             {/* כוכבי דירוג מעודכנים */}
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-4 gap-1">
               {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <span key={i} className="text-3xl star-rating">★</span>
+                <Star 
+                  key={i} 
+                  className="w-7 h-7 text-yellow-400 fill-yellow-400"
+                />
               ))}
             </div>
             
@@ -52,9 +56,7 @@ const Testimonials = () => {
               className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-primary-50 hover:shadow-gold rounded-full p-2 transition-all duration-300"
               aria-label="המלצה קודמת"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
+              <ChevronRight className="w-6 h-6" />
             </button>
             
             <button
@@ -62,27 +64,25 @@ const Testimonials = () => {
               className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-primary-50 hover:shadow-gold rounded-full p-2 transition-all duration-300"
               aria-label="המלצה הבאה"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <ChevronLeft className="w-6 h-6" />
             </button>
           </div>
-          
-          {/* אינדיקטורים */}
-          <div className="flex justify-center gap-2 mt-6">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? 'bg-primary-500 w-8' 
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`המלצה ${index + 1}`}
-              />
-            ))}
-          </div>
+        </div>
+        
+        {/* אינדיקטורים */}
+        <div className="flex justify-center gap-2 mt-6">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                currentIndex === index 
+                  ? 'bg-primary-600 w-8' 
+                  : 'bg-gray-300 hover:bg-primary-300'
+              }`}
+              aria-label={`המלצה ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
