@@ -1,3 +1,4 @@
+import { Bed, Building2, Calendar, Clock, Maximize2, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 
 interface SoldPropertyProps {
@@ -70,7 +71,8 @@ const SoldPropertyCard: React.FC<SoldPropertyProps> = ({ property }) => {
         <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow-lg">
           <div className="font-bold text-lg price-tag">{formatPrice(property.soldPrice)}</div>
           {pricePercentage !== '100.0' && (
-            <div className="text-sm text-text-secondary">
+            <div className="text-sm text-text-secondary flex items-center gap-1">
+              <TrendingUp className="w-3 h-3" />
               {parseFloat(pricePercentage) > 100 ? '+' : ''}{(parseFloat(pricePercentage) - 100).toFixed(1)}% מהמבוקש
             </div>
           )}
@@ -86,14 +88,17 @@ const SoldPropertyCard: React.FC<SoldPropertyProps> = ({ property }) => {
         {/* פרטים */}
         <div className="flex flex-wrap gap-4 text-sm text-text-muted mb-4">
           <span className="flex items-center gap-1">
-            <span>🛏️</span> {property.rooms} חד׳
+            <Bed className="w-4 h-4" />
+            <span>{property.rooms} חד׳</span>
           </span>
           <span className="flex items-center gap-1">
-            <span>📐</span> {property.size} מ״ר
+            <Maximize2 className="w-4 h-4" />
+            <span>{property.size} מ״ר</span>
           </span>
           {property.floor > 0 && (
             <span className="flex items-center gap-1">
-              <span>🏢</span> קומה {property.floor}/{property.totalFloors}
+              <Building2 className="w-4 h-4" />
+              <span>קומה {property.floor}/{property.totalFloors}</span>
             </span>
           )}
         </div>
@@ -114,12 +119,18 @@ const SoldPropertyCard: React.FC<SoldPropertyProps> = ({ property }) => {
 
         {/* מידע על המכירה */}
         <div className="border-t pt-4 space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-text-secondary">נמכר ב:</span>
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-text-secondary flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              נמכר ב:
+            </span>
             <span className="font-semibold">{formatDate(property.soldDate)}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-text-secondary">זמן בשוק:</span>
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-text-secondary flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              זמן בשוק:
+            </span>
             <span className="font-semibold text-primary-600">{property.daysOnMarket} ימים</span>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Agent } from '@/data/agents';
+import { Mail, Phone, Trophy } from 'lucide-react';
 import Image from 'next/image';
 
 interface AgentCardProps {
@@ -32,13 +33,15 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
               href={`tel:${agent.phone}`}
               className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors"
             >
-              <span>📱</span> {agent.phone}
+              <Phone className="w-5 h-5" />
+              <span>{agent.phone}</span>
             </a>
             <a
               href={`mailto:${agent.email}`}
               className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors"
             >
-              <span>✉️</span> {agent.email}
+              <Mail className="w-5 h-5" />
+              <span>{agent.email}</span>
             </a>
           </div>
           
@@ -91,8 +94,8 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
               <ul className="space-y-1">
                 {agent.achievements.awards.map((award, index) => (
                   <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
-                    <span className="text-yellow-500">🏆</span>
-                    {award}
+                    <Trophy className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                    <span>{award}</span>
                   </li>
                 ))}
               </ul>

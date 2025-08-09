@@ -1,13 +1,14 @@
 'use client';
 
 import { getCombinedStats } from '@/data/agents';
+import { Briefcase, Calendar, Clock, Home, Smile, Star, Target, Trophy } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface Achievement {
   number: number;
   suffix: string;
   label: string;
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 const CountUp = ({ end, suffix }: { end: number; suffix: string }) => {
@@ -73,25 +74,48 @@ const TeamAchievementsSection = () => {
       number: stats.totalProperties,
       suffix: '+',
       label: 'עסקאות הושלמו בהצלחה',
-      icon: '🏡'
+      icon: Home
     },
     {
       number: Math.round(stats.avgSatisfaction),
       suffix: '%',
       label: 'שביעות רצון לקוחות',
-      icon: '😊'
+      icon: Smile
     },
     {
       number: stats.avgDaysToSell,
       suffix: '',
       label: 'ימים בממוצע למכירה',
-      icon: '⏱️'
+      icon: Clock
     },
     {
       number: stats.totalYearsExperience,
       suffix: '+',
       label: 'שנות ניסיון משותפות',
-      icon: '📅'
+      icon: Calendar
+    }
+  ];
+
+  const awards = [
+    {
+      icon: Trophy,
+      title: 'מתווכת השנה',
+      description: 'גלית - 2021'
+    },
+    {
+      icon: Briefcase,
+      title: 'מומחה השקעות',
+      description: 'חיים - 2020'
+    },
+    {
+      icon: Star,
+      title: '5 כוכבים בגוגל',
+      description: 'מעל 150 ביקורות'
+    },
+    {
+      icon: Target,
+      title: 'מצוינות בשירות',
+      description: 'פרס משותף 2023'
     }
   ];
 
@@ -106,15 +130,20 @@ const TeamAchievementsSection = () => {
         </p>
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {achievements.map((achievement, index) => (
-            <div key={index} className="text-center">
-              <div className="text-5xl mb-4">{achievement.icon}</div>
-              <div className="mb-2">
-                <CountUp end={achievement.number} suffix={achievement.suffix} />
+          {achievements.map((achievement, index) => {
+            const IconComponent = achievement.icon;
+            return (
+              <div key={index} className="text-center">
+                <div className="flex justify-center mb-4">
+                  <IconComponent className="w-12 h-12" />
+                </div>
+                <div className="mb-2">
+                  <CountUp end={achievement.number} suffix={achievement.suffix} />
+                </div>
+                <p className="text-lg opacity-90">{achievement.label}</p>
               </div>
-              <p className="text-lg opacity-90">{achievement.label}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* פרסים והכרות משותפים */}
@@ -123,34 +152,20 @@ const TeamAchievementsSection = () => {
             פרסים והכרות
           </h3>
           <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <div className="text-center">
-              <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
-                <div className="text-4xl mb-3">🏆</div>
-                <h4 className="font-bold mb-2">מתווכת השנה</h4>
-                <p className="text-sm opacity-90">גלית - 2021</p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
-                <div className="text-4xl mb-3">💼</div>
-                <h4 className="font-bold mb-2">מומחה השקעות</h4>
-                <p className="text-sm opacity-90">חיים - 2020</p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
-                <div className="text-4xl mb-3">⭐</div>
-                <h4 className="font-bold mb-2">5 כוכבים בגוגל</h4>
-                <p className="text-sm opacity-90">מעל 150 ביקורות</p>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
-                <div className="text-4xl mb-3">🎯</div>
-                <h4 className="font-bold mb-2">מצוינות בשירות</h4>
-                <p className="text-sm opacity-90">פרס משותף 2023</p>
-              </div>
-            </div>
+            {awards.map((award, index) => {
+              const IconComponent = award.icon;
+              return (
+                <div key={index} className="text-center">
+                  <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
+                    <div className="flex justify-center mb-3">
+                      <IconComponent className="w-10 h-10" />
+                    </div>
+                    <h4 className="font-bold mb-2">{award.title}</h4>
+                    <p className="text-sm opacity-90">{award.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

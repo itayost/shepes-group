@@ -4,6 +4,7 @@ import PropertyFilters from '@/components/properties/PropertyFilters';
 import SoldPropertyCard from '@/components/properties/SoldPropertyCard';
 import { soldProperties } from '@/data/soldProperties';
 import { SITE_CONFIG, STATISTICS } from '@/lib/constants';
+import { Award, Clock, Home, Users } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -33,16 +34,39 @@ export default function SoldPropertiesClient() {
     }
   });
 
+  const statisticsData = [
+    {
+      icon: Home,
+      value: STATISTICS.propertiesSold,
+      label: 'נכסים נמכרו'
+    },
+    {
+      icon: Users,
+      value: STATISTICS.satisfiedClients,
+      label: 'לקוחות מרוצים'
+    },
+    {
+      icon: Clock,
+      value: STATISTICS.avgDaysToSell,
+      label: 'ימים בממוצע למכירה'
+    },
+    {
+      icon: Award,
+      value: STATISTICS.yearsExperience,
+      label: 'שנות ניסיון'
+    }
+  ];
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-primary-50 py-16">
+      <section className="bg-primary-50 py-8 md:py-16">
         <div className="container">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
               נכסים שמכרנו בהצלחה
             </h1>
-            <p className="text-xl text-text-secondary">
+            <p className="text-lg md:text-xl text-text-secondary px-4 md:px-0">
               עשרות משפחות מרוצות שמצאו את הבית המושלם בעזרתנו.
               כל נכס מספר סיפור של הצלחה ושביעות רצון מלאה.
             </p>
@@ -51,33 +75,23 @@ export default function SoldPropertiesClient() {
       </section>
 
       {/* סטטיסטיקות */}
-      <section className="py-12 bg-white">
+      <section className="py-8 md:py-12 bg-white">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
-              <div className="text-4xl font-bold gradient-text-gold mb-2">
-                {STATISTICS.propertiesSold}
-              </div>
-              <div className="text-text-secondary">נכסים נמכרו</div>
-            </div>
-            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
-              <div className="text-4xl font-bold gradient-text-gold mb-2">
-                {STATISTICS.satisfiedClients}
-              </div>
-              <div className="text-text-secondary">לקוחות מרוצים</div>
-            </div>
-            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
-              <div className="text-4xl font-bold gradient-text-gold mb-2">
-                {STATISTICS.avgDaysToSell}
-              </div>
-              <div className="text-text-secondary">ימים בממוצע למכירה</div>
-            </div>
-            <div className="bg-primary-50 rounded-lg p-6 hover:shadow-gold transition-all duration-300">
-              <div className="text-4xl font-bold gradient-text-gold mb-2">
-                {STATISTICS.yearsExperience}
-              </div>
-              <div className="text-text-secondary">שנות ניסיון</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+            {statisticsData.map((stat, index) => {
+              const IconComponent = stat.icon;
+              return (
+                <div key={index} className="bg-primary-50 rounded-lg p-4 md:p-6 hover:shadow-gold transition-all duration-300 group">
+                  <div className="flex justify-center mb-2 md:mb-3">
+                    <IconComponent className="w-6 md:w-8 h-6 md:h-8 text-primary-600 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="text-2xl md:text-4xl font-bold gradient-text-gold mb-1 md:mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs md:text-base text-text-secondary">{stat.label}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -94,58 +108,56 @@ export default function SoldPropertiesClient() {
       />
 
       {/* גלריית נכסים */}
-      <section className="py-16 bg-background-secondary">
+      <section className="py-8 md:py-16 bg-background-secondary">
         <div className="container">
           {sortedProperties.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {sortedProperties.map((property) => (
                 <SoldPropertyCard key={property.id} property={property} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-xl text-text-secondary">
-                לא נמצאו נכסים התואמים את החיפוש שלך
+            <div className="text-center py-8 md:py-12">
+              <p className="text-lg md:text-xl text-text-secondary">
+                לא נמצאו נכסים התואמים את הסינון שבחרת
               </p>
+              <button
+                onClick={() => {
+                  setSelectedType('all');
+                  setSelectedNeighborhood('all');
+                  setSortBy('date');
+                }}
+                className="mt-4 btn-primary"
+              >
+                נקה סינון
+              </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-luxury text-white relative overflow-hidden">
-        {/* אפקט רקע דקורטיבי */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="container text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
-            רוצים להצטרף לרשימת הלקוחות המרוצים שלנו?
+      {/* קריאה לפעולה */}
+      <section className="py-12 md:py-16 bg-gradient-luxury text-white">
+        <div className="container text-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
+            רוצה למכור את הנכס שלך?
           </h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto animate-slide-up">
-            בין אם אתם מוכרים או קונים, אנחנו כאן כדי להפוך את החלום שלכם למציאות.
-            צרו איתנו קשר עוד היום ותגלו למה מאות לקוחות בחרו בנו.
+          <p className="text-lg md:text-xl mb-6 md:mb-8 opacity-90 max-w-2xl mx-auto px-4 md:px-0">
+            הצטרף למאות לקוחות מרוצים שמכרו את הנכס שלהם במחיר הטוב ביותר ובזמן הקצר ביותר
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <a
-              href={`tel:${SITE_CONFIG.phone}`}
-              className="btn-primary shadow-gold-lg animate-glow inline-flex items-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              התקשרו עכשיו
-            </a>
-            
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
             <Link
               href="/contact"
-              className="btn-secondary hover:shadow-gold inline-block"
+              className="bg-white text-primary-600 px-6 md:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
             >
-              מלאו פרטים ונחזור אליכם
+              קבל הערכת שווי חינם
             </Link>
+            <a
+              href={`tel:${SITE_CONFIG.phone}`}
+              className="bg-primary-500 text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors inline-block"
+            >
+              התקשר עכשיו
+            </a>
           </div>
         </div>
       </section>
