@@ -1,26 +1,30 @@
 'use client';
 
 import PropertyFilters from '@/components/properties/PropertyFilters';
-import SoldPropertyCard from '@/components/properties/SoldPropertyCard';
+import PropertyGrid from '@/components/properties/PropertyGrid';
+import PropertyHero from '@/components/properties/PropertyHero';
+import PropertyStats from '@/components/properties/PropertyStats';
+import Badge from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
 import { soldProperties } from '@/data/soldProperties';
-import { SITE_CONFIG, STATISTICS } from '@/lib/constants';
-import { Award, Clock, Home, Users } from 'lucide-react';
-import Link from 'next/link';
+import { SITE_CONFIG } from '@/lib/constants';
+import { MessageCircle, Phone } from 'lucide-react';
 import { useState } from 'react';
 
 export default function SoldPropertiesClient() {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('date');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // סינון הנכסים
+  // Filter properties
   const filteredProperties = soldProperties.filter(property => {
     if (selectedType !== 'all' && property.type !== selectedType) return false;
     if (selectedNeighborhood !== 'all' && property.neighborhood !== selectedNeighborhood) return false;
     return true;
   });
 
-  // מיון הנכסים
+  // Sort properties
   const sortedProperties = [...filteredProperties].sort((a, b) => {
     switch (sortBy) {
       case 'date':
@@ -34,69 +38,15 @@ export default function SoldPropertiesClient() {
     }
   });
 
-  const statisticsData = [
-    {
-      icon: Home,
-      value: STATISTICS.propertiesSold,
-      label: 'נכסים נמכרו'
-    },
-    {
-      icon: Users,
-      value: STATISTICS.satisfiedClients,
-      label: 'לקוחות מרוצים'
-    },
-    {
-      icon: Clock,
-      value: STATISTICS.avgDaysToSell,
-      label: 'ימים בממוצע למכירה'
-    },
-    {
-      icon: Award,
-      value: STATISTICS.yearsExperience,
-      label: 'שנות ניסיון'
-    }
-  ];
-
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-      <section className="bg-primary-50 py-8 md:py-16">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
-              נכסים שמכרנו בהצלחה
-            </h1>
-            <p className="text-lg md:text-xl text-text-secondary px-4 md:px-0">
-              עשרות משפחות מרוצות שמצאו את הבית המושלם בעזרתנו.
-              כל נכס מספר סיפור של הצלחה ושביעות רצון מלאה.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PropertyHero />
 
-      {/* סטטיסטיקות */}
-      <section className="py-8 md:py-12 bg-white">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
-            {statisticsData.map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div key={index} className="bg-primary-50 rounded-lg p-4 md:p-6 hover:shadow-gold transition-all duration-300 group">
-                  <div className="flex justify-center mb-2 md:mb-3">
-                    <IconComponent className="w-6 md:w-8 h-6 md:h-8 text-primary-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                  <div className="text-2xl md:text-4xl font-bold gradient-text-gold mb-1 md:mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs md:text-base text-text-secondary">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Statistics Section */}
+      <PropertyStats />
 
-      {/* פילטרים */}
+      {/* Filters Section */}
       <PropertyFilters
         selectedType={selectedType}
         setSelectedType={setSelectedType}
@@ -104,60 +54,77 @@ export default function SoldPropertiesClient() {
         setSelectedNeighborhood={setSelectedNeighborhood}
         sortBy={sortBy}
         setSortBy={setSortBy}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
         resultsCount={sortedProperties.length}
       />
 
-      {/* גלריית נכסים */}
-      <section className="py-8 md:py-16 bg-background-secondary">
-        <div className="container">
-          {sortedProperties.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {sortedProperties.map((property) => (
-                <SoldPropertyCard key={property.id} property={property} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 md:py-12">
-              <p className="text-lg md:text-xl text-text-secondary">
-                לא נמצאו נכסים התואמים את הסינון שבחרת
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedType('all');
-                  setSelectedNeighborhood('all');
-                  setSortBy('date');
-                }}
-                className="mt-4 btn-primary"
-              >
-                נקה סינון
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Properties Grid/List */}
+      <PropertyGrid 
+        properties={sortedProperties}
+        viewMode={viewMode}
+        onReset={() => {
+          setSelectedType('all');
+          setSelectedNeighborhood('all');
+          setSortBy('date');
+        }}
+      />
 
-      {/* קריאה לפעולה */}
-      <section className="py-12 md:py-16 bg-gradient-luxury text-white">
-        <div className="container text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
-            רוצה למכור את הנכס שלך?
-          </h2>
-          <p className="text-lg md:text-xl mb-6 md:mb-8 opacity-90 max-w-2xl mx-auto px-4 md:px-0">
-            הצטרף למאות לקוחות מרוצים שמכרו את הנכס שלהם במחיר הטוב ביותר ובזמן הקצר ביותר
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
-            <Link
-              href="/contact"
-              className="bg-white text-primary-600 px-6 md:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
-            >
-              קבל הערכת שווי חינם
-            </Link>
-            <a
-              href={`tel:${SITE_CONFIG.phone}`}
-              className="bg-primary-500 text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors inline-block"
-            >
-              התקשר עכשיו
-            </a>
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-primary-600 to-primary-800 relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            {/* Badge */}
+            <Badge variant="secondary" size="lg" className="mb-6 bg-white/10 text-white border-white/20">
+              הצטרפו להצלחה
+            </Badge>
+
+            {/* Title */}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              רוצים למכור את הנכס שלכם?
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-xl text-white/90 mb-10 leading-relaxed">
+              הצטרפו למאות לקוחות מרוצים שמכרו את הנכס שלהם
+              <br />
+              במחיר הטוב ביותר ובזמן הקצר ביותר
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href={`tel:${SITE_CONFIG.phone}`}>
+                <Button 
+                  size="lg" 
+                  variant="secondary"
+                  icon={Phone}
+                  className="bg-white text-primary-700 hover:bg-gray-100 shadow-2xl"
+                >
+                  קבלו ייעוץ חינם
+                </Button>
+              </a>
+              
+              <a 
+                href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  icon={MessageCircle}
+                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20"
+                >
+                  שלחו וואטסאפ
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>

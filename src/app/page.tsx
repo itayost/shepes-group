@@ -2,6 +2,7 @@ import CTASection from '@/components/home/CTASection';
 import FeaturedSoldProperties from '@/components/home/FeaturedSoldProperties';
 import HeroSection from '@/components/home/HeroSection';
 import ServicesPreview from '@/components/home/ServicesPreview';
+import StatsSection from '@/components/home/StatsSection';
 import Testimonials from '@/components/home/Testimonials';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -13,23 +14,26 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
-      {/* Hero Section - תמונת רקע גדולה עם כותרת */}
+    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Hero Section */}
       <HeroSection />
       
-      {/* סקשן שירותים - הצגת 4 השירותים העיקריים */}
+      {/* Stats Section - New */}
+      <StatsSection />
+      
+      {/* Services Section */}
       <ServicesPreview />
       
-      {/* נכסים מובילים שמכרנו - גלריה של נכסים */}
+      {/* Featured Properties */}
       <FeaturedSoldProperties />
       
-      {/* למה לבחור בנו - 4 סיבות עיקריות */}
+      {/* Why Choose Us */}
       <WhyChooseUs />
       
-      {/* המלצות לקוחות */}
+      {/* Testimonials */}
       <Testimonials />
       
-      {/* קריאה לפעולה - יצירת קשר */}
+      {/* CTA Section */}
       <CTASection />
     </main>
   );

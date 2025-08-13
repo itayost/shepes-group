@@ -1,29 +1,61 @@
 import { cn } from '@/lib/utils';
+import { LucideIcon } from 'lucide-react';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient' | 'danger';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   isLoading?: boolean;
+  icon?: LucideIcon;
+  iconPosition?: 'left' | 'right';
+  fullWidth?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
+  ({ 
+    className, 
+    variant = 'primary', 
+    size = 'md', 
+    isLoading, 
+    icon: Icon,
+    iconPosition = 'left',
+    fullWidth = false,
+    children, 
+    disabled, 
+    ...props 
+  }, ref) => {
     return (
       <button
         className={cn(
-          'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+          'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
+          'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2',
+          'focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          'disabled:pointer-events-none disabled:opacity-50',
           {
-            'bg-primary-600 text-white hover:bg-primary-700': variant === 'primary',
-            'bg-secondary-600 text-white hover:bg-secondary-700': variant === 'secondary',
-            'border-2 border-gray-300 bg-transparent hover:border-primary-500 hover:text-primary-600': variant === 'outline',
-            'hover:bg-gray-100': variant === 'ghost',
-            'bg-gradient-to-r from-primary-600 to-secondary-600 text-white hover:shadow-glow transform hover:scale-105': variant === 'gradient',
-          },
-          {
-            'h-9 px-3 text-sm': size === 'sm',
-            'h-10 px-5': size === 'md',
-            'h-12 px-8 text-lg': size === 'lg',
+            // Variants
+            'bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5': 
+              variant === 'primary',
+            'border border-primary-600 bg-white text-primary-600 hover:bg-primary-50': 
+              variant === 'secondary',
+            'border border-gray-200 bg-white hover:border-primary-200 hover:bg-gray-50': 
+              variant === 'outline',
+            'text-gray-700 hover:bg-gray-100 hover:text-gray-900': 
+              variant === 'ghost',
+            'bg-gradient-to-r from-primary-500 to-primary-700 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5': 
+              variant === 'gradient',
+            'bg-red-600 text-white hover:bg-red-700 shadow-lg hover:shadow-xl': 
+              variant === 'danger',
+            
+            // Sizes
+            'h-7 px-2 text-xs': size === 'xs',
+            'h-8 px-3 text-sm': size === 'sm',
+            'h-10 px-4 text-sm': size === 'md',
+            'h-12 px-6 text-base': size === 'lg',
+            'h-14 px-8 text-lg': size === 'xl',
+            
+            // Full width
+            'w-full': fullWidth,
+            'flex-1': !fullWidth && className?.includes('flex-1'),
           },
           className
         )}
@@ -32,12 +64,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <>
-            <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-            טוען...
-          </>
-        ) : (
-          children
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        ) : Icon && iconPosition === 'left' ? (
+          <Icon className="h-4 w-4" />
+        ) : null}
+        {children}
+        {!isLoading && Icon && iconPosition === 'right' && (
+          <Icon className="h-4 w-4" />
         )}
       </button>
     );
@@ -45,5 +78,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-
 export default Button;

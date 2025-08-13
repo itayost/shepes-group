@@ -1,7 +1,12 @@
 'use client';
 
+import Badge from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Modal from '@/components/ui/Modal';
+import Textarea from '@/components/ui/Textarea';
 import { HOME_HERO } from '@/lib/constants';
-import { X } from 'lucide-react';
+import { Mail, Phone, Star } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -9,102 +14,118 @@ const HeroSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section 
-      className="relative min-h-[600px] md:min-h-[700px] bg-cover bg-center flex items-center"
-      style={{ 
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/haifa-hero.jpg)' 
-      }}
-    >
+    <section className="relative min-h-[700px] flex items-center overflow-hidden">
+      {/* Background with Gradient Overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ 
+          backgroundImage: 'url(/images/haifa-hero.jpg)',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl animate-pulse" />
+      </div>
+      
       <div className="container relative z-10">
         <div className="max-w-3xl">
-          {/* כותרת ראשית עם אפקט זהב */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in">
+          {/* Badge */}
+          <Badge variant="primary" size="lg" icon={Star} className="mb-6 animate-fade-in">
+            המומחים לנדל"ן בחיפה
+          </Badge>
+          
+          {/* Title */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slide-up">
             {HOME_HERO.title}
           </h1>
           
-          {/* כותרת משנית */}
-          <p className="text-xl md:text-2xl text-white/90 mb-8 animate-slide-up">
+          {/* Subtitle */}
+          <p className="text-xl md:text-2xl text-white/90 mb-8 animate-slide-up animation-delay-200">
             {HOME_HERO.subtitle}
           </p>
           
-          {/* כפתורי פעולה מעודכנים */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-slide-up">
-            <button
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up animation-delay-400">
+            <Button
+              size="lg"
+              variant="gradient"
+              icon={Phone}
               onClick={() => setIsModalOpen(true)}
-              className="btn-primary animate-glow"
+              className="shadow-2xl hover:shadow-gold-lg"
             >
               {HOME_HERO.cta1}
-            </button>
+            </Button>
             
-            <Link
-              href="/contact"
-              className="btn-secondary text-center"
-            >
-              {HOME_HERO.cta2}
+            <Link href="/contact">
+              <Button
+                size="lg"
+                variant="outline"
+                icon={Mail}
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20"
+              >
+                {HOME_HERO.cta2}
+              </Button>
             </Link>
           </div>
           
-          {/* נתונים מהירים עם סגנון זהב */}
-          <div className="grid grid-cols-3 gap-6 mt-12 max-w-lg">
-            <div className="text-center text-white animate-fade-in">
-              <div className="text-3xl md:text-4xl font-bold gradient-text-gold">150+</div>
-              <div className="text-sm mt-1 text-white/80">נכסים נמכרו</div>
+          {/* Quick Stats */}
+          <div className="grid grid-cols-3 gap-6 max-w-lg animate-fade-in animation-delay-600">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-primary-400">150+</div>
+              <div className="text-sm text-white/80 mt-1">נכסים נמכרו</div>
             </div>
-            <div className="text-center text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="text-3xl md:text-4xl font-bold gradient-text-gold">98%</div>
-              <div className="text-sm mt-1 text-white/80">לקוחות מרוצים</div>
+            <div className="text-center border-x border-white/20">
+              <div className="text-3xl md:text-4xl font-bold text-primary-400">98%</div>
+              <div className="text-sm text-white/80 mt-1">לקוחות מרוצים</div>
             </div>
-            <div className="text-center text-white animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="text-3xl md:text-4xl font-bold gradient-text-gold">15+</div>
-              <div className="text-sm mt-1 text-white/80">שנות ניסיון</div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-primary-400">15+</div>
+              <div className="text-sm text-white/80 mt-1">שנות ניסיון</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* מודל הערכת שווי חינם */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6 relative animate-slide-up">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 left-4 text-gray-500 hover:text-gray-700 transition-colors"
-              aria-label="סגור"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            
-            <h3 className="text-2xl font-bold mb-4 gradient-text-gold">הערכת שווי חינם</h3>
-            <p className="text-text-secondary mb-6">
-              מלאו את הפרטים ונחזור אליכם תוך 24 שעות עם הערכת שווי מקצועית
-            </p>
-            
-            <form className="space-y-4">
-              <input
-                type="text"
-                placeholder="שם מלא"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="tel"
-                placeholder="טלפון"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="text"
-                placeholder="כתובת הנכס"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
-              />
-              <button
-                type="submit"
-                className="btn-primary w-full"
-              >
-                שלחו בקשה
-              </button>
-            </form>
+      {/* Free Evaluation Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="קבלו הערכת שווי חינם"
+        description="מלאו את הפרטים ונחזור אליכם תוך 24 שעות"
+        size="md"
+      >
+        <form className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="שם מלא"
+              placeholder="ישראל ישראלי"
+              icon={Phone}
+            />
+            <Input
+              label="טלפון"
+              placeholder="050-1234567"
+              type="tel"
+              dir="ltr"
+            />
           </div>
-        </div>
-      )}
+          <Input
+            label="כתובת הנכס"
+            placeholder="רחוב, מספר, עיר"
+          />
+          <Textarea
+            label="פרטים נוספים"
+            placeholder="ספרו לנו על הנכס שלכם..."
+            rows={4}
+          />
+          <Button variant="primary" fullWidth size="lg">
+            שלח בקשה
+          </Button>
+        </form>
+      </Modal>
     </section>
   );
 };

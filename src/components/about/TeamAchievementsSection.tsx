@@ -1,98 +1,40 @@
 'use client';
 
+import Badge from '@/components/ui/Badge';
+import { Card, CardContent } from '@/components/ui/Card';
+import Stat from '@/components/ui/Stat';
 import { getCombinedStats } from '@/data/agents';
-import { Briefcase, Calendar, Clock, Home, Smile, Star, Target, Trophy } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-
-interface Achievement {
-  number: number;
-  suffix: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const CountUp = ({ end, suffix }: { end: number; suffix: string }) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const duration = 2000;
-    const steps = 60;
-    const stepDuration = duration / steps;
-    const increment = end / steps;
-
-    let currentStep = 0;
-    const timer = setInterval(() => {
-      currentStep++;
-      if (currentStep === steps) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(increment * currentStep));
-      }
-    }, stepDuration);
-
-    return () => clearInterval(timer);
-  }, [isVisible, end]);
-
-  return (
-    <span ref={ref} className="text-5xl font-bold text-primary-600">
-      {count}{suffix}
-    </span>
-  );
-};
+import { Briefcase, Calendar, Clock, Home, Star, Target, Trophy, Users } from 'lucide-react';
 
 const TeamAchievementsSection = () => {
   const stats = getCombinedStats();
-  
-  const achievements: Achievement[] = [
+
+  const achievements = [
     {
-      number: stats.totalProperties,
+      icon: Home,
+      value: stats.totalProperties.toString(),
       suffix: '+',
-      label: 'עסקאות הושלמו בהצלחה',
-      icon: Home
+      label: 'עסקאות הושלמו',
+      trend: { value: 25, isPositive: true }
     },
     {
-      number: Math.round(stats.avgSatisfaction),
+      icon: Users,
+      value: Math.round(stats.avgSatisfaction).toString(),
       suffix: '%',
-      label: 'שביעות רצון לקוחות',
-      icon: Smile
+      label: 'שביעות רצון',
+      trend: { value: 2, isPositive: true }
     },
     {
-      number: stats.avgDaysToSell,
-      suffix: '',
-      label: 'ימים בממוצע למכירה',
-      icon: Clock
+      icon: Clock,
+      value: stats.avgDaysToSell.toString(),
+      label: 'ימים למכירה',
+      trend: { value: -5, isPositive: true }
     },
     {
-      number: stats.totalYearsExperience,
+      icon: Calendar,
+      value: stats.totalYearsExperience.toString(),
       suffix: '+',
-      label: 'שנות ניסיון משותפות',
-      icon: Calendar
+      label: 'שנות ניסיון'
     }
   ];
 
@@ -100,73 +42,84 @@ const TeamAchievementsSection = () => {
     {
       icon: Trophy,
       title: 'מתווכת השנה',
-      description: 'גלית - 2021'
+      description: 'גלית - 2021',
+      color: 'bg-amber-100 text-amber-700'
     },
     {
       icon: Briefcase,
       title: 'מומחה השקעות',
-      description: 'חיים - 2020'
+      description: 'חיים - 2020',
+      color: 'bg-blue-100 text-blue-700'
     },
     {
       icon: Star,
       title: '5 כוכבים בגוגל',
-      description: 'מעל 150 ביקורות'
+      description: '150+ ביקורות',
+      color: 'bg-green-100 text-green-700'
     },
     {
       icon: Target,
       title: 'מצוינות בשירות',
-      description: 'פרס משותף 2023'
+      description: 'פרס משותף 2023',
+      color: 'bg-purple-100 text-purple-700'
     }
   ];
 
   return (
-    <section className="py-16 bg-primary-600 text-white">
-      <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          ההישגים שלנו במספרים
-        </h2>
-        <p className="text-xl text-center mb-12 opacity-90 max-w-2xl mx-auto">
-          הצלחות משותפות שמוכיחות את המחויבות שלנו ללקוחות
-        </p>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {achievements.map((achievement, index) => {
-            const IconComponent = achievement.icon;
-            return (
-              <div key={index} className="text-center">
-                <div className="flex justify-center mb-4">
-                  <IconComponent className="w-12 h-12" />
-                </div>
-                <div className="mb-2">
-                  <CountUp end={achievement.number} suffix={achievement.suffix} />
-                </div>
-                <p className="text-lg opacity-90">{achievement.label}</p>
-              </div>
-            );
-          })}
+    <section className="py-20 bg-gradient-to-br from-primary-600 to-primary-800 relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <Badge variant="secondary" size="lg" className="mb-4 bg-white/10 text-white border-white/20">
+            ההישגים שלנו
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            המספרים מדברים בעד עצמם
+          </h2>
         </div>
 
-        {/* פרסים והכרות משותפים */}
-        <div className="mt-16 pt-16 border-t border-white/20">
-          <h3 className="text-2xl font-bold text-center mb-8">
-            פרסים והכרות
-          </h3>
-          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {awards.map((award, index) => {
-              const IconComponent = award.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="bg-white/10 rounded-lg p-6 backdrop-blur">
-                    <div className="flex justify-center mb-3">
-                      <IconComponent className="w-10 h-10" />
-                    </div>
-                    <h4 className="font-bold mb-2">{award.title}</h4>
-                    <p className="text-sm opacity-90">{award.description}</p>
-                  </div>
-                </div>
-              );
-            })}
+        {/* Stats Grid */}
+        <Card variant="default" className="bg-white/10 backdrop-blur-md border-white/20 mb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/20">
+            {achievements.map((achievement, index) => (
+              <div key={index} className="p-6">
+                <Stat
+                  {...achievement}
+                  variant="default"
+                  size="lg"
+                  className="text-white [&_*]:text-white"
+                />
+              </div>
+            ))}
           </div>
+        </Card>
+
+        {/* Awards Grid */}
+        <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          {awards.map((award, index) => {
+            const Icon = award.icon;
+            return (
+              <Card key={index} variant="default" className="bg-white/90 backdrop-blur">
+                <CardContent className="p-6 text-center">
+                  <div className={`inline-flex p-3 rounded-xl ${award.color} mb-3`}>
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-1">
+                    {award.title}
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    {award.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

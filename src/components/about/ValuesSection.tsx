@@ -1,69 +1,81 @@
+import Badge from '@/components/ui/Badge';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Briefcase, Handshake, Heart, Rocket, Search, Target } from 'lucide-react';
 
-const values = [
-  {
-    icon: Handshake,
-    title: 'אמינות ושקיפות',
-    description: 'אנחנו מאמינים בשקיפות מלאה ויושרה בכל עסקה. הלקוחות שלנו יודעים שהם יכולים לסמוך עלינו בעיניים עצומות.',
-    color: 'bg-primary-50 text-primary-600'
-  },
-  {
-    icon: Briefcase,
-    title: 'מקצועיות ללא פשרות',
-    description: 'ידע מעמיק בשוק הנדל"ן המקומי, עדכון מתמיד בחוקים ובתקנות, וניסיון רב בניהול משא ומתן.',
-    color: 'bg-secondary-100 text-secondary-800'
-  },
-  {
-    icon: Heart,
-    title: 'ליווי אישי וחם',
-    description: 'כל לקוח מקבל יחס אישי ומותאם. אנחנו זמינים 24/7 ומלווים את הלקוחות שלנו בכל שלב של התהליך.',
-    color: 'bg-accent-50 text-accent-600'
-  },
-  {
-    icon: Target,
-    title: 'מחויבות לתוצאות',
-    description: 'המטרה שלנו היא להשיג את התוצאה הטובה ביותר עבור כל לקוח - בין אם זה המחיר הגבוה ביותר במכירה או העסקה הטובה ביותר בקנייה.',
-    color: 'bg-primary-100 text-primary-700'
-  },
-  {
-    icon: Search,
-    title: 'תשומת לב לפרטים',
-    description: 'אנחנו בודקים כל פרט, מנתחים כל מסמך ומוודאים שהלקוחות שלנו מקבלים את מלוא המידע לקבלת החלטה מושכלת.',
-    color: 'bg-accent-100 text-accent-700'
-  },
-  {
-    icon: Rocket,
-    title: 'חדשנות וקידמה',
-    description: 'משלבים טכנולוגיות מתקדמות כמו סיורים וירטואליים ושיווק דיגיטלי כדי להעניק את השירות הטוב ביותר.',
-    color: 'bg-secondary-50 text-secondary-700'
-  }
-];
-
 const ValuesSection = () => {
+  const values = [
+    {
+      icon: Handshake,
+      title: 'אמינות ושקיפות',
+      description: 'שקיפות מלאה ויושרה בכל עסקה',
+      gradient: 'from-blue-400 to-blue-600'
+    },
+    {
+      icon: Briefcase,
+      title: 'מקצועיות',
+      description: 'ידע מעמיק וניסיון רב בתחום',
+      gradient: 'from-purple-400 to-purple-600'
+    },
+    {
+      icon: Heart,
+      title: 'ליווי אישי',
+      description: 'יחס אישי וחם לכל לקוח',
+      gradient: 'from-red-400 to-red-600'
+    },
+    {
+      icon: Target,
+      title: 'תוצאות',
+      description: 'מחויבות להשגת המטרה',
+      gradient: 'from-green-400 to-green-600'
+    },
+    {
+      icon: Search,
+      title: 'דיוק',
+      description: 'תשומת לב לכל פרט',
+      gradient: 'from-amber-400 to-amber-600'
+    },
+    {
+      icon: Rocket,
+      title: 'חדשנות',
+      description: 'טכנולוגיות מתקדמות',
+      gradient: 'from-indigo-400 to-indigo-600'
+    }
+  ];
+
   return (
-    <section className="py-16 section-luxury">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          הערכים שמנחים אותנו
-        </h2>
-        <p className="text-xl text-text-secondary text-center mb-12 max-w-2xl mx-auto">
-          ששת העקרונות שעומדים בבסיס העבודה שלנו ומבטיחים את הצלחת הלקוחות
-        </p>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="text-center mb-12">
+          <Badge variant="primary" className="mb-4">
+            הערכים שלנו
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            העקרונות שמנחים אותנו
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {values.map((value, index) => {
-            const IconComponent = value.icon;
+            const Icon = value.icon;
             return (
-              <div
-                key={index}
-                className="bg-white rounded-lg p-8 shadow-lg hover:shadow-gold-lg transition-all duration-300 group hover:-translate-y-1"
-              >
-                <div className={`w-16 h-16 rounded-full ${value.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform group-hover:animate-shimmer`}>
-                  <IconComponent className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{value.title}</h3>
-                <p className="text-text-secondary">{value.description}</p>
-              </div>
+              <Card key={index} variant="elevated" hover className="group">
+                <CardContent className="p-8 text-center">
+                  {/* Icon with gradient background */}
+                  <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${value.gradient} shadow-lg mb-6 group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-10 h-10 text-white" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {value.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600">
+                    {value.description}
+                  </p>
+                </CardContent>
+              </Card>
             );
           })}
         </div>

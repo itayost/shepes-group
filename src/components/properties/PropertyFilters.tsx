@@ -1,8 +1,12 @@
 'use client';
 
+import Badge from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import Dropdown from '@/components/ui/Dropdown';
 import { HAIFA_NEIGHBORHOODS, PROPERTY_TYPES } from '@/lib/constants';
-import { ChevronDown, ChevronUp, Filter, RotateCcw, SlidersHorizontal, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Filter, Grid3x3, List, RotateCcw, SlidersHorizontal, X } from 'lucide-react';
+import { useState } from 'react';
 
 interface PropertyFiltersProps {
   selectedType: string;
@@ -11,6 +15,8 @@ interface PropertyFiltersProps {
   setSelectedNeighborhood: (neighborhood: string) => void;
   sortBy: string;
   setSortBy: (sort: string) => void;
+  viewMode: 'grid' | 'list';
+  setViewMode: (mode: 'grid' | 'list') => void;
   resultsCount: number;
 }
 
@@ -21,24 +27,11 @@ const PropertyFilters = ({
   setSelectedNeighborhood,
   sortBy,
   setSortBy,
+  viewMode,
+  setViewMode,
   resultsCount
 }: PropertyFiltersProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-      // On desktop, always expand
-      if (window.innerWidth >= 1024) {
-        setIsExpanded(true);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const sortOptions = [
     { value: 'date', label: 'תאריך - חדש לישן' },
@@ -54,194 +47,154 @@ const PropertyFilters = ({
 
   const hasActiveFilters = selectedType !== 'all' || selectedNeighborhood !== 'all' || sortBy !== 'date';
 
+  // Create dropdown items for filters
+  const typeDropdownItems = PROPERTY_TYPES.map(type => ({
+    id: type.value,
+    label: type.label,
+    onClick: () => setSelectedType(type.value)
+  }));
+
+  const neighborhoodDropdownItems = HAIFA_NEIGHBORHOODS.map(n => ({
+    id: n.value,
+    label: n.label,
+    onClick: () => setSelectedNeighborhood(n.value)
+  }));
+
+  const sortDropdownItems = sortOptions.map(option => ({
+    id: option.value,
+    label: option.label,
+    onClick: () => setSortBy(option.value)
+  }));
+
   return (
-    <section className={`${isMobile ? 'py-4' : 'py-8'} bg-white ${!isMobile ? 'sticky top-20' : ''} z-30 shadow-md`}>
+    <section className="sticky top-0 z-30 bg-white shadow-lg py-4">
       <div className="container">
-        {/* Mobile Header - Always Visible */}
-        {isMobile && (
-          <div className="flex items-center justify-between mb-3">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center gap-2 text-gray-700 font-medium"
-            >
-              <SlidersHorizontal className="w-5 h-5" />
-              <span>סינון ומיון</span>
-              {hasActiveFilters && (
-                <span className="bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">
-                  {[selectedType !== 'all', selectedNeighborhood !== 'all', sortBy !== 'date'].filter(Boolean).length}
-                </span>
-              )}
-              {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
-
-            <div className="text-sm text-gray-600">
-              <span className="font-bold text-primary-600">{resultsCount}</span> נכסים
-            </div>
-          </div>
-        )}
-
-        {/* Desktop Header - Always Visible */}
-        {!isMobile && (
+        <Card variant="default" className="p-4">
+          {/* Header */}
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Filter className="w-5 h-5" />
-              <span className="font-medium">סינון ומיון:</span>
+            <div className="flex items-center gap-4">
+              {/* Results Count */}
+              <Badge variant="primary" size="lg">
+                {resultsCount} נכסים נמצאו
+              </Badge>
+
+              {/* Filter Toggle (Mobile) */}
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={SlidersHorizontal}
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="lg:hidden"
+              >
+                סינון
+                {hasActiveFilters && (
+                  <Badge variant="danger" size="xs" className="mr-2">
+                    {[selectedType !== 'all', selectedNeighborhood !== 'all', sortBy !== 'date'].filter(Boolean).length}
+                  </Badge>
+                )}
+              </Button>
             </div>
-            <div className="text-gray-600">
-              נמצאו <span className="font-bold text-primary-600">{resultsCount}</span> נכסים
+
+            {/* View Mode Toggle */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant={viewMode === 'grid' ? 'primary' : 'ghost'}
+                size="sm"
+                icon={Grid3x3}
+                onClick={() => setViewMode('grid')}
+              />
+              <Button
+                variant={viewMode === 'list' ? 'primary' : 'ghost'}
+                size="sm"
+                icon={List}
+                onClick={() => setViewMode('list')}
+              />
             </div>
           </div>
-        )}
 
-        {/* Collapsible Filters Section */}
-        {(isExpanded || !isMobile) && (
-          <div className={`${isMobile ? 'animate-slide-down' : ''}`}>
-            <div className={`${isMobile ? 'space-y-3' : 'flex flex-wrap gap-4 items-center'}`}>
-              {/* סוג נכס */}
-              <div className={`${isMobile ? 'w-full' : 'min-w-[180px]'}`}>
-                {isMobile && <label className="text-xs text-gray-600 mb-1 block">סוג נכס</label>}
-                <select
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white appearance-none bg-no-repeat"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-                    backgroundPosition: 'left 12px center',
-                    backgroundSize: '12px'
-                  }}
-                >
-                  {PROPERTY_TYPES.map((type) => (
-                    <option key={type.value} value={type.value}>
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
+          {/* Filters (Desktop always visible, Mobile collapsible) */}
+          <div className={`${isExpanded ? 'block' : 'hidden'} lg:block`}>
+            <div className="flex flex-col lg:flex-row gap-4">
+              {/* Property Type Dropdown */}
+              <div className="flex-1">
+                <Dropdown
+                  trigger={
+                    <Button variant="outline" fullWidth className="justify-between">
+                      <span className="flex items-center gap-2">
+                        <Filter className="w-4 h-4" />
+                        {PROPERTY_TYPES.find(t => t.value === selectedType)?.label || 'סוג נכס'}
+                      </span>
+                    </Button>
+                  }
+                  items={typeDropdownItems}
+                />
               </div>
 
-              {/* שכונה */}
-              <div className={`${isMobile ? 'w-full' : 'min-w-[180px]'}`}>
-                {isMobile && <label className="text-xs text-gray-600 mb-1 block">שכונה</label>}
-                <select
-                  value={selectedNeighborhood}
-                  onChange={(e) => setSelectedNeighborhood(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white appearance-none bg-no-repeat"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-                    backgroundPosition: 'left 12px center',
-                    backgroundSize: '12px'
-                  }}
-                >
-                  {HAIFA_NEIGHBORHOODS.map((neighborhood) => (
-                    <option key={neighborhood.value} value={neighborhood.value}>
-                      {neighborhood.label}
-                    </option>
-                  ))}
-                </select>
+              {/* Neighborhood Dropdown */}
+              <div className="flex-1">
+                <Dropdown
+                  trigger={
+                    <Button variant="outline" fullWidth className="justify-between">
+                      <span className="flex items-center gap-2">
+                        <Filter className="w-4 h-4" />
+                        {HAIFA_NEIGHBORHOODS.find(n => n.value === selectedNeighborhood)?.label || 'שכונה'}
+                      </span>
+                    </Button>
+                  }
+                  items={neighborhoodDropdownItems}
+                />
               </div>
 
-              {/* מיון */}
-              <div className={`${isMobile ? 'w-full' : 'min-w-[180px]'}`}>
-                {isMobile && <label className="text-xs text-gray-600 mb-1 block">מיון לפי</label>}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white appearance-none bg-no-repeat"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-                    backgroundPosition: 'left 12px center',
-                    backgroundSize: '12px'
-                  }}
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+              {/* Sort Dropdown */}
+              <div className="flex-1">
+                <Dropdown
+                  trigger={
+                    <Button variant="outline" fullWidth className="justify-between">
+                      <span className="flex items-center gap-2">
+                        <Filter className="w-4 h-4" />
+                        {sortOptions.find(s => s.value === sortBy)?.label || 'מיון'}
+                      </span>
+                    </Button>
+                  }
+                  items={sortDropdownItems}
+                />
               </div>
 
-              {/* כפתור איפוס */}
+              {/* Reset Button */}
               {hasActiveFilters && (
-                <button
+                <Button
+                  variant="danger"
+                  icon={RotateCcw}
                   onClick={handleReset}
-                  className={`flex items-center gap-1 text-primary-600 hover:text-primary-700 font-medium transition-colors ${
-                    isMobile ? 'w-full justify-center py-2 border border-primary-600 rounded-lg' : ''
-                  }`}
                 >
-                  <RotateCcw className="w-4 h-4" />
-                  נקה סינון
-                </button>
+                  נקה הכל
+                </Button>
               )}
             </div>
 
-            {/* תגיות סינון פעיל - Desktop Only */}
-            {!isMobile && (selectedType !== 'all' || selectedNeighborhood !== 'all') && (
+            {/* Active Filters Tags */}
+            {hasActiveFilters && (
               <div className="flex flex-wrap gap-2 mt-4">
                 {selectedType !== 'all' && (
-                  <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm">
+                  <Badge variant="primary" icon={X} onClick={() => setSelectedType('all')}>
                     {PROPERTY_TYPES.find(t => t.value === selectedType)?.label}
-                    <button
-                      onClick={() => setSelectedType('all')}
-                      className="hover:text-primary-900 flex items-center justify-center w-4 h-4"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </span>
+                  </Badge>
                 )}
                 {selectedNeighborhood !== 'all' && (
-                  <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm">
+                  <Badge variant="primary" icon={X} onClick={() => setSelectedNeighborhood('all')}>
                     {HAIFA_NEIGHBORHOODS.find(n => n.value === selectedNeighborhood)?.label}
-                    <button
-                      onClick={() => setSelectedNeighborhood('all')}
-                      className="hover:text-primary-900 flex items-center justify-center w-4 h-4"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </span>
+                  </Badge>
+                )}
+                {sortBy !== 'date' && (
+                  <Badge variant="primary" icon={X} onClick={() => setSortBy('date')}>
+                    {sortOptions.find(s => s.value === sortBy)?.label}
+                  </Badge>
                 )}
               </div>
             )}
           </div>
-        )}
-
-        {/* Active Filters Tags - Mobile Only (when collapsed) */}
-        {isMobile && !isExpanded && hasActiveFilters && (
-          <div className="flex flex-wrap gap-2 mt-3">
-            {selectedType !== 'all' && (
-              <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full text-xs">
-                {PROPERTY_TYPES.find(t => t.value === selectedType)?.label}
-              </span>
-            )}
-            {selectedNeighborhood !== 'all' && (
-              <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full text-xs">
-                {HAIFA_NEIGHBORHOODS.find(n => n.value === selectedNeighborhood)?.label}
-              </span>
-            )}
-            {sortBy !== 'date' && (
-              <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full text-xs">
-                {sortOptions.find(s => s.value === sortBy)?.label}
-              </span>
-            )}
-          </div>
-        )}
+        </Card>
       </div>
-
-      <style jsx>{`
-        @keyframes slide-down {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-slide-down {
-          animation: slide-down 0.3s ease-out;
-        }
-      `}</style>
     </section>
   );
 };
