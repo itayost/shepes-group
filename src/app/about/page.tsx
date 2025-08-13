@@ -1,10 +1,8 @@
 import AboutHero from '@/components/about/AboutHero';
 import AboutTestimonials from '@/components/about/AboutTestimonials';
 import AgentSection from '@/components/about/AgentSection';
-import TeamAchievementsSection from '@/components/about/TeamAchievementsSection';
 import TimelineSection from '@/components/about/TimelineSection';
 import ValuesSection from '@/components/about/ValuesSection';
-import WhyChooseSection from '@/components/about/WhyChooseSection';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -24,17 +22,11 @@ export default function AboutPage() {
       {/* Agents Section */}
       <AgentSection />
 
-      {/* Why Choose Us */}
-      <WhyChooseSection />
-
       {/* Timeline Section */}
       <TimelineSection />
 
       {/* Values Section */}
       <ValuesSection />
-
-      {/* Team Achievements */}
-      <TeamAchievementsSection />
 
       {/* Testimonials */}
       <AboutTestimonials />

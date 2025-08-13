@@ -2,7 +2,6 @@ import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
-import Progress from '@/components/ui/Progress';
 import { agents } from '@/data/agents';
 import { Briefcase, CheckCircle, Mail, Phone, Star, Trophy } from 'lucide-react';
 
@@ -105,27 +104,6 @@ const AgentSection = () => {
                       >
                         {specialty}
                       </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Expertise with Progress Bars */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-700 mb-3">רמת מומחיות</h4>
-                  <div className="space-y-3">
-                    {agent.expertise.map((exp, index) => (
-                      <div key={index}>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span className="text-gray-600">{exp.title}</span>
-                          <span className="text-primary-600 font-medium">{exp.percentage}%</span>
-                        </div>
-                        <Progress
-                          value={exp.percentage}
-                          variant="gradient"
-                          size="sm"
-                          color="primary"
-                        />
-                      </div>
                     ))}
                   </div>
                 </div>

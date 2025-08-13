@@ -1,5 +1,5 @@
 import ServicesDetailedSection from '@/components/services/ServicesDetailedSection';
-import ServicesProcessSection from '@/components/services/ServicesProcessSection';
+import ServicesHeroSection from '@/components/services/ServicesHeroSection';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
@@ -11,9 +11,7 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-
-      {/* Process Section */}
-      <ServicesProcessSection />
+      <ServicesHeroSection />
 
       {/* Detailed Services Section */}
       <ServicesDetailedSection />

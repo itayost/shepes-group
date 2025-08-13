@@ -2,7 +2,6 @@ import CTASection from '@/components/home/CTASection';
 import FeaturedSoldProperties from '@/components/home/FeaturedSoldProperties';
 import HeroSection from '@/components/home/HeroSection';
 import ServicesPreview from '@/components/home/ServicesPreview';
-import StatsSection from '@/components/home/StatsSection';
 import Testimonials from '@/components/home/Testimonials';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -17,9 +16,6 @@ export default function HomePage() {
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
       <HeroSection />
-      
-      {/* Stats Section - New */}
-      <StatsSection />
       
       {/* Services Section */}
       <ServicesPreview />
