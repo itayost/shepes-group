@@ -3,7 +3,6 @@
 import PropertyFilters from '@/components/properties/PropertyFilters';
 import PropertyGrid from '@/components/properties/PropertyGrid';
 import PropertyHero from '@/components/properties/PropertyHero';
-import PropertyStats from '@/components/properties/PropertyStats';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { soldProperties } from '@/data/soldProperties';
@@ -42,9 +41,6 @@ export default function SoldPropertiesClient() {
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
       <PropertyHero />
-
-      {/* Statistics Section */}
-      <PropertyStats />
 
       {/* Filters Section */}
       <PropertyFilters
