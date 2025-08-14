@@ -238,28 +238,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400 text-center md:text-right">
-              © {currentYear} {SITE_CONFIG.name}. כל הזכויות שמורות.
-            </p>
-            
-            <div className="flex items-center gap-4 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-primary-400 transition-colors">
-                מדיניות פרטיות
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/terms" className="text-gray-400 hover:text-primary-400 transition-colors">
-                תנאי שימוש
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/accessibility" className="text-gray-400 hover:text-primary-400 transition-colors">
-                הצהרת נגישות
-              </Link>
-            </div>
-          </div>
-
-          {/* Developer Credit - Optional */}
-          <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
-              Powered by Modern Web Solutions
+              © {currentYear} ItayOst. כל הזכויות שמורות.
             </p>
           </div>
         </div>
