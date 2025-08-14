@@ -1,7 +1,8 @@
 import { getFeaturedProperties } from '@/data/soldProperties';
-import { Bed, Building2, Maximize2 } from 'lucide-react';
+import { Bed, Building2, CheckCircle, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Badge from '../ui/Badge';
 
 const FeaturedSoldProperties = () => {
   // מקבלים את 3 הנכסים המובילים
@@ -28,9 +29,11 @@ const FeaturedSoldProperties = () => {
                   className="object-cover"
                 />
                 {/* תגית "נמכר!" מעודכנת */}
-                <div className="absolute top-4 left-4 sold-badge">
-                  נמכר!
-                </div>
+            <div className="absolute top-4 left-4">
+              <Badge variant="success" icon={CheckCircle}>
+                נמכר!
+              </Badge>
+            </div>
               </div>
               
               <div className="p-6">

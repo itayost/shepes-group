@@ -48,7 +48,7 @@ const ServicesHeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed animate-slide-up animation-delay-200">
-            צוות שפס נדל{'"'}ן מציע מגוון שירותי נדל{'"'}ן מקיפים 
+            צוות שפס גרופ מציע מגוון שירותי נדל{'"'}ן מקיפים 
             <br />
             עם ליווי אישי ומקצועי בכל שלב
           </p>
