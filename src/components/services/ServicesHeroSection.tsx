@@ -1,9 +1,7 @@
 'use client';
 
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { ArrowLeft, Phone, Star } from 'lucide-react';
-import Link from 'next/link';
+import { Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const ServicesHeroSection = () => {
@@ -69,20 +67,6 @@ const ServicesHeroSection = () => {
                 ✓ {feature}
               </Badge>
             ))}
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-600">
-            <Link href="/contact">
-              <Button size="lg" variant="gradient" icon={Phone}>
-                בואו נדבר
-              </Button>
-            </Link>
-            <Link href="#services">
-              <Button size="lg" variant="outline" icon={ArrowLeft}>
-                גלו את השירותים
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
