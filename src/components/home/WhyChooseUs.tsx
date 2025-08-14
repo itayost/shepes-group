@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { WHY_CHOOSE_US } from '@/lib/constants';
 import { Handshake, Sparkles, TrendingUp, Trophy } from 'lucide-react';
 
-const iconMap = {
+const iconMap: Record<string, typeof Trophy> = {
   'Trophy': Trophy,
   'Handshake': Handshake,
   'TrendingUp': TrendingUp,

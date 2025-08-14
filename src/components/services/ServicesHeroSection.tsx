@@ -38,7 +38,7 @@ const ServicesHeroSection = () => {
             icon={Star}
             className="mb-6 animate-fade-in"
           >
-            שירותי נדל"ן מקיפים
+            שירותי נדל{'"'}ן מקיפים
           </Badge>
 
           {/* Title */}
@@ -48,7 +48,7 @@ const ServicesHeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed animate-slide-up animation-delay-200">
-            צוות שפס נדל"ן מציע מגוון שירותי נדל"ן מקיפים 
+            צוות שפס נדל{'"'}ן מציע מגוון שירותי נדל{'"'}ן מקיפים 
             <br />
             עם ליווי אישי ומקצועי בכל שלב
           </p>

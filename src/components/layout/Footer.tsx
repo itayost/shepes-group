@@ -20,20 +20,9 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const currentYear = new Date().getFullYear();
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    setIsSubscribed(true);
-    setTimeout(() => setIsSubscribed(false), 3000);
-    setEmail('');
-  };
 
   const services = [
     { icon: Home, label: 'מכירת נכסים', href: '/services#selling' },

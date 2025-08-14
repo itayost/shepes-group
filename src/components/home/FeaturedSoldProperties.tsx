@@ -62,7 +62,7 @@ const FeaturedSoldProperties = () => {
                 
                 {property.testimonial && (
                   <blockquote className="italic text-text-secondary border-r-4 border-primary-500 pr-4 text-sm">
-                    "{property.testimonial.content}"
+                    {`"${property.testimonial.content}"`}
                     <cite className="block text-xs mt-2 not-italic font-semibold text-primary-600">
                       - {property.testimonial.name}
                     </cite>

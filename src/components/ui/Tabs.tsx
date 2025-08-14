@@ -177,24 +177,26 @@ export default function Tabs({
                   'flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200',
                   'whitespace-nowrap flex-shrink-0', // Prevent wrapping and shrinking
                   {
-                    // Default variant
-                    'border-b-2': variant === 'default',
+                    // Combined border-b-2 for both default and underline variants
+                    'border-b-2': variant === 'default' || variant === 'underline',
+                    
+                    // Active tab styles for default variant
                     'border-primary-600 text-primary-600': variant === 'default' && activeTab === tab.id,
-                    'border-transparent text-gray-600 hover:text-gray-900': variant === 'default' && activeTab !== tab.id,
-                    '-mb-px': variant === 'default' && !sticky,
-                    'mb-[-2px]': variant === 'default' && sticky,
+                    
+                    // Active tab styles for underline variant
+                    'border-primary-600 text-gray-900': variant === 'underline' && activeTab === tab.id,
+                    
+                    // Inactive tab styles for default and underline variants (combined)
+                    'border-transparent text-gray-600 hover:text-gray-900': (variant === 'default' || variant === 'underline') && activeTab !== tab.id,
                     
                     // Pills variant
                     'rounded-lg': variant === 'pills',
                     'bg-white shadow-sm text-gray-900': variant === 'pills' && activeTab === tab.id,
                     'text-gray-600 hover:text-gray-900': variant === 'pills' && activeTab !== tab.id,
                     
-                    // Underline variant
-                    'border-b-2': variant === 'underline',
-                    'border-primary-600 text-gray-900': variant === 'underline' && activeTab === tab.id,
-                    'border-transparent text-gray-600 hover:text-gray-900': variant === 'underline' && activeTab !== tab.id,
-                    '-mb-px': variant === 'underline' && !sticky,
-                    'mb-[-2px]': variant === 'underline' && sticky,
+                    // Margin adjustments
+                    '-mb-px': (variant === 'default' || variant === 'underline') && !sticky,
+                    'mb-[-2px]': (variant === 'default' || variant === 'underline') && sticky,
                   }
                 )}
               >

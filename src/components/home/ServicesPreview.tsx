@@ -5,7 +5,7 @@ import { getServicesPreview } from '@/data/services';
 import { ArrowLeft, FileText, Home, Key, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
-const iconMap = {
+const iconMap: Record<string, typeof Home> = {
   '🏠': Home,
   '🔑': Key,
   '📋': FileText,
@@ -24,7 +24,7 @@ const ServicesPreview = () => {
             השירותים שלנו
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            פתרונות נדל"ן מקיפים
+            {`פתרונות נדל"ן מקיפים`}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             ליווי אישי ומקצועי בכל שלב של העסקה

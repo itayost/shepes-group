@@ -55,7 +55,7 @@ export function generateSEO({
         },
       ],
       locale: 'he_IL',
-      type: type,
+      type: type === 'product' ? 'website' : type as 'article' | 'website',
       publishedTime: publishedTime,
       modifiedTime: modifiedTime,
       authors: author ? [author] : undefined,

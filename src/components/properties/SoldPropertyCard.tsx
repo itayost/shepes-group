@@ -120,7 +120,7 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
             {property.testimonial && (
               <div className="bg-gray-50 rounded-lg p-4 border-r-4 border-primary-500">
                 <p className="text-gray-700 italic mb-2">
-                  "{property.testimonial.content}"
+                  {`"${property.testimonial.content}"`}
                 </p>
                 <div className="flex items-center gap-2">
                   <Avatar size="xs" fallback={property.testimonial.name[0]} />
@@ -225,7 +225,7 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
               />
               <div className="flex-1">
                 <p className="text-sm text-gray-600 italic line-clamp-2">
-                  "{property.testimonial.content}"
+                  {`"${property.testimonial.content}"`}
                 </p>
                 <p className="text-xs font-semibold text-primary-600 mt-1">
                   {property.testimonial.name}

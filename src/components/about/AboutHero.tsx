@@ -54,14 +54,14 @@ const AboutHero = () => {
 
           {/* Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 animate-slide-up">
-            צוות שפס נדל"ן
+            צוות שפס נדל{'"'}ן
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed animate-slide-up animation-delay-200">
             צוות מתווכים מקצועי ומנוסה עם מעל 18 שנות ניסיון
             <br />
-            בשוק הנדל"ן בחיפה והצפון
+            בשוק הנדל{'"'}ן בחיפה והצפון
           </p>
 
           {/* Stats Grid */}
