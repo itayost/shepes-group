@@ -3,7 +3,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
 import { agents } from '@/data/agents';
-import { Briefcase, CheckCircle, Mail, Phone, Star, Trophy } from 'lucide-react';
+import { Briefcase, Mail, Phone, Star } from 'lucide-react';
 
 const AgentSection = () => {
   return (
@@ -89,7 +89,7 @@ const AgentSection = () => {
                 </p>
 
                 {/* Specialties */}
-                <div className="mb-6">
+                <div>
                   <div className="flex items-center gap-2 mb-3">
                     <Briefcase className="w-4 h-4 text-primary-600" />
                     <h4 className="font-semibold text-gray-700">תחומי התמחות</h4>
@@ -107,24 +107,6 @@ const AgentSection = () => {
                     ))}
                   </div>
                 </div>
-
-                {/* Awards */}
-                {agent.achievements.awards && agent.achievements.awards.length > 0 && (
-                  <div className="bg-amber-50 rounded-lg p-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Trophy className="w-4 h-4 text-amber-600" />
-                      <h4 className="font-semibold text-gray-700">פרסים והכרות</h4>
-                    </div>
-                    <div className="space-y-2">
-                      {agent.achievements.awards.map((award, index) => (
-                        <div key={index} className="flex items-start gap-2">
-                          <CheckCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-gray-700">{award}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </CardContent>
             </Card>
           ))}

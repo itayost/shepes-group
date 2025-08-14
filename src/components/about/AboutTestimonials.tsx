@@ -1,11 +1,26 @@
+'use client';
+
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
+import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
-import { getAboutPageTestimonials } from '@/data/testimonials';
-import { Home, MapPin, Quote, Star } from 'lucide-react';
+import { getHomePageTestimonials } from '@/data/testimonials';
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { useState } from 'react';
 
 const AboutTestimonials = () => {
-  const testimonials = getAboutPageTestimonials();
+  const testimonials = getHomePageTestimonials();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const current = testimonials[currentIndex];
 
   return (
     <section className="py-20 bg-white">
@@ -16,63 +31,88 @@ const AboutTestimonials = () => {
             המלצות לקוחות
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            מה הלקוחות אומרים עלינו
+            מה הלקוחות שלנו אומרים
           </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            עשרות משפחות מרוצות שמצאו את הבית המושלם
+          </p>
         </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} variant="elevated" hover className="relative">
-              <CardContent className="p-8">
-                {/* Quote Icon */}
-                <Quote className="absolute top-6 right-6 w-8 h-8 text-primary-100" />
-
-                {/* Rating */}
-                <div className="flex justify-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                  ))}
-                </div>
-
-                {/* Content */}
-                <blockquote className="text-gray-700 text-center mb-6 italic relative z-10">
-                  "{testimonial.content}"
-                </blockquote>
-
-                {/* Author */}
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Avatar 
-                    size="md"
-                    fallback={testimonial.name[0]}
+        
+        {/* Testimonial Card */}
+        <div className="max-w-4xl mx-auto">
+          <Card variant="elevated" className="relative">
+            <CardContent className="p-8 md:p-12">
+              {/* Quote Icon */}
+              <div className="absolute top-6 right-6">
+                <Quote className="w-12 h-12 text-primary-100" />
+              </div>
+              
+              {/* Rating */}
+              <div className="flex justify-center mb-6">
+                {[...Array(current.rating)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className="w-6 h-6 text-yellow-400 fill-yellow-400"
                   />
-                  <div>
-                    <p className="font-bold text-gray-900">{testimonial.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.type}</p>
-                  </div>
-                </div>
-
-                {/* Agent Badge */}
-                <div className="text-center mb-4">
-                  <Badge variant="outline" size="sm">
-                    עבדו עם: {testimonial.agent}
+                ))}
+              </div>
+              
+              {/* Content */}
+              <blockquote className="text-xl text-gray-700 text-center mb-8 leading-relaxed">
+                "{current.content}"
+              </blockquote>
+              
+              {/* Author */}
+              <div className="flex items-center justify-center gap-4">
+                <Avatar 
+                  size="lg"
+                  fallback={current.name[0]}
+                  border
+                />
+                <div>
+                  <p className="font-bold text-lg text-gray-900">{current.name}</p>
+                  <p className="text-gray-600">{current.type}</p>
+                  <Badge variant="outline" size="sm" className="mt-1">
+                    עבדו עם: {current.agent}
                   </Badge>
                 </div>
-
-                {/* Property Details */}
-                {testimonial.propertyType && testimonial.neighborhood && (
-                  <div className="pt-4 border-t border-gray-100 flex justify-center gap-2">
-                    <Badge variant="default" size="xs" icon={Home}>
-                      {testimonial.propertyType}
-                    </Badge>
-                    <Badge variant="default" size="xs" icon={MapPin}>
-                      {testimonial.neighborhood}
-                    </Badge>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+              
+              {/* Navigation */}
+              <div className="flex justify-center gap-4 mt-8">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  icon={ChevronRight}
+                  onClick={prevTestimonial}
+                  className="rounded-full"
+                />
+                
+                {/* Dots */}
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex 
+                          ? 'w-8 bg-primary-600' 
+                          : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  icon={ChevronLeft}
+                  onClick={nextTestimonial}
+                  className="rounded-full"
+                />
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

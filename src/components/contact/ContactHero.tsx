@@ -1,7 +1,5 @@
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { SITE_CONFIG } from '@/lib/constants';
-import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 const ContactHero = () => {
   return (
@@ -35,37 +33,6 @@ const ContactHero = () => {
             <br />
             זמינים 24/7 בטלפון, וואטסאפ ואימייל
           </p>
-
-          {/* Quick Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in animation-delay-400">
-            <a href={`tel:${SITE_CONFIG.phone}`}>
-              <Button size="lg" variant="gradient" icon={Phone}>
-                חייגו עכשיו
-              </Button>
-            </a>
-            
-            <a 
-              href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" variant="outline" icon={MessageCircle}>
-                שלחו וואטסאפ
-              </Button>
-            </a>
-            
-            <a href={`mailto:${SITE_CONFIG.email}`}>
-              <Button size="lg" variant="outline" icon={Mail}>
-                שלחו אימייל
-              </Button>
-            </a>
-          </div>
-
-          {/* Address */}
-          <div className="mt-8 flex items-center justify-center gap-2 text-gray-600 animate-fade-in animation-delay-600">
-            <MapPin className="w-5 h-5" />
-            <span>{SITE_CONFIG.address.street}, {SITE_CONFIG.address.city}</span>
-          </div>
         </div>
       </div>
     </section>

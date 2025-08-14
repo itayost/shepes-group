@@ -3,8 +3,9 @@ import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Tabs from '@/components/ui/Tabs';
 import { services } from '@/data/services';
-import { ArrowLeft, CheckCircle, FileText, Home, Key, Phone, TrendingUp } from 'lucide-react';
+import { CheckCircle, FileText, Home, Key, Phone, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const iconMap = {
   'selling': Home,
@@ -138,22 +139,16 @@ const ServicesDetailedSection = () => {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  variant="gradient" 
-                  icon={Phone}
-                  className="shadow-xl w-full sm:w-auto"
-                >
-                  בואו נתחיל
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  icon={ArrowLeft}
-                  className="w-full sm:w-auto"
-                >
-                  שאלות נפוצות
-                </Button>
+                <Link href="/contact" className="w-full sm:w-auto">
+                  <Button 
+                    size="lg" 
+                    variant="gradient" 
+                    icon={Phone}
+                    className="shadow-xl w-full"
+                  >
+                    בואו נתחיל
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
