@@ -2,7 +2,6 @@ import AboutHero from '@/components/about/AboutHero';
 import AboutTestimonials from '@/components/about/AboutTestimonials';
 import AgentSection from '@/components/about/AgentSection';
 import TimelineSection from '@/components/about/TimelineSection';
-import ValuesSection from '@/components/about/ValuesSection';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { SITE_CONFIG } from '@/lib/constants';
@@ -24,9 +23,6 @@ export default function AboutPage() {
 
       {/* Timeline Section */}
       <TimelineSection />
-
-      {/* Values Section */}
-      <ValuesSection />
 
       {/* Testimonials */}
       <AboutTestimonials />

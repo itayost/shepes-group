@@ -1,7 +1,6 @@
 import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import { Card, CardContent } from '@/components/ui/Card';
-import Progress from '@/components/ui/Progress';
 import { SoldProperty } from '@/data/soldProperties';
 import {
   Bed, Building2, Calendar,
@@ -206,20 +205,6 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
           </div>
         </div>
 
-        {/* Sale Timeline */}
-        <div className="mb-4">
-          <div className="flex justify-between text-xs text-gray-600 mb-1">
-            <span>זמן בשוק</span>
-            <span>{formatDate(property.soldDate)}</span>
-          </div>
-          <Progress 
-            value={(21 - property.daysOnMarket) / 21 * 100} 
-            variant="gradient"
-            color="primary"
-            size="sm"
-          />
-        </div>
-
         {/* Features */}
         <div className="flex flex-wrap gap-1 mb-4">
           {property.features.slice(0, 3).map((feature, idx) => (
@@ -227,11 +212,6 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
               {feature}
             </Badge>
           ))}
-          {property.features.length > 3 && (
-            <Badge variant="outline" size="xs">
-              +{property.features.length - 3}
-            </Badge>
-          )}
         </div>
 
         {/* Testimonial */}
