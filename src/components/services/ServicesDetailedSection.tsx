@@ -1,11 +1,13 @@
+'use client';
+
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import Tabs from '@/components/ui/Tabs';
 import { services } from '@/data/services';
-import { CheckCircle, FileText, Home, Key, Phone, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle, FileText, Home, Key, Phone, Sparkles, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const iconMap = {
   'selling': Home,
@@ -15,172 +17,214 @@ const iconMap = {
 };
 
 const ServicesDetailedSection = () => {
-  // Create tabs from services
-  const tabs = services.map(service => {
-    const Icon = iconMap[service.id as keyof typeof iconMap] || Home;
-    
-    return {
-      id: service.id,
-      label: service.title,
-      icon: <Icon className="w-4 h-4" />,
-      content: (
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
-            {/* Image Section */}
-            <div className="relative">
-              <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+  const [activeTab, setActiveTab] = useState('selling');
+  const activeService = services.find(s => s.id === activeTab)!;
+  const Icon = iconMap[activeTab as keyof typeof iconMap] || Home;
+
+  return (
+    <section className="py-24 relative">
+      <div className="container relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <Badge variant="primary" size="lg" className="mb-6 animate-fade-in" glow>
+            <Sparkles className="w-4 h-4" />
+            מידע מפורט
+          </Badge>
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-slide-up">
+            <span className="text-white">כל מה שצריך לדעת על </span>
+            <span className="text-gradient-gold">השירותים שלנו</span>
+          </h2>
+        </div>
+
+        {/* Luxury Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {services.map(service => {
+            const TabIcon = iconMap[service.id as keyof typeof iconMap] || Home;
+            const isActive = activeTab === service.id;
+            
+            return (
+              <button
+                key={service.id}
+                onClick={() => setActiveTab(service.id)}
+                className={`
+                  relative px-8 py-4 rounded-xl font-semibold transition-all duration-500
+                  ${isActive 
+                    ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-black shadow-gold-xl scale-105' 
+                    : 'bg-dark-900 text-dark-300 border border-dark-800 hover:border-primary-500/50 hover:text-primary-500 hover:bg-dark-950'
+                  }
+                `}
+              >
+                <div className="flex items-center gap-3">
+                  <TabIcon className="w-5 h-5" />
+                  <span>{service.title}</span>
+                </div>
+                
+                {isActive && (
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Service Content */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto animate-fade-in">
+          {/* Image Section */}
+          <div className="relative">
+            <Card variant="luxury" className="overflow-hidden">
+              <div className="relative h-[500px]">
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={activeService.image}
+                  alt={activeService.title}
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 {/* Floating Badge */}
-                <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm">
-                    <Icon className="w-3 h-3" />
-                    {service.title}
+                <div className="absolute top-6 left-6">
+                  <Badge variant="solid" className="shadow-gold-lg">
+                    <Icon className="w-4 h-4" />
+                    {activeService.title}
                   </Badge>
                 </div>
-              </div>
 
-              {/* Process Timeline - Hidden on mobile for better UX */}
-              <Card className="mt-6 hidden md:block">
+                {/* Stats Overlay */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                      <div className="text-2xl font-bold text-primary-400">98%</div>
+                      <div className="text-xs text-dark-400">שביעות רצון</div>
+                    </div>
+                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                      <div className="text-2xl font-bold text-primary-400">21</div>
+                      <div className="text-xs text-dark-400">ימים בממוצע</div>
+                    </div>
+                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
+                      <div className="text-2xl font-bold text-primary-400">150+</div>
+                      <div className="text-xs text-dark-400">עסקאות</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Process Timeline */}
+            {activeService.process && activeService.process.length > 0 && (
+              <Card variant="glass" className="mt-6">
                 <CardHeader>
-                  <CardTitle className="text-lg">תהליך העבודה</CardTitle>
+                  <CardTitle className="text-white">תהליך העבודה</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {service.process.slice(0, 4).map((step, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-xs font-bold text-primary-600">{idx + 1}</span>
+                  <div className="space-y-4">
+                    {activeService.process.slice(0, 4).map((step, idx) => (
+                      <div key={idx} className="flex items-start gap-4">
+                        <div className="relative">
+                          <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-gold">
+                            <span className="text-sm font-bold text-black">{idx + 1}</span>
+                          </div>
+                          {idx < Math.min(3, activeService.process.length - 1) && (
+                            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b from-primary-500 to-transparent" />
+                          )}
                         </div>
-                        <p className="text-sm text-gray-600">{step}</p>
+                        <p className="text-dark-300 pt-2">{step}</p>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
+            )}
+          </div>
+
+          {/* Content Section */}
+          <div>
+            {/* Description */}
+            <div className="mb-8">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                {activeService.title}
+              </h3>
+              <p className="text-xl text-dark-300 leading-relaxed">
+                {activeService.description}
+              </p>
             </div>
 
-            {/* Content Section */}
-            <div>
-              {/* Description */}
+            {/* Features Grid */}
+            {activeService.features && activeService.features.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-
-              {/* Features Grid */}
-              <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                  <Sparkles className="w-6 h-6 text-primary-500" />
                   היתרונות שלנו
                 </h4>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {service.features.map((feature, idx) => (
-                    <Card key={idx} variant="default" className="p-4">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h5 className="font-semibold text-gray-900 mb-1">
-                            {feature.title}
-                          </h5>
-                          <p className="text-sm text-gray-600">
-                            {feature.description}
-                          </p>
+                  {activeService.features.map((feature, idx) => (
+                    <Card key={idx} variant="glass" className="group hover:border-primary-500/50 transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <CheckCircle className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                          <div>
+                            <h5 className="font-semibold text-white mb-1 group-hover:text-primary-400 transition-colors">
+                              {typeof feature === 'string' ? feature : feature.title}
+                            </h5>
+                            {typeof feature !== 'string' && feature.description && (
+                              <p className="text-sm text-dark-400">
+                                {feature.description}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      </CardContent>
                     </Card>
                   ))}
                 </div>
               </div>
+            )}
 
-              {/* Process Timeline - Show on mobile here */}
-              <Card className="mb-8 md:hidden">
+            {/* Benefits List */}
+            {activeService.benefits && activeService.benefits.length > 0 && (
+              <Card variant="luxury" className="mb-8">
                 <CardHeader>
-                  <CardTitle className="text-lg">תהליך העבודה</CardTitle>
+                  <CardTitle className="text-white">מה תקבלו אצלנו?</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {service.process.slice(0, 4).map((step, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-xs font-bold text-primary-600">{idx + 1}</span>
-                        </div>
-                        <p className="text-sm text-gray-600">{step}</p>
-                      </div>
+                  <ul className="space-y-3">
+                    {activeService.benefits.map((benefit, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-dark-300">{benefit}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </CardContent>
               </Card>
+            )}
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <Card className="p-4 text-center bg-primary-50">
-                  <div className="text-xl md:text-2xl font-bold text-primary-700">98%</div>
-                  <div className="text-xs text-gray-600">שביעות רצון</div>
-                </Card>
-                <Card className="p-4 text-center bg-green-50">
-                  <div className="text-xl md:text-2xl font-bold text-green-700">21</div>
-                  <div className="text-xs text-gray-600">ימים בממוצע</div>
-                </Card>
-                <Card className="p-4 text-center bg-amber-50">
-                  <div className="text-xl md:text-2xl font-bold text-amber-700">150+</div>
-                  <div className="text-xs text-gray-600">עסקאות</div>
-                </Card>
-              </div>
-
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="w-full sm:w-auto">
-                  <Button 
-                    size="lg" 
-                    variant="gradient" 
-                    icon={Phone}
-                    className="shadow-xl w-full"
-                  >
-                    בואו נתחיל
-                  </Button>
-                </Link>
-              </div>
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/contact" className="flex-1">
+                <Button 
+                  size="lg" 
+                  variant="gradient" 
+                  icon={Phone}
+                  fullWidth
+                  glow
+                  className="shadow-gold-xl"
+                >
+                  בואו נתחיל
+                </Button>
+              </Link>
+              <Button 
+                size="lg" 
+                variant="outline"
+                icon={ArrowRight}
+                className="flex-1"
+              >
+                מידע נוסף
+              </Button>
             </div>
           </div>
         </div>
-      )
-    };
-  });
-
-  return (
-    <section className="py-16 md:py-20 bg-white">
-      {/* Section Header */}
-      <div className="container">
-        <div className="text-center mb-8 md:mb-12">
-          <Badge variant="outline" className="mb-4">
-            מידע מפורט
-          </Badge>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            כל מה שצריך לדעת על השירותים שלנו
-          </h2>
-        </div>
       </div>
-
-      {/* Full Width Sticky Tabs Component */}
-      <Tabs 
-        tabs={tabs} 
-        defaultTab="selling"
-        variant="pills"
-        className="w-full"
-        sticky={true}
-        stickyOffset={80} // Adjust based on your header height
-        scrollToTopOnChange={true}
-      />
     </section>
   );
 };

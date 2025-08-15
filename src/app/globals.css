@@ -1,5 +1,5 @@
-/* פונטים עבריים מ-Google Fonts - חייב להיות ראשון! */
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+/* פונטים עבריים מ-Google Fonts + פונט יוקרתי */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,24 +7,48 @@
 
 /* הגדרות בסיסיות */
 @layer base {
-  /* הגדרת כיוון RTL לכל האתר */
+  /* הגדרת כיוון RTL ומשתני צבעים */
   :root {
     direction: rtl;
+    
+    /* משתני צבעים גלובליים */
+    --color-gold: 212, 175, 55;
+    --color-gold-hover: 201, 169, 97;
+    --color-black: 0, 0, 0;
+    --color-dark: 10, 10, 10;
+    --color-white: 255, 255, 255;
   }
 
   html {
     @apply scroll-smooth;
   }
 
+  /* רקע שחור יוקרתי כברירת מחדל */
   body {
-    @apply bg-white text-text-primary;
+    @apply bg-black text-white;
     font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+    min-height: 100vh;
   }
 
-  /* כותרות בפונט Rubik */
+  /* כותרות בפונט יוקרתי */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
     font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+    @apply tracking-wide;
+  }
+
+  /* הדגשת כותרות ראשיות */
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+    background: linear-gradient(135deg, #d4af37 0%, #c9a961 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-bold text-white;
   }
 
   /* ביטול מרווחים ברירת מחדל */
@@ -35,13 +59,21 @@
   /* סגנונות לקישורים */
   a {
     @apply transition-all duration-300;
+    @apply hover:text-primary-500;
   }
 
-  /* סגנון לטפסים */
+  /* סגנון לטפסים - שחור עם מסגרת זהב */
   input, textarea, select {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
-    @apply transition-all duration-200;
+    @apply w-full px-4 py-3;
+    @apply bg-dark-950 text-white;
+    @apply border border-dark-800 rounded-lg;
+    @apply focus:outline-none focus:border-primary-500;
+    @apply focus:shadow-gold transition-all duration-300;
+    @apply placeholder-dark-400;
+  }
+
+  input:hover, textarea:hover, select:hover {
+    @apply border-dark-600;
   }
 
   /* כפתורים */
@@ -58,128 +90,271 @@
     @apply max-w-7xl;
   }
 
-  /* כפתור ראשי - זהב */
-  .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white;
-    @apply font-bold py-3 px-6 rounded-lg;
-    @apply transition-all duration-300;
-    @apply shadow-md hover:shadow-gold-lg;
-    @apply hover:-translate-y-0.5;
+  /* כפתור ראשי - זהב יוקרתי */
+  .btn-luxury-gold {
+    @apply relative overflow-hidden;
+    @apply bg-gradient-to-r from-primary-500 via-primary-400 to-primary-500;
+    @apply text-black font-bold py-4 px-8 rounded-lg;
+    @apply transition-all duration-500;
+    @apply shadow-gold hover:shadow-gold-lg;
+    @apply hover:-translate-y-1 hover:scale-105;
+    background-size: 200% auto;
+  }
+
+  .btn-luxury-gold:hover {
+    background-position: right center;
+  }
+
+  .btn-luxury-gold::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  .btn-luxury-gold:hover::before {
+    transform: translateX(100%);
   }
 
   /* כפתור משני - שחור עם מסגרת זהב */
-  .btn-secondary {
-    @apply bg-secondary-900 hover:bg-secondary-950 text-white;
-    @apply font-bold py-3 px-6 rounded-lg;
+  .btn-luxury-dark {
+    @apply relative;
+    @apply bg-black text-primary-500;
+    @apply font-bold py-4 px-8 rounded-lg;
     @apply border-2 border-primary-500;
     @apply transition-all duration-300;
+    @apply hover:bg-primary-500 hover:text-black;
+    @apply hover:shadow-gold-lg hover:-translate-y-1;
+  }
+
+  /* כפתור Ghost - שקוף עם אפקט hover */
+  .btn-ghost-luxury {
+    @apply relative;
+    @apply bg-transparent text-white;
+    @apply font-semibold py-3 px-6 rounded-lg;
+    @apply border border-dark-700;
+    @apply transition-all duration-300;
+    @apply hover:border-primary-500 hover:text-primary-500;
     @apply hover:shadow-gold;
   }
 
-  /* כפתור outline - רק מסגרת זהב */
-  .btn-outline {
-    @apply bg-transparent hover:bg-primary-500 text-primary-600 hover:text-white;
-    @apply font-bold py-3 px-6 rounded-lg;
-    @apply border-2 border-primary-500;
-    @apply transition-all duration-300;
-  }
-
-  /* כפתור יוקרתי */
-  .btn-luxury {
-    @apply bg-gradient-gold text-white;
-    @apply font-bold py-3 px-8 rounded-lg;
-    @apply shadow-luxury hover:shadow-gold-lg;
-    @apply transition-all duration-300;
-    @apply hover:-translate-y-1;
-    @apply relative overflow-hidden;
-  }
-  
-  .btn-luxury::before {
-    content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
-    @apply -translate-x-full;
-    @apply transition-transform duration-700;
-  }
-  
-  .btn-luxury:hover::before {
-    @apply translate-x-full;
-  }
-
-  /* כרטיס */
-  .card {
-    @apply bg-white rounded-lg shadow-md;
-    @apply hover:shadow-xl transition-all duration-300;
-    @apply overflow-hidden;
-    @apply border border-gray-100;
-  }
-
-  /* כרטיס יוקרתי */
+  /* כרטיסייה יוקרתית */
   .card-luxury {
-    @apply bg-white rounded-lg;
-    @apply shadow-luxury hover:shadow-gold-lg;
-    @apply transition-all duration-300;
-    @apply overflow-hidden;
-    @apply border border-primary-200;
-    @apply hover:-translate-y-1;
+    @apply relative overflow-hidden;
+    @apply bg-gradient-to-br from-dark-950 to-dark-900;
+    @apply border border-dark-800;
+    @apply rounded-2xl p-6;
+    @apply transition-all duration-500;
   }
 
-  /* גריד רספונסיבי */
-  .responsive-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
-    @apply gap-6;
+  .card-luxury:hover {
+    @apply border-primary-500/30;
+    @apply shadow-gold-lg;
+    @apply -translate-y-2;
   }
 
-  /* Section padding */
-  .section-padding {
-    @apply py-16 md:py-20;
-  }
-
-  /* טקסט gradient זהב */
-  .gradient-text-gold {
-    @apply bg-gradient-to-l from-primary-600 to-accent-500;
-    @apply bg-clip-text text-transparent;
-  }
-
-  /* הדגשת זהב לכותרות */
-  .heading-luxury {
-    @apply relative inline-block;
-  }
-  
-  .heading-luxury::after {
+  .card-luxury::before {
     content: '';
-    @apply absolute bottom-0 left-0 w-full h-1 bg-gradient-gold;
-    @apply transform scale-x-0 transition-transform duration-300;
+    @apply absolute inset-0;
+    background: radial-gradient(circle at top right, rgba(212,175,55,0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s;
   }
-  
-  .heading-luxury:hover::after {
-    @apply scale-x-100;
+
+  .card-luxury:hover::before {
+    opacity: 1;
+  }
+
+  /* טקסט זהב מעוצב */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #c9a961 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hero Section יוקרתי */
+  .hero-luxury {
+    @apply relative min-h-screen;
+    @apply flex items-center justify-center;
+    background: radial-gradient(circle at center, rgba(212,175,55,0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  }
+
+  /* Navigation יוקרתי */
+  .nav-luxury {
+    @apply fixed top-0 w-full z-50;
+    @apply bg-black/80 backdrop-blur-lg;
+    @apply border-b border-dark-900;
+    @apply transition-all duration-300;
+  }
+
+  .nav-luxury.scrolled {
+    @apply bg-black/95;
+    @apply shadow-dark;
+  }
+
+  /* Section עם אפקט Parallax */
+  .section-luxury {
+    @apply relative overflow-hidden;
+    @apply py-20 md:py-32;
+  }
+
+  .section-luxury::before {
+    content: '';
+    @apply absolute inset-0;
+    background: radial-gradient(circle at 20% 50%, rgba(212,175,55,0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* מפריד זהב */
+  .divider-gold {
+    @apply relative;
+    @apply h-px bg-gradient-to-r from-transparent via-primary-500 to-transparent;
+    @apply my-12;
+  }
+
+  .divider-gold::before {
+    content: '';
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    @apply w-20 h-20 bg-primary-500/10 rounded-full blur-xl;
+  }
+
+  /* Badge יוקרתי */
+  .badge-luxury {
+    @apply inline-flex items-center;
+    @apply px-3 py-1 rounded-full;
+    @apply bg-primary-500/10 text-primary-400;
+    @apply border border-primary-500/30;
+    @apply text-sm font-semibold;
+  }
+
+  /* Input Group יוקרתי */
+  .input-luxury {
+    @apply relative;
+  }
+
+  .input-luxury input {
+    @apply w-full px-6 py-4;
+    @apply bg-black text-white;
+    @apply border-2 border-dark-800 rounded-xl;
+    @apply focus:border-primary-500 focus:shadow-gold;
+    @apply transition-all duration-300;
+  }
+
+  .input-luxury label {
+    @apply absolute -top-3 right-4;
+    @apply px-2 bg-black;
+    @apply text-sm text-primary-500;
+  }
+
+  /* Gallery Grid יוקרתי */
+  .gallery-luxury {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .gallery-item {
+    @apply relative overflow-hidden rounded-xl;
+    @apply aspect-square bg-dark-950;
+    @apply group cursor-pointer;
+  }
+
+  .gallery-item img {
+    @apply w-full h-full object-cover;
+    @apply transition-transform duration-700;
+    @apply group-hover:scale-110;
+  }
+
+  .gallery-item::after {
+    content: '';
+    @apply absolute inset-0;
+    @apply bg-gradient-to-t from-black/80 via-transparent to-transparent;
+    @apply opacity-0 group-hover:opacity-100;
+    @apply transition-opacity duration-500;
+  }
+
+  /* תפריט יוקרתי */
+  .menu-luxury {
+    @apply flex items-center gap-8;
+  }
+
+  .menu-luxury a {
+    @apply relative text-dark-300 hover:text-primary-500;
+    @apply transition-colors duration-300;
+    @apply font-medium;
+  }
+
+  .menu-luxury a::after {
+    content: '';
+    @apply absolute bottom-0 right-0;
+    @apply w-0 h-0.5 bg-primary-500;
+    @apply transition-all duration-300;
+  }
+
+  .menu-luxury a:hover::after {
+    @apply w-full;
+  }
+
+  /* Tooltip יוקרתי */
+  .tooltip-luxury {
+    @apply relative;
+  }
+
+  .tooltip-luxury .tooltip-content {
+    @apply absolute bottom-full right-1/2 transform translate-x-1/2 -translate-y-2;
+    @apply px-3 py-2 bg-dark-900 text-white text-sm rounded-lg;
+    @apply border border-primary-500/30;
+    @apply opacity-0 invisible;
+    @apply transition-all duration-300;
+    @apply whitespace-nowrap;
+  }
+
+  .tooltip-luxury:hover .tooltip-content {
+    @apply opacity-100 visible;
+  }
+
+  /* מספרים יוקרתיים */
+  .number-luxury {
+    @apply text-5xl md:text-6xl font-bold;
+    @apply text-gradient-gold;
+    @apply tracking-wider;
+  }
+
+  /* Quote יוקרתי */
+  .quote-luxury {
+    @apply relative;
+    @apply p-8 my-8;
+    @apply border-r-4 border-primary-500;
+    @apply bg-gradient-to-l from-primary-500/5 to-transparent;
+  }
+
+  .quote-luxury::before {
+    content: '"';
+    @apply absolute top-0 right-4;
+    @apply text-6xl text-primary-500/30;
+    @apply font-serif;
   }
 }
 
-/* Utilities מותאמות */
+/* Utilities מותאמות אישית */
 @layer utilities {
-  /* אנימציות */
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-in-out;
+  /* אנימציות נוספות */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
+  .animate-glow-gold {
+    animation: glowGold 2s ease-in-out infinite alternate;
   }
 
-  .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out;
+  .animate-pulse-gold {
+    animation: pulseGold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  .animate-shimmer {
-    background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.1) 50%, transparent 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s linear infinite;
-  }
-
-  /* Hover states */
+  /* Hover Effects */
   .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1;
+    @apply transition-transform duration-300 hover:-translate-y-2;
   }
 
   .hover-scale {
@@ -187,7 +362,7 @@
   }
 
   .hover-glow-gold {
-    @apply transition-all duration-300 hover:shadow-gold-lg;
+    @apply transition-all duration-300 hover:shadow-gold-xl;
   }
 
   /* טקסט מוגבל */
@@ -205,101 +380,99 @@
     overflow: hidden;
   }
 
-  /* Shadow utilities */
-  .shadow-soft {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
-                0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  /* Blur Backdrop יוקרתי */
+  .backdrop-luxury {
+    @apply backdrop-blur-xl backdrop-brightness-50;
   }
 
-  .shadow-strong {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* גלילה יוקרתית */
+  .scrollbar-luxury {
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #0a0a0a;
   }
 
-  /* רקע שחור יוקרתי */
-  .bg-luxury-dark {
-    @apply bg-gradient-luxury;
+  .scrollbar-luxury::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 
-  /* טקסט זהב על רקע כהה */
-  .text-gold-on-dark {
-    @apply text-primary-400 hover:text-primary-300 transition-colors duration-300;
+  .scrollbar-luxury::-webkit-scrollbar-track {
+    @apply bg-dark-950;
+  }
+
+  .scrollbar-luxury::-webkit-scrollbar-thumb {
+    @apply bg-primary-500 rounded-full;
+    @apply hover:bg-primary-400;
   }
 }
 
-/* אנימציות */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* אנימציות מותאמות אישית */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glowGold {
+  0% { 
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4),
+                0 0 20px rgba(212, 175, 55, 0.2);
   }
-  to {
+  100% { 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6),
+                0 0 40px rgba(212, 175, 55, 0.4),
+                0 0 60px rgba(212, 175, 55, 0.2);
+  }
+}
+
+@keyframes pulseGold {
+  0%, 100% { 
     opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes shimmer {
+@keyframes shimmerGold {
   0% {
-    background-position: -200% 0;
+    background-position: -200% center;
   }
   100% {
-    background-position: 200% 0;
+    background-position: 200% center;
   }
 }
 
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
-  }
-  100% {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
-  }
-}
-
-/* Scrollbar מותאם */
+/* Scrollbar גלובלי יוקרתי */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-black;
+  @apply border border-dark-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-500 rounded-full;
-  @apply hover:bg-primary-600;
+  @apply bg-gradient-to-b from-primary-600 to-primary-500;
+  @apply rounded-full;
+  @apply border-2 border-black;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-primary-500 to-primary-400;
 }
 
 /* Selection color */
 ::selection {
-  @apply bg-primary-100 text-primary-900;
+  @apply bg-primary-500/30 text-primary-300;
 }
 
 /* Focus styles לנגישות */
 *:focus-visible {
-  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-black;
 }
 
 /* Print styles */
@@ -313,7 +486,54 @@
   }
 }
 
-/* מדיה קוורי מותאמת RTL */
+/* תיקונים ל-RTL */
+.rtl-fix {
+  /* תיקון לאייקונים שצריכים להתהפך ב-RTL */
+  svg.flip-rtl, i.flip-rtl {
+    @apply transform scale-x-[-1];
+  }
+}
+
+/* WhatsApp Button יוקרתי */
+.whatsapp-luxury {
+  @apply fixed bottom-6 left-6 z-50;
+  @apply bg-gradient-to-r from-green-600 to-green-500;
+  @apply text-white p-4 rounded-full;
+  @apply shadow-lg hover:shadow-xl;
+  @apply transition-all duration-300;
+  @apply hover:-translate-y-1 hover:scale-110;
+  @apply animate-pulse-gold;
+}
+
+/* Loading Spinner יוקרתי */
+.spinner-luxury {
+  @apply inline-block w-8 h-8;
+  @apply border-2 border-dark-800 border-t-primary-500;
+  @apply rounded-full animate-spin;
+}
+
+/* Overlay יוקרתי */
+.overlay-luxury {
+  @apply fixed inset-0 z-40;
+  @apply bg-black/90 backdrop-blur-sm;
+  @apply animate-fade-in;
+}
+
+/* Modal יוקרתי */
+.modal-luxury {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.modal-content-luxury {
+  @apply relative max-w-2xl w-full;
+  @apply bg-gradient-to-br from-dark-950 to-black;
+  @apply border border-primary-500/30;
+  @apply rounded-2xl p-8;
+  @apply shadow-gold-xl;
+  @apply animate-slide-up;
+}
+
+/* Responsive utilities */
 @media (max-width: 768px) {
   .container {
     @apply px-4;
@@ -326,101 +546,9 @@
   h2 {
     @apply text-2xl;
   }
-}
-
-/* תיקונים ל-RTL */
-.rtl-fix {
-  /* תיקון לאייקונים שצריכים להתהפך ב-RTL */
-  svg, i {
-    @apply transform scale-x-[-1];
+  
+  .btn-luxury-gold,
+  .btn-luxury-dark {
+    @apply py-3 px-6 text-sm;
   }
-}
-
-/* Override לכפתורי WhatsApp */
-.whatsapp-float {
-  @apply fixed bottom-6 left-6 z-50;
-  @apply bg-success-500 hover:bg-success-600;
-  @apply text-white p-4 rounded-full;
-  @apply shadow-lg hover:shadow-xl;
-  @apply transition-all duration-300;
-  @apply hover:-translate-y-1;
-}
-
-/* סגנונות מיוחדים לנכסים שנמכרו */
-.sold-badge {
-  @apply bg-gradient-gold text-white;
-  @apply px-3 py-1 rounded-full text-sm font-bold;
-  @apply shadow-gold;
-}
-
-/* סגנון למחירים */
-.price-tag {
-  @apply text-2xl font-bold;
-  @apply gradient-text-gold;
-}
-
-/* דירוג כוכבים */
-.star-rating {
-  @apply text-primary-500;
-}
-
-/* רקע יוקרתי לסקשנים */
-.section-luxury {
-  @apply relative overflow-hidden;
-  background: linear-gradient(135deg, #fafafa 0%, #ffffff 50%, #fafafa 100%);
-}
-
-.section-luxury::before {
-  content: '';
-  @apply absolute inset-0;
-  background-image: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
-}
-
-/* Animation for striped progress bars */
-@keyframes stripes {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 40px 0;
-  }
-}
-
-.bg-striped {
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 40px 40px;
-}
-
-.animate-stripes {
-  animation: stripes 1s linear infinite;
-}
-
-/* Shimmer animation for skeletons */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
 }
