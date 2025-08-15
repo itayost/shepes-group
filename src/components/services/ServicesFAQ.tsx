@@ -4,6 +4,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
 import { ChevronDown, HelpCircle, MessageCircle, Phone, Plus } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const faqs = [
@@ -101,89 +102,96 @@ const ServicesFAQ = () => {
                 `}
               >
                 <CardContent className="p-0">
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full p-8 text-left group"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start gap-4 flex-1">
-                        {/* Number/Icon */}
-                        <div className="relative">
-                          <div className={`
-                            w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
-                            ${isOpen 
-                              ? 'bg-gradient-to-br from-primary-500 to-primary-600 shadow-gold' 
-                              : 'bg-dark-900 group-hover:bg-dark-800'
-                            }
-                            transition-all duration-300
-                          `}>
-                            <span className={`text-xl ${isOpen ? '' : 'grayscale'}`}>
-                              {faq.icon}
-                            </span>
+                  <div className="w-full">
+                    {/* Clickable Header Section */}
+                    <button
+                      onClick={() => toggleFAQ(index)}
+                      className="w-full p-8 text-left group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-black"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-4 flex-1">
+                          {/* Number/Icon */}
+                          <div className="relative">
+                            <div className={`
+                              w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
+                              ${isOpen 
+                                ? 'bg-gradient-to-br from-primary-500 to-primary-600 shadow-gold' 
+                                : 'bg-dark-900 group-hover:bg-dark-800'
+                              }
+                              transition-all duration-300
+                            `}>
+                              <span className={`text-xl ${isOpen ? '' : 'grayscale'}`}>
+                                {faq.icon}
+                              </span>
+                            </div>
+                            {isOpen && (
+                              <div className="absolute inset-0 bg-primary-500/30 rounded-xl blur-xl" />
+                            )}
                           </div>
-                          {isOpen && (
-                            <div className="absolute inset-0 bg-primary-500/30 rounded-xl blur-xl" />
-                          )}
+                          
+                          {/* Question */}
+                          <div className="flex-1">
+                            <h3 className={`
+                              text-xl font-semibold mb-2 transition-colors duration-300
+                              ${isOpen ? 'text-primary-400' : 'text-white group-hover:text-primary-400'}
+                            `}>
+                              {faq.question}
+                            </h3>
+                            
+                            {/* Category Badge */}
+                            <Badge 
+                              variant={category.color as any}
+                              size="sm"
+                              className={isOpen ? 'opacity-100' : 'opacity-70'}
+                            >
+                              {category.label}
+                            </Badge>
+                          </div>
                         </div>
                         
-                        {/* Question */}
-                        <div className="flex-1">
-                          <h3 className={`
-                            text-xl font-semibold mb-2 transition-colors duration-300
-                            ${isOpen ? 'text-primary-400' : 'text-white group-hover:text-primary-400'}
-                          `}>
-                            {faq.question}
-                          </h3>
-                          
-                          {/* Category Badge */}
-                          <Badge 
-                            variant={category.color as any}
-                            size="sm"
-                            className={isOpen ? 'opacity-100' : 'opacity-70'}
-                          >
-                            {category.label}
-                          </Badge>
+                        {/* Arrow Icon */}
+                        <div className={`
+                          p-2 rounded-full transition-all duration-500
+                          ${isOpen ? 'bg-primary-500/20' : 'bg-dark-900'}
+                        `}>
+                          <ChevronDown 
+                            className={`
+                              w-5 h-5 transition-all duration-500
+                              ${isOpen ? 'rotate-180 text-primary-400' : 'text-dark-400 group-hover:text-primary-400'}
+                            `}
+                          />
                         </div>
                       </div>
-                      
-                      {/* Arrow Icon */}
-                      <div className={`
-                        p-2 rounded-full transition-all duration-500
-                        ${isOpen ? 'bg-primary-500/20' : 'bg-dark-900'}
-                      `}>
-                        <ChevronDown 
-                          className={`
-                            w-5 h-5 transition-all duration-500
-                            ${isOpen ? 'rotate-180 text-primary-400' : 'text-dark-400 group-hover:text-primary-400'}
-                          `}
-                        />
-                      </div>
-                    </div>
+                    </button>
                     
-                    {/* Answer */}
+                    {/* Answer Section - Outside the button */}
                     <div className={`
                       grid transition-all duration-500 ease-in-out
-                      ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0'}
+                      ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
                     `}>
                       <div className="overflow-hidden">
-                        <div className="pr-16">
-                          <p className="text-dark-300 leading-relaxed mb-4">
-                            {faq.answer}
-                          </p>
-                          
-                          {/* Action Button */}
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            icon={Plus}
-                            className="text-primary-400 border-primary-500/30 hover:border-primary-500"
-                          >
-                            קרא עוד על {category.label}
-                          </Button>
+                        <div className="px-8 pb-8">
+                          <div className="pr-16">
+                            <p className="text-dark-300 leading-relaxed mb-4">
+                              {faq.answer}
+                            </p>
+                            
+                            {/* Action Button - Now safely outside the main button */}
+                            <Link href={`/services#${faq.category}`}>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                icon={Plus}
+                                className="text-primary-400 border-primary-500/30 hover:border-primary-500"
+                              >
+                                קרא עוד על {category.label}
+                              </Button>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 </CardContent>
               </Card>
             );
@@ -202,12 +210,16 @@ const ServicesFAQ = () => {
                 צוות המומחים שלנו זמין לענות על כל שאלה
               </p>
               <div className="flex gap-4">
-                <Button variant="gradient" size="lg" icon={Phone} glow>
-                  דברו איתנו עכשיו
-                </Button>
-                <Button variant="outline" size="lg" icon={MessageCircle}>
-                  שלחו הודעה
-                </Button>
+                <Link href="/contact">
+                  <Button variant="gradient" size="lg" icon={Phone} glow>
+                    דברו איתנו עכשיו
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline" size="lg" icon={MessageCircle}>
+                    שלחו הודעה
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>

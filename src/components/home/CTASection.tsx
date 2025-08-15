@@ -23,7 +23,6 @@ const CTASection = () => {
           <Badge variant="solid" size="lg" className="mb-8 animate-fade-in shadow-gold-lg" glow>
             <Star className="w-5 h-5" />
             הזמן להתחיל
-            <Star className="w-5 h-5" />
           </Badge>
           
           {/* Main Title */}

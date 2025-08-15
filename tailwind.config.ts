@@ -142,8 +142,8 @@ const config: Config = {
           '100%': { transform: 'translateX(0)', opacity: '1' },
         },
         shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
+          '0%': { backgroundPosition: '-100% 0' },
+          '100%': { backgroundPosition: '100% 0' },
         },
         glowGold: {
           '0%': { boxShadow: '0 0 10px rgba(212, 175, 55, 0.4)' },

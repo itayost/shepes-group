@@ -4,7 +4,7 @@ import { LucideIcon } from 'lucide-react';
 import { HTMLAttributes, forwardRef } from 'react';
 
 const badgeVariants = cva(
-  'inline-flex items-center gap-1.5 rounded-full font-semibold transition-all duration-300',
+  'relative inline-flex items-center gap-1.5 rounded-full font-semibold transition-all duration-300 overflow-hidden',
   {
     variants: {
       variant: {
@@ -151,66 +151,74 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         onClick={onClick}
         {...props}
       >
-        {/* Left Icon */}
-        {Icon && iconPosition === 'left' && (
-          <Icon className={cn(
-            'shrink-0',
-            size === 'sm' && 'h-3 w-3',
-            size === 'md' && 'h-3.5 w-3.5',
-            size === 'lg' && 'h-4 w-4',
-            size === 'xl' && 'h-5 w-5',
-          )} />
-        )}
-        
-        {/* Content */}
-        <span>{children}</span>
-        
-        {/* Right Icon */}
-        {Icon && iconPosition === 'right' && !removable && (
-          <Icon className={cn(
-            'shrink-0',
-            size === 'sm' && 'h-3 w-3',
-            size === 'md' && 'h-3.5 w-3.5',
-            size === 'lg' && 'h-4 w-4',
-            size === 'xl' && 'h-5 w-5',
-          )} />
-        )}
-        
-        {/* Remove button */}
-        {removable && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove?.();
-            }}
-            className={cn(
-              'shrink-0 rounded-full hover:bg-primary-500/20 transition-colors duration-200',
-              'focus:outline-none focus:ring-1 focus:ring-primary-500',
+        {/* Content wrapper with higher z-index */}
+        <span className="relative z-10 inline-flex items-center gap-1.5">
+          {/* Left Icon */}
+          {Icon && iconPosition === 'left' && (
+            <Icon className={cn(
+              'shrink-0',
               size === 'sm' && 'h-3 w-3',
               size === 'md' && 'h-3.5 w-3.5',
               size === 'lg' && 'h-4 w-4',
               size === 'xl' && 'h-5 w-5',
-            )}
-          >
-            <svg
-              className="w-full h-full"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            )} />
+          )}
+          
+          {/* Content */}
+          <span>{children}</span>
+          
+          {/* Right Icon */}
+          {Icon && iconPosition === 'right' && !removable && (
+            <Icon className={cn(
+              'shrink-0',
+              size === 'sm' && 'h-3 w-3',
+              size === 'md' && 'h-3.5 w-3.5',
+              size === 'lg' && 'h-4 w-4',
+              size === 'xl' && 'h-5 w-5',
+            )} />
+          )}
+          
+          {/* Remove button */}
+          {removable && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove?.();
+              }}
+              className={cn(
+                'shrink-0 rounded-full hover:bg-primary-500/20 transition-colors duration-200',
+                'focus:outline-none focus:ring-1 focus:ring-primary-500',
+                size === 'sm' && 'h-3 w-3',
+                size === 'md' && 'h-3.5 w-3.5',
+                size === 'lg' && 'h-4 w-4',
+                size === 'xl' && 'h-5 w-5',
+              )}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        )}
+              <svg
+                className="w-full h-full"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          )}
+        </span>
         
-        {/* Shimmer effect for solid variant */}
+        {/* Shimmer effect for solid variant - properly contained */}
         {variant === 'solid' && (
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" />
+          <span 
+            className="absolute inset-0 -z-10 rounded-full overflow-hidden"
+            aria-hidden="true"
+          >
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_linear_infinite]" />
+          </span>
         )}
       </span>
     );
