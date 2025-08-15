@@ -98,7 +98,7 @@ const Header = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center group relative">
               <Image
-                src="/shepes-group.png"
+                src="/shepes-group-white.png"
                 alt={SITE_CONFIG.name}
                 width={180}
                 height={70}
