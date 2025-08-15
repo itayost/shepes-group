@@ -4,51 +4,52 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { services } from '@/data/services';
-import { ArrowRight, CheckCircle, FileText, Home, Key, Phone, Sparkles, TrendingUp } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle,
+  FileText,
+  Home,
+  Key,
+  Phone,
+  Sparkles,
+  TrendingUp
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const iconMap = {
-  'selling': Home,
-  'buying': Key,
-  'rental': FileText,
-  'valuation': TrendingUp,
-};
-
 const ServicesDetailedSection = () => {
   const [activeTab, setActiveTab] = useState('selling');
-  const activeService = services.find(s => s.id === activeTab)!;
-  const Icon = iconMap[activeTab as keyof typeof iconMap] || Home;
+  
+  // מציאת השירות הפעיל
+  const activeService = services.find(s => s.id === activeTab) || services[0];
+
+  // מיפוי אייקונים לפי ID השירות
+  const getIconForService = (serviceId: string) => {
+    const iconMap: { [key: string]: React.ComponentType<any> } = {
+      'selling': Home,
+      'buying': Key,
+      'rental': FileText,
+      'valuation': TrendingUp
+    };
+    return iconMap[serviceId] || Home;
+  };
 
   return (
-    <section className="py-24 relative">
-      <div className="container relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="primary" size="lg" className="mb-6 animate-fade-in" glow>
-            <Sparkles className="w-4 h-4" />
-            מידע מפורט
-          </Badge>
-          
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-slide-up">
-            <span className="text-white">כל מה שצריך לדעת על </span>
-            <span className="text-gradient-gold">השירותים שלנו</span>
-          </h2>
-        </div>
-
-        {/* Luxury Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {services.map(service => {
-            const TabIcon = iconMap[service.id as keyof typeof iconMap] || Home;
+    <section className="py-24 relative z-10">
+      <div className="container mx-auto px-4">
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          {services.map((service) => {
             const isActive = activeTab === service.id;
+            const TabIcon = getIconForService(service.id);
             
             return (
               <button
                 key={service.id}
                 onClick={() => setActiveTab(service.id)}
                 className={`
-                  relative px-8 py-4 rounded-xl font-semibold transition-all duration-500
+                  relative px-6 py-4 rounded-xl font-semibold transition-all duration-300
                   ${isActive 
                     ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-black shadow-gold-xl scale-105' 
                     : 'bg-dark-900 text-dark-300 border border-dark-800 hover:border-primary-500/50 hover:text-primary-500 hover:bg-dark-950'
@@ -85,32 +86,14 @@ const ServicesDetailedSection = () => {
                 {/* Floating Badge */}
                 <div className="absolute top-6 left-6">
                   <Badge variant="solid" className="shadow-gold-lg">
-                    <Icon className="w-4 h-4" />
+                    <span className="text-2xl ml-2">{activeService.icon}</span>
                     {activeService.title}
                   </Badge>
-                </div>
-
-                {/* Stats Overlay */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                      <div className="text-2xl font-bold text-primary-400">98%</div>
-                      <div className="text-xs text-dark-400">שביעות רצון</div>
-                    </div>
-                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                      <div className="text-2xl font-bold text-primary-400">21</div>
-                      <div className="text-xs text-dark-400">ימים בממוצע</div>
-                    </div>
-                    <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-primary-500/30">
-                      <div className="text-2xl font-bold text-primary-400">150+</div>
-                      <div className="text-xs text-dark-400">עסקאות</div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </Card>
 
-            {/* Process Timeline */}
+            {/* Process Steps */}
             {activeService.process && activeService.process.length > 0 && (
               <Card variant="glass" className="mt-6">
                 <CardHeader>
@@ -118,13 +101,13 @@ const ServicesDetailedSection = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {activeService.process.slice(0, 4).map((step, idx) => (
-                      <div key={idx} className="flex items-start gap-4">
+                    {activeService.process.map((step, idx) => (
+                      <div key={idx} className="relative flex items-start gap-4">
                         <div className="relative">
-                          <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-gold">
-                            <span className="text-sm font-bold text-black">{idx + 1}</span>
+                          <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-black font-bold">
+                            {idx + 1}
                           </div>
-                          {idx < Math.min(3, activeService.process.length - 1) && (
+                          {idx < activeService.process.length - 1 && (
                             <div className="absolute top-10 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b from-primary-500 to-transparent" />
                           )}
                         </div>
@@ -164,13 +147,11 @@ const ServicesDetailedSection = () => {
                           <CheckCircle className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                           <div>
                             <h5 className="font-semibold text-white mb-1 group-hover:text-primary-400 transition-colors">
-                              {typeof feature === 'string' ? feature : feature.title}
+                              {feature.title}
                             </h5>
-                            {typeof feature !== 'string' && feature.description && (
-                              <p className="text-sm text-dark-400">
-                                {feature.description}
-                              </p>
-                            )}
+                            <p className="text-sm text-dark-400">
+                              {feature.description}
+                            </p>
                           </div>
                         </div>
                       </CardContent>
@@ -178,25 +159,6 @@ const ServicesDetailedSection = () => {
                   ))}
                 </div>
               </div>
-            )}
-
-            {/* Benefits List */}
-            {activeService.benefits && activeService.benefits.length > 0 && (
-              <Card variant="luxury" className="mb-8">
-                <CardHeader>
-                  <CardTitle className="text-white">מה תקבלו אצלנו?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {activeService.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-dark-300">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
             )}
 
             {/* CTA */}
