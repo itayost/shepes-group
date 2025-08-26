@@ -143,8 +143,8 @@ const config: Config = {
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         shimmer: {
-          '0%': { backgroundPosition: '-100% 0' },
-          '100%': { backgroundPosition: '100% 0' },
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
           '0%': { boxShadow: '0 0 5px rgba(245, 158, 11, 0.5)' },

@@ -1,7 +1,9 @@
 'use client';
 
 import Badge from '@/components/ui/Badge';
-import { Star } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import { ArrowLeft, Phone, Star } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const ServicesHeroSection = () => {
@@ -46,7 +48,7 @@ const ServicesHeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed animate-slide-up animation-delay-200">
-            צוות שפס גרופ מציע מגוון שירותי נדל{'"'}ן מקיפים 
+            צוות שפס נדל{'"'}ן מציע מגוון שירותי נדל{'"'}ן מקיפים 
             <br />
             עם ליווי אישי ומקצועי בכל שלב
           </p>
@@ -67,6 +69,20 @@ const ServicesHeroSection = () => {
                 ✓ {feature}
               </Badge>
             ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-600">
+            <Link href="/contact">
+              <Button size="lg" variant="gradient" icon={Phone}>
+                בואו נדבר
+              </Button>
+            </Link>
+            <Link href="#services">
+              <Button size="lg" variant="outline" icon={ArrowLeft}>
+                גלו את השירותים
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

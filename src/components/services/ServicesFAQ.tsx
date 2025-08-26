@@ -3,12 +3,7 @@
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
-<<<<<<< HEAD
-import { ChevronDown, HelpCircle, MessageCircle, Phone, Plus } from 'lucide-react';
-import Link from 'next/link';
-=======
 import { ChevronDown, HelpCircle, Phone } from 'lucide-react';
->>>>>>> parent of 0101384 (םל)
 import { useState } from 'react';
 
 const faqs = [
@@ -68,144 +63,6 @@ const ServicesFAQ = () => {
         </div>
 
         {/* FAQ List */}
-<<<<<<< HEAD
-        <div className="max-w-4xl mx-auto space-y-6">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            const category = categoryBadges[faq.category as keyof typeof categoryBadges];
-            
-            return (
-              <Card 
-                key={index}
-                variant={isOpen ? 'luxury' : 'glass'}
-                className={`
-                  transition-all duration-500 overflow-hidden
-                  ${isOpen ? 'shadow-gold-lg scale-[1.02]' : 'hover:border-primary-500/30'}
-                `}
-              >
-                <CardContent className="p-0">
-                  <div className="w-full">
-                    {/* Clickable Header Section */}
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className="w-full p-8 text-left group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-black"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4 flex-1">
-                          {/* Number/Icon */}
-                          <div className="relative">
-                            <div className={`
-                              w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
-                              ${isOpen 
-                                ? 'bg-gradient-to-br from-primary-500 to-primary-600 shadow-gold' 
-                                : 'bg-dark-900 group-hover:bg-dark-800'
-                              }
-                              transition-all duration-300
-                            `}>
-                              <span className={`text-xl ${isOpen ? '' : 'grayscale'}`}>
-                                {faq.icon}
-                              </span>
-                            </div>
-                            {isOpen && (
-                              <div className="absolute inset-0 bg-primary-500/30 rounded-xl blur-xl" />
-                            )}
-                          </div>
-                          
-                          {/* Question */}
-                          <div className="flex-1">
-                            <h3 className={`
-                              text-xl font-semibold mb-2 transition-colors duration-300
-                              ${isOpen ? 'text-primary-400' : 'text-white group-hover:text-primary-400'}
-                            `}>
-                              {faq.question}
-                            </h3>
-                            
-                            {/* Category Badge */}
-                            <Badge 
-                              variant={category.color as any}
-                              size="sm"
-                              className={isOpen ? 'opacity-100' : 'opacity-70'}
-                            >
-                              {category.label}
-                            </Badge>
-                          </div>
-                        </div>
-                        
-                        {/* Arrow Icon */}
-                        <div className={`
-                          p-2 rounded-full transition-all duration-500
-                          ${isOpen ? 'bg-primary-500/20' : 'bg-dark-900'}
-                        `}>
-                          <ChevronDown 
-                            className={`
-                              w-5 h-5 transition-all duration-500
-                              ${isOpen ? 'rotate-180 text-primary-400' : 'text-dark-400 group-hover:text-primary-400'}
-                            `}
-                          />
-                        </div>
-                      </div>
-                    </button>
-                    
-                    {/* Answer Section - Outside the button */}
-                    <div className={`
-                      grid transition-all duration-500 ease-in-out
-                      ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
-                    `}>
-                      <div className="overflow-hidden">
-                        <div className="px-8 pb-8">
-                          <div className="pr-16">
-                            <p className="text-dark-300 leading-relaxed mb-4">
-                              {faq.answer}
-                            </p>
-                            
-                            {/* Action Button - Now safely outside the main button */}
-                            <Link href={`/services#${faq.category}`}>
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                icon={Plus}
-                                className="text-primary-400 border-primary-500/30 hover:border-primary-500"
-                              >
-                                קרא עוד על {category.label}
-                              </Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Contact CTA */}
-        <div className="text-center mt-16">
-          <Card variant="luxury" className="max-w-2xl mx-auto p-8">
-            <div className="flex flex-col items-center">
-              <MessageCircle className="w-12 h-12 text-primary-500 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">
-                לא מצאתם תשובה לשאלה שלכם?
-              </h3>
-              <p className="text-dark-300 mb-6">
-                צוות המומחים שלנו זמין לענות על כל שאלה
-              </p>
-              <div className="flex gap-4">
-                <Link href="/contact">
-                  <Button variant="gradient" size="lg" icon={Phone} glow>
-                    דברו איתנו עכשיו
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button variant="outline" size="lg" icon={MessageCircle}>
-                    שלחו הודעה
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </Card>
-=======
         <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
             <Card 
@@ -268,7 +125,6 @@ const ServicesFAQ = () => {
           <Button variant="primary" size="lg" icon={Phone}>
             דברו איתנו
           </Button>
->>>>>>> parent of 0101384 (םל)
         </div>
       </div>
     </section>

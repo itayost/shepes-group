@@ -14,18 +14,10 @@ const CTASection = () => {
       </div>
       
       <div className="container relative z-10">
-<<<<<<< HEAD
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Luxury Badge */}
-          <Badge variant="solid" size="lg" className="mb-8 animate-fade-in shadow-gold-lg" glow>
-            <Star className="w-5 h-5" />
-            הזמן להתחיל
-=======
         <div className="text-center max-w-3xl mx-auto">
           {/* Badge */}
           <Badge variant="secondary" size="lg" className="mb-6 bg-white/10 text-white border-white/20">
             בואו נתחיל
->>>>>>> parent of 0101384 (םל)
           </Badge>
           
           {/* Title */}
