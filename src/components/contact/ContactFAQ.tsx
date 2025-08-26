@@ -3,7 +3,7 @@
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
-import { ChevronDown, HelpCircle, Phone } from 'lucide-react';
+import { ChevronDown, HelpCircle, Phone, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -34,16 +34,27 @@ const ContactFAQ = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container">
-        <div className="text-center mb-12">
-          <Badge variant="primary" icon={HelpCircle} className="mb-4">
+    <section className="relative py-20 lg:py-32">
+      <div className="container relative z-10">
+        <div className="text-center mb-16">
+          <Badge variant="solid" icon={HelpCircle} className="mb-4 animate-fade-in" glow>
             שאלות נפוצות
           </Badge>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            יש לכם שאלות?
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 animate-slide-up">
+            <span className="text-white">יש לכם </span>
+            <span className="bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent">
+              שאלות?
+            </span>
           </h2>
-          <p className="text-gray-600">
+          
+          {/* Luxury Divider */}
+          <div className="flex items-center justify-center gap-4 mb-8 animate-fade-in animation-delay-200">
+            <div className="h-[1px] w-32 bg-gradient-to-r from-transparent to-primary-500" />
+            <Sparkles className="w-6 h-6 text-primary-500" />
+            <div className="h-[1px] w-32 bg-gradient-to-l from-transparent to-primary-500" />
+          </div>
+          
+          <p className="text-dark-300 animate-slide-up animation-delay-300">
             כאן תמצאו תשובות לשאלות הנפוצות
           </p>
         </div>
@@ -52,27 +63,28 @@ const ContactFAQ = () => {
           {faqs.map((faq, index) => (
             <Card 
               key={index}
-              variant={openIndex === index ? 'elevated' : 'default'}
-              className="transition-all duration-300"
+              variant={openIndex === index ? 'luxury' : 'default'}
+              className="transition-all duration-300 animate-fade-in"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-0">
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full p-6 text-right flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full p-6 text-right flex items-center justify-between hover:bg-dark-900/50 transition-colors duration-300"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-white pr-4">
                     {faq.question}
                   </h3>
                   <ChevronDown 
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-primary-500 transition-transform duration-300 flex-shrink-0 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 
                 {openIndex === index && (
-                  <div className="px-6 pb-6">
-                    <p className="text-gray-600 leading-relaxed">
+                  <div className="px-6 pb-6 border-t border-dark-800">
+                    <p className="text-dark-300 leading-relaxed pt-4">
                       {faq.answer}
                     </p>
                   </div>
@@ -83,11 +95,11 @@ const ContactFAQ = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
+          <p className="text-dark-300 mb-6">
             לא מצאתם את התשובה שחיפשתם?
           </p>
           <Link href="#contact-form">
-            <Button variant="primary" icon={Phone}>
+            <Button variant="primary" icon={Phone} size="lg" glow>
               צרו איתנו קשר
             </Button>
           </Link>

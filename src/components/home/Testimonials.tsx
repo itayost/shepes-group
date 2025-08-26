@@ -5,7 +5,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
 import { getHomePageTestimonials } from '@/data/testimonials';
-import { ChevronLeft, ChevronRight, MessageCircle, Quote, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { useState } from 'react';
 
 const Testimonials = () => {
@@ -23,120 +23,96 @@ const Testimonials = () => {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="py-24 relative">
-      <div className="container relative z-10">
+    <section className="py-20 bg-white">
+      <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="primary" size="lg" className="mb-6 animate-fade-in" glow>
-            <MessageCircle className="w-4 h-4" />
+        <div className="text-center mb-12">
+          <Badge variant="primary" icon={Star} className="mb-4">
             המלצות לקוחות
           </Badge>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-slide-up">
-            <span className="text-white">מה </span>
-            <span className="text-gradient-gold">הלקוחות שלנו</span>
-            <span className="text-white"> אומרים</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            מה הלקוחות שלנו אומרים
           </h2>
-          
-          <p className="text-xl text-dark-300 max-w-2xl mx-auto animate-slide-up animation-delay-200">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             עשרות משפחות מרוצות שמצאו את הבית המושלם
           </p>
         </div>
         
-        {/* Testimonial Card - Luxury Style */}
+        {/* Testimonial Card */}
         <div className="max-w-4xl mx-auto">
-          <Card variant="luxury" className="relative animate-fade-in" glow>
-            {/* Gold Accent Line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent" />
-            
-            <CardContent className="p-12 md:p-16">
-              {/* Quote Icon - Large and Elegant */}
-              <div className="flex justify-center mb-8">
-                <div className="relative">
-                  <Quote className="w-20 h-20 text-primary-500/20" />
-                  <div className="absolute inset-0 bg-primary-500/10 blur-2xl" />
-                </div>
+          <Card variant="elevated" className="relative">
+            <CardContent className="p-8 md:p-12">
+              {/* Quote Icon */}
+              <div className="absolute top-6 right-6">
+                <Quote className="w-12 h-12 text-primary-100" />
               </div>
               
-              {/* Rating - Gold Stars */}
-              <div className="flex justify-center gap-2 mb-8">
+              {/* Rating */}
+              <div className="flex justify-center mb-6">
                 {[...Array(current.rating)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className="w-8 h-8 text-primary-500 fill-primary-500 drop-shadow-gold"
+                    className="w-6 h-6 text-yellow-400 fill-yellow-400"
                   />
                 ))}
               </div>
               
-              {/* Testimonial Content */}
-              <blockquote className="text-2xl text-dark-200 text-center mb-12 leading-relaxed font-light">
-                <span className="text-primary-500 text-3xl">"</span>
-                {current.content}
-                <span className="text-primary-500 text-3xl">"</span>
+              {/* Content */}
+              <blockquote className="text-xl text-gray-700 text-center mb-8 leading-relaxed">
+                {`"${current.content}"`}
               </blockquote>
               
-              {/* Divider */}
-              <div className="divider-gold mb-8" />
-              
-              {/* Author Section */}
-              <div className="flex flex-col items-center">
-                {/* Avatar with Gold Ring */}
-                <div className="relative mb-4">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full blur-md opacity-50" />
-                  <Avatar 
-                    size="xl"
-                    fallback={current.name[0]}
-                    className="relative border-2 border-primary-500"
-                  />
-                </div>
-                
-                {/* Author Info */}
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-white mb-1">{current.name}</p>
-                  <p className="text-primary-400 mb-2">{current.type}</p>
-                  <Badge variant="outline" size="sm" className="text-dark-400 border-dark-700">
+              {/* Author */}
+              <div className="flex items-center justify-center gap-4">
+                <Avatar 
+                  size="lg"
+                  fallback={current.name[0]}
+                  border
+                />
+                <div>
+                  <p className="font-bold text-lg text-gray-900">{current.name}</p>
+                  <p className="text-gray-600">{current.type}</p>
+                  <Badge variant="outline" size="sm" className="mt-1">
                     עבדו עם: {current.agent}
                   </Badge>
                 </div>
               </div>
-            </CardContent>
-            
-            {/* Navigation - Elegant Style */}
-            <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 pointer-events-none">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={prevTestimonial}
-                className="pointer-events-auto rounded-full bg-black/50 backdrop-blur-sm border border-primary-500/30 hover:border-primary-500 hover:bg-primary-500/10"
-              >
-                <ChevronRight className="w-6 h-6 text-primary-500" />
-              </Button>
               
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={nextTestimonial}
-                className="pointer-events-auto rounded-full bg-black/50 backdrop-blur-sm border border-primary-500/30 hover:border-primary-500 hover:bg-primary-500/10"
-              >
-                <ChevronLeft className="w-6 h-6 text-primary-500" />
-              </Button>
-            </div>
+              {/* Navigation */}
+              <div className="flex justify-center gap-4 mt-8">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  icon={ChevronRight}
+                  onClick={prevTestimonial}
+                  className="rounded-full"
+                />
+                
+                {/* Dots */}
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex 
+                          ? 'w-8 bg-primary-600' 
+                          : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  icon={ChevronLeft}
+                  onClick={nextTestimonial}
+                  className="rounded-full"
+                />
+              </div>
+            </CardContent>
           </Card>
-          
-          {/* Dots Indicator - Luxury Style */}
-          <div className="flex justify-center gap-3 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`transition-all duration-500 ${
-                  index === currentIndex 
-                    ? 'w-12 h-3 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full shadow-gold' 
-                    : 'w-3 h-3 bg-dark-700 hover:bg-dark-600 rounded-full'
-                }`}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>

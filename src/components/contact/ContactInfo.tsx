@@ -4,13 +4,13 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { agents } from '@/data/agents';
 import { SITE_CONFIG } from '@/lib/constants';
 import {
-    Clock,
-    Facebook, Instagram, Linkedin,
-    Mail,
-    MapPin,
-    MessageCircle,
-    Phone,
-    Users
+  Clock,
+  Facebook, Instagram, Linkedin,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Users
 } from 'lucide-react';
 
 const ContactInfo = () => {
@@ -20,7 +20,7 @@ const ContactInfo = () => {
       title: 'טלפון',
       value: SITE_CONFIG.phone,
       action: `tel:${SITE_CONFIG.phone}`,
-      color: 'bg-green-50 text-green-600',
+      color: 'from-green-500 to-green-600',
       available: true,
       badge: 'זמין עכשיו'
     },
@@ -29,7 +29,7 @@ const ContactInfo = () => {
       title: 'וואטסאפ',
       value: SITE_CONFIG.phone,
       action: `https://wa.me/${SITE_CONFIG.whatsapp}`,
-      color: 'bg-green-50 text-green-600',
+      color: 'from-green-500 to-green-600',
       available: true,
       badge: 'מענה מהיר'
     },
@@ -38,7 +38,7 @@ const ContactInfo = () => {
       title: 'אימייל',
       value: SITE_CONFIG.email,
       action: `mailto:${SITE_CONFIG.email}`,
-      color: 'bg-blue-50 text-blue-600',
+      color: 'from-blue-500 to-blue-600',
       available: true
     },
     {
@@ -46,7 +46,7 @@ const ContactInfo = () => {
       title: 'כתובת',
       value: `${SITE_CONFIG.address.street}, ${SITE_CONFIG.address.city}`,
       action: '#map',
-      color: 'bg-purple-50 text-purple-600',
+      color: 'from-purple-500 to-purple-600',
       available: false
     }
   ];
@@ -60,9 +60,9 @@ const ContactInfo = () => {
   return (
     <div className="space-y-6">
       {/* Contact Methods */}
-      <Card variant="elevated">
+      <Card variant="luxury" hover>
         <CardContent className="p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-white mb-6">
             דרכי יצירת קשר
           </h2>
           
@@ -77,22 +77,22 @@ const ContactInfo = () => {
                   rel={method.icon === MessageCircle ? 'noopener noreferrer' : undefined}
                   className="block group"
                 >
-                  <div className="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                    <div className={`p-3 rounded-xl ${method.color}`}>
-                      <Icon className="w-6 h-6" />
+                  <div className="flex items-center gap-4 p-4 rounded-lg bg-dark-900/50 hover:bg-dark-900 border border-dark-800 hover:border-primary-500/30 transition-all duration-300">
+                    <div className={`p-3 rounded-xl bg-gradient-to-r ${method.color} shadow-lg group-hover:shadow-xl`}>
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold text-gray-900">
+                        <p className="font-semibold text-white">
                           {method.title}
                         </p>
                         {method.badge && method.available && (
-                          <Badge variant="success" size="xs" dot>
+                          <Badge variant="success" size="sm" glow>
                             {method.badge}
                           </Badge>
                         )}
                       </div>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-dark-400 text-sm">
                         {method.value}
                       </p>
                     </div>
@@ -105,11 +105,11 @@ const ContactInfo = () => {
       </Card>
 
       {/* Office Hours */}
-      <Card variant="elevated">
+      <Card variant="luxury" hover>
         <CardContent className="p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Clock className="w-5 h-5 text-primary-600" />
-            <h3 className="text-lg font-bold text-gray-900">
+            <Clock className="w-5 h-5 text-primary-500" />
+            <h3 className="text-lg font-bold text-white">
               שעות פעילות
             </h3>
           </div>
@@ -118,11 +118,11 @@ const ContactInfo = () => {
             {officeHours.map((schedule, index) => (
               <div 
                 key={index}
-                className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"
+                className="flex justify-between items-center py-2 border-b border-dark-800 last:border-0"
               >
-                <span className="text-gray-700">{schedule.day}</span>
+                <span className="text-dark-300">{schedule.day}</span>
                 <span className={`font-medium ${
-                  schedule.active ? 'text-green-600' : 'text-gray-500'
+                  schedule.active ? 'text-green-400' : 'text-dark-500'
                 }`}>
                   {schedule.hours}
                 </span>
@@ -130,37 +130,41 @@ const ContactInfo = () => {
             ))}
           </div>
           
-          <Badge variant="primary" className="w-full mt-4 justify-center">
+          <Badge variant="solid" className="w-full mt-4 justify-center" glow>
             זמינים גם מחוץ לשעות הפעילות
           </Badge>
         </CardContent>
       </Card>
 
       {/* Team Contacts */}
-      <Card variant="elevated">
+      <Card variant="luxury" hover>
         <CardContent className="p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Users className="w-5 h-5 text-primary-600" />
-            <h3 className="text-lg font-bold text-gray-900">
+            <Users className="w-5 h-5 text-primary-500" />
+            <h3 className="text-lg font-bold text-white">
               הצוות שלנו
             </h3>
           </div>
           
           <div className="space-y-4">
             {agents.map((agent) => (
-              <div key={agent.id} className="flex items-center gap-4">
-                <Avatar
-                  src={agent.image}
-                  alt={agent.name}
-                  size="md"
-                />
+              <div key={agent.id} className="flex items-center gap-4 p-3 rounded-lg bg-dark-900/50 hover:bg-dark-900 transition-colors duration-300">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-xl" />
+                  <Avatar
+                    src={agent.image}
+                    alt={agent.name}
+                    size="md"
+                    className="relative border border-primary-500/30"
+                  />
+                </div>
                 <div className="flex-1">
-                  <p className="font-semibold text-gray-900">{agent.name}</p>
-                  <p className="text-sm text-gray-600">{agent.title}</p>
+                  <p className="font-semibold text-white">{agent.name}</p>
+                  <p className="text-sm text-dark-400">{agent.title}</p>
                 </div>
                 <div className="flex gap-2">
                   <a href={`tel:${agent.phone}`}>
-                    <Badge variant="outline" size="sm" icon={Phone}>
+                    <Badge variant="ghost" size="sm" icon={Phone}>
                       חייג
                     </Badge>
                   </a>
@@ -172,9 +176,9 @@ const ContactInfo = () => {
       </Card>
 
       {/* Social Media */}
-      <Card variant="elevated">
+      <Card variant="luxury" hover>
         <CardContent className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <h3 className="text-lg font-bold text-white mb-4">
             עקבו אחרינו
           </h3>
           
@@ -183,7 +187,7 @@ const ContactInfo = () => {
               href={SITE_CONFIG.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+              className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               <Facebook className="w-5 h-5" />
             </a>
@@ -191,7 +195,7 @@ const ContactInfo = () => {
               href={SITE_CONFIG.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors"
+              className="p-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               <Instagram className="w-5 h-5" />
             </a>
@@ -199,7 +203,7 @@ const ContactInfo = () => {
               href={SITE_CONFIG.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
+              className="p-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               <Linkedin className="w-5 h-5" />
             </a>
