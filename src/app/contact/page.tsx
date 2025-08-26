@@ -12,13 +12,19 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <main className="min-h-screen bg-black">
       {/* Hero Section */}
       <ContactHero />
 
       {/* Contact Info & Form Section */}
-      <section className="py-20">
-        <div className="container">
+      <section className="relative py-20 lg:py-32 bg-gradient-to-b from-black via-dark-950 to-black">
+        {/* Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container relative z-10">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info - Left Side */}
             <div className="lg:col-span-2">
@@ -34,7 +40,10 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <ContactFAQ />
+      <div className="relative bg-dark-950">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#d4af3708_1px,transparent_1px),linear-gradient(to_bottom,#d4af3708_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <ContactFAQ />
+      </div>
     </main>
   );
 }

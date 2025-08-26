@@ -1,16 +1,15 @@
-import ServicesCTASection from '@/components/services/ServicesCTASection';
 import ServicesDetailedSection from '@/components/services/ServicesDetailedSection';
-import ServicesFAQ from '@/components/services/ServicesFAQ';
 import ServicesHeroSection from '@/components/services/ServicesHeroSection';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
   title: 'השירותים שלנו | ' + SITE_CONFIG.name,
-  description: 'שירותי נדל"ן יוקרתיים - מכירה, קנייה, השכרה והערכת שווי נכסים בחיפה והצפון',
+  description: 'שירותי נדל"ן מקיפים - מכירה, קנייה, השכרה והערכת שווי נכסים בחיפה והצפון',
 };
 
 export default function ServicesPage() {
   return (
+<<<<<<< HEAD
     <main className="min-h-screen bg-black overflow-x-hidden">
       {/* Hero Section - מסך פתיחה מרשים */}
       <ServicesHeroSection />
@@ -32,6 +31,15 @@ export default function ServicesPage() {
 
       {/* CTA Section - קריאה לפעולה */}
       <ServicesCTASection />
+=======
+    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Hero Section */}
+      <ServicesHeroSection />
+
+      {/* Detailed Services Section */}
+      <ServicesDetailedSection />
+
+>>>>>>> parent of 0101384 (םל)
     </main>
   );
 }
