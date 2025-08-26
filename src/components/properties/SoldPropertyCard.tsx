@@ -43,7 +43,7 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
 
   if (viewMode === 'list') {
     return (
-      <Card variant="luxury" hover className="overflow-hidden">
+      <Card variant="elevated" hover className="overflow-hidden">
         <div className="flex flex-col lg:flex-row">
           {/* Image */}
           <div className="relative h-64 lg:h-auto lg:w-96">
@@ -54,7 +54,7 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
               className="object-cover"
             />
             <div className="absolute top-4 left-4">
-              <Badge variant="solid" icon={CheckCircle}>
+              <Badge variant="success" icon={CheckCircle}>
                 נמכר!
               </Badge>
             </div>
@@ -64,16 +64,16 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
           <CardContent className="flex-1 p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   {property.title}
                 </h3>
-                <div className="flex items-center gap-2 text-dark-400">
-                  <MapPin className="w-4 h-4 text-primary-500" />
+                <div className="flex items-center gap-2 text-gray-600">
+                  <MapPin className="w-4 h-4" />
                   <span>{property.typeLabel} ב{property.neighborhood}</span>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-gradient-gold">
+                <div className="text-2xl font-bold text-primary-600">
                   {formatPrice(property.soldPrice)}
                 </div>
                 <Badge 
@@ -88,21 +88,21 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
 
             {/* Property Details */}
             <div className="flex flex-wrap gap-4 mb-4">
-              <Badge variant="ghost" icon={Bed}>
+              <Badge variant="outline" icon={Bed}>
                 {property.rooms} חדרים
               </Badge>
-              <Badge variant="ghost" icon={Maximize2}>
+              <Badge variant="outline" icon={Maximize2}>
                 {property.size} מ״ר
               </Badge>
               {property.floor > 0 && (
-                <Badge variant="ghost" icon={Building2}>
+                <Badge variant="outline" icon={Building2}>
                   קומה {property.floor}/{property.totalFloors}
                 </Badge>
               )}
-              <Badge variant="ghost" icon={Calendar}>
+              <Badge variant="outline" icon={Calendar}>
                 נמכר ב{formatDate(property.soldDate)}
               </Badge>
-              <Badge variant="ghost" icon={Clock}>
+              <Badge variant="outline" icon={Clock}>
                 תוך {property.daysOnMarket} ימים
               </Badge>
             </div>
@@ -110,7 +110,7 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
             {/* Features */}
             <div className="flex flex-wrap gap-2 mb-4">
               {property.features.map((feature, idx) => (
-                <Badge key={idx} variant="primary" size="sm">
+                <Badge key={idx} variant="default" size="sm">
                   {feature}
                 </Badge>
               ))}
@@ -118,13 +118,13 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
 
             {/* Testimonial */}
             {property.testimonial && (
-              <div className="bg-dark-900 rounded-lg p-4 border-r-4 border-primary-500">
-                <p className="text-dark-300 italic mb-2">
+              <div className="bg-gray-50 rounded-lg p-4 border-r-4 border-primary-500">
+                <p className="text-gray-700 italic mb-2">
                   {`"${property.testimonial.content}"`}
                 </p>
                 <div className="flex items-center gap-2">
                   <Avatar size="xs" fallback={property.testimonial.name[0]} />
-                  <span className="text-sm font-semibold text-primary-500">
+                  <span className="text-sm font-semibold text-primary-600">
                     {property.testimonial.name}
                   </span>
                 </div>
@@ -136,21 +136,21 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
     );
   }
 
-  // Grid View (Default) - Luxury Black Card
+  // Grid View (Default)
   return (
-    <Card variant="luxury" hover className="overflow-hidden group">
+    <Card variant="elevated" hover className="overflow-hidden group">
       {/* Image Section */}
-      <div className="relative h-64 overflow-hidden bg-dark-950">
+      <div className="relative h-64 overflow-hidden">
         <Image
           src={property.images[0]}
           alt={property.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
         
         {/* Badges */}
         <div className="absolute top-4 left-4 space-y-2">
-          <Badge variant="solid" icon={CheckCircle} className="shadow-lg" glow>
+          <Badge variant="success" icon={CheckCircle} className="shadow-lg">
             נמכר!
           </Badge>
           {property.daysOnMarket <= 14 && (
@@ -160,16 +160,14 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
           )}
         </div>
 
-        {/* Price Overlay with Gold Gradient */}
-        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4">
+        {/* Price Overlay */}
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4">
           <div className="text-white">
             <div className="text-2xl font-bold mb-1">
-              <span className="bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent">
-                {formatPrice(property.soldPrice)}
-              </span>
+              {formatPrice(property.soldPrice)}
             </div>
-            <div className="flex items-center gap-2 text-sm text-dark-300">
-              <TrendingUp className="w-4 h-4 text-primary-500" />
+            <div className="flex items-center gap-2 text-sm">
+              <TrendingUp className="w-4 h-4" />
               <span>
                 {isAboveAsking ? '+' : ''}{(pricePerformance - 100).toFixed(1)}% מהמבוקש
               </span>
@@ -178,69 +176,63 @@ const SoldPropertyCard = ({ property, viewMode = 'grid' }: SoldPropertyCardProps
         </div>
       </div>
 
-      <CardContent className="p-6 bg-gradient-to-b from-dark-950 to-black">
+      <CardContent className="p-6">
         {/* Title & Location */}
-        <h3 className="text-xl font-bold text-white mb-2">
+        <h3 className="text-xl font-bold text-gray-900 mb-2">
           {property.title}
         </h3>
-        <div className="flex items-center gap-2 text-dark-400 mb-4">
-          <MapPin className="w-4 h-4 text-primary-500" />
+        <div className="flex items-center gap-2 text-gray-600 mb-4">
+          <MapPin className="w-4 h-4" />
           <span>{property.typeLabel} ב{property.neighborhood}</span>
         </div>
 
-        {/* Property Details with Gold Accents */}
+        {/* Property Details */}
         <div className="grid grid-cols-3 gap-3 mb-4">
           <div className="text-center">
-            <div className="p-3 bg-dark-900 rounded-lg border border-dark-800 hover:border-primary-500/30 transition-colors duration-300">
-              <Bed className="w-5 h-5 mx-auto mb-1 text-primary-500" />
-              <div className="text-sm font-semibold text-white">{property.rooms}</div>
-              <div className="text-xs text-dark-400">חדרים</div>
-            </div>
+            <Bed className="w-5 h-5 mx-auto mb-1 text-gray-400" />
+            <div className="text-sm font-semibold">{property.rooms}</div>
+            <div className="text-xs text-gray-500">חדרים</div>
+          </div>
+          <div className="text-center border-x border-gray-200">
+            <Maximize2 className="w-5 h-5 mx-auto mb-1 text-gray-400" />
+            <div className="text-sm font-semibold">{property.size}</div>
+            <div className="text-xs text-gray-500">מ״ר</div>
           </div>
           <div className="text-center">
-            <div className="p-3 bg-dark-900 rounded-lg border border-dark-800 hover:border-primary-500/30 transition-colors duration-300">
-              <Maximize2 className="w-5 h-5 mx-auto mb-1 text-primary-500" />
-              <div className="text-sm font-semibold text-white">{property.size}</div>
-              <div className="text-xs text-dark-400">מ״ר</div>
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="p-3 bg-dark-900 rounded-lg border border-dark-800 hover:border-primary-500/30 transition-colors duration-300">
-              <Clock className="w-5 h-5 mx-auto mb-1 text-primary-500" />
-              <div className="text-sm font-semibold text-white">{property.daysOnMarket}</div>
-              <div className="text-xs text-dark-400">ימים</div>
-            </div>
+            <Clock className="w-5 h-5 mx-auto mb-1 text-gray-400" />
+            <div className="text-sm font-semibold">{property.daysOnMarket}</div>
+            <div className="text-xs text-gray-500">ימים</div>
           </div>
         </div>
 
         {/* Features */}
         <div className="flex flex-wrap gap-1 mb-4">
           {property.features.slice(0, 3).map((feature, idx) => (
-            <Badge key={idx} variant="ghost" size="sm">
+            <Badge key={idx} variant="outline" size="xs">
               {feature}
             </Badge>
           ))}
         </div>
 
-        {/* Testimonial with Luxury Style */}
+        {/* Testimonial */}
         {property.testimonial && (
-          <div className="pt-4 border-t border-dark-800">
+          <div className="pt-4 border-t border-gray-100">
             <div className="flex items-start gap-3">
               <Avatar 
                 size="sm" 
                 fallback={property.testimonial.name[0]}
-                className="flex-shrink-0 border border-primary-500/30"
+                className="flex-shrink-0"
               />
               <div className="flex-1">
-                <p className="text-sm text-dark-400 italic line-clamp-2">
+                <p className="text-sm text-gray-600 italic line-clamp-2">
                   {`"${property.testimonial.content}"`}
                 </p>
-                <p className="text-xs font-semibold text-primary-500 mt-1">
+                <p className="text-xs font-semibold text-primary-600 mt-1">
                   {property.testimonial.name}
                 </p>
                 <div className="flex gap-0.5 mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-primary-500 text-primary-500" />
+                    <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
               </div>

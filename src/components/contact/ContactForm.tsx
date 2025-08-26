@@ -4,6 +4,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
+import Progress from '@/components/ui/Progress';
 import Textarea from '@/components/ui/Textarea';
 import Toast from '@/components/ui/Toast';
 import { ContactFormData, contactFormSchema } from '@/lib/validations';
@@ -75,22 +76,19 @@ const ContactForm = () => {
 
   if (isSuccess) {
     return (
-      <Card variant="luxury" className="text-center py-12">
+      <Card variant="elevated" className="text-center py-12">
         <CardContent>
-          <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
-            <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse" />
-            <div className="relative bg-gradient-to-r from-green-500 to-green-600 rounded-full w-20 h-20 flex items-center justify-center">
-              <CheckCircle className="w-10 h-10 text-white" />
-            </div>
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+            <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-3">
+          <h3 className="text-2xl font-bold text-gray-900 mb-3">
             תודה על פנייתך!
           </h3>
-          <p className="text-dark-300 mb-6">
+          <p className="text-gray-600 mb-6">
             קיבלנו את הודעתך ונחזור אליך בהקדם האפשרי
           </p>
           <Button 
-            variant="secondary" 
+            variant="outline" 
             onClick={() => setIsSuccess(false)}
           >
             שלח הודעה נוספת
@@ -102,30 +100,29 @@ const ContactForm = () => {
 
   return (
     <>
-      <Card variant="luxury">
+      <Card variant="elevated">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl">השאירו פרטים</CardTitle>
-            <Badge variant="solid" icon={Send} glow>
+            <Badge variant="primary" icon={Send}>
               מענה תוך 24 שעות
             </Badge>
           </div>
-          <p className="text-dark-400 mt-2">
+          <p className="text-gray-600 mt-2">
             מלאו את הטופס ונחזור אליכם בהקדם האפשרי
           </p>
           
           {/* Progress Bar */}
           <div className="mt-4">
-            <div className="flex justify-between text-xs text-dark-400 mb-1">
+            <div className="flex justify-between text-xs text-gray-600 mb-1">
               <span>השלמת הטופס</span>
               <span>{completionPercentage}%</span>
             </div>
-            <div className="relative h-2 bg-dark-800 rounded-full overflow-hidden">
-              <div 
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary-500 to-primary-400 transition-all duration-300"
-                style={{ width: `${completionPercentage}%` }}
-              />
-            </div>
+            <Progress 
+              value={completionPercentage} 
+              variant="gradient"
+              size="sm"
+            />
           </div>
         </CardHeader>
         
@@ -133,83 +130,68 @@ const ContactForm = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Name & Email */}
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="input-luxury">
-                <Input
-                  id="name"
-                  placeholder="ישראל ישראלי"
-                  icon={User}
-                  error={errors.name?.message}
-                  {...register('name')}
-                  disabled={isSubmitting}
-                  className="bg-dark-900 border-dark-800 text-white placeholder-dark-500 focus:border-primary-500"
-                />
-                <label htmlFor="name">שם מלא</label>
-              </div>
+              <Input
+                id="name"
+                label="שם מלא"
+                placeholder="ישראל ישראלי"
+                icon={User}
+                error={errors.name?.message}
+                {...register('name')}
+                disabled={isSubmitting}
+              />
               
-              <div className="input-luxury">
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="example@email.com"
-                  icon={Mail}
-                  dir="ltr"
-                  error={errors.email?.message}
-                  {...register('email')}
-                  disabled={isSubmitting}
-                  className="bg-dark-900 border-dark-800 text-white placeholder-dark-500 focus:border-primary-500"
-                />
-                <label htmlFor="email">אימייל</label>
-              </div>
+              <Input
+                id="email"
+                label="אימייל"
+                type="email"
+                placeholder="example@email.com"
+                icon={Mail}
+                dir="ltr"
+                error={errors.email?.message}
+                {...register('email')}
+                disabled={isSubmitting}
+              />
             </div>
 
             {/* Phone & Subject */}
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="input-luxury">
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="050-1234567"
-                  icon={Phone}
-                  dir="ltr"
-                  error={errors.phone?.message}
-                  {...register('phone')}
-                  disabled={isSubmitting}
-                  className="bg-dark-900 border-dark-800 text-white placeholder-dark-500 focus:border-primary-500"
-                />
-                <label htmlFor="phone">טלפון</label>
-              </div>
+              <Input
+                id="phone"
+                label="טלפון"
+                type="tel"
+                placeholder="050-1234567"
+                icon={Phone}
+                dir="ltr"
+                error={errors.phone?.message}
+                {...register('phone')}
+                disabled={isSubmitting}
+              />
               
-              <div className="input-luxury">
-                <Input
-                  id="subject"
-                  placeholder="בנושא..."
-                  icon={MessageSquare}
-                  error={errors.subject?.message}
-                  {...register('subject')}
-                  disabled={isSubmitting}
-                  className="bg-dark-900 border-dark-800 text-white placeholder-dark-500 focus:border-primary-500"
-                />
-                <label htmlFor="subject">נושא</label>
-              </div>
+              <Input
+                id="subject"
+                label="נושא"
+                placeholder="בנושא..."
+                icon={MessageSquare}
+                error={errors.subject?.message}
+                {...register('subject')}
+                disabled={isSubmitting}
+              />
             </div>
 
             {/* Message */}
-            <div className="input-luxury">
-              <Textarea
-                id="message"
-                placeholder="ספרו לנו במה נוכל לעזור..."
-                rows={5}
-                error={errors.message?.message}
-                {...register('message')}
-                disabled={isSubmitting}
-                className="bg-dark-900 border-dark-800 text-white placeholder-dark-500 focus:border-primary-500"
-              />
-              <label htmlFor="message">הודעה</label>
-            </div>
+            <Textarea
+              id="message"
+              label="הודעה"
+              placeholder="ספרו לנו במה נוכל לעזור..."
+              rows={5}
+              error={errors.message?.message}
+              {...register('message')}
+              disabled={isSubmitting}
+            />
 
             {/* Privacy Notice */}
-            <div className="bg-dark-900 border border-dark-800 rounded-lg p-4">
-              <p className="text-xs text-dark-400">
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-xs text-gray-600">
                 בשליחת הטופס אני מאשר/ת קבלת מידע שיווקי ויצירת קשר טלפוני.
                 הפרטים שלך בטוחים אצלנו ולא יועברו לצד שלישי.
               </p>
@@ -219,15 +201,14 @@ const ContactForm = () => {
             <Button
               type="submit"
               size="lg"
-              variant="primary"
+              variant="gradient"
               fullWidth
               disabled={isSubmitting || !isValid}
               icon={Send}
-              glow
             >
               {isSubmitting ? (
                 <>
-                  <span className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent" />
+                  <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
                   שולח...
                 </>
               ) : (

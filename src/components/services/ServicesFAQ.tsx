@@ -3,46 +3,56 @@
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
-<<<<<<< HEAD
 import { ChevronDown, HelpCircle, MessageCircle, Phone, Plus } from 'lucide-react';
 import Link from 'next/link';
-=======
-import { ChevronDown, HelpCircle, Phone } from 'lucide-react';
->>>>>>> parent of 0101384 (םל)
 import { useState } from 'react';
 
 const faqs = [
   {
     question: 'כמה זמן לוקח למכור נכס?',
-    answer: 'בממוצע, אנחנו מוכרים נכסים תוך 21 ימים. הזמן המדויק תלוי במיקום, מחיר ומצב הנכס.',
-    category: 'selling'
+    answer: 'בממוצע, אנחנו מוכרים נכסים תוך 21 ימים. הזמן המדויק תלוי במיקום, מחיר ומצב הנכס. הניסיון הרב שלנו והשיווק המקצועי מאפשרים לנו להשיג תוצאות מהירות ויעילות.',
+    category: 'selling',
+    icon: '🏠'
   },
   {
     question: 'מה כולל השירות של ליווי בקנייה?',
-    answer: 'ליווי מלא החל מחיפוש הנכס, בדיקות, משא ומתן, ליווי משפטי ועד קבלת המפתחות.',
-    category: 'buying'
+    answer: 'ליווי מלא החל מחיפוש הנכס, בדיקות מקיפות, משא ומתן מקצועי, ליווי משפטי מלא ועד קבלת המפתחות. אנחנו איתכם בכל שלב כדי להבטיח שתקבלו את הנכס הטוב ביותר עבורכם.',
+    category: 'buying',
+    icon: '🔑'
   },
   {
     question: 'האם הערכת השווי בחינם?',
-    answer: 'כן, אנו מציעים הערכת שווי חינם ללא התחייבות לכל לקוחותינו.',
-    category: 'valuation'
+    answer: 'כן, אנו מציעים הערכת שווי חינם ללא התחייבות לכל לקוחותינו. ההערכה כוללת ניתוח מעמיק של השוק, השוואה לנכסים דומים וחוות דעת מקצועית מפורטת.',
+    category: 'valuation',
+    icon: '📊'
   },
   {
     question: 'איך אתם קובעים את עמלת התיווך?',
-    answer: 'העמלה נקבעת על פי חוק התיווך במקרקעין ובהתאם לסוג ושווי הנכס.',
-    category: 'general'
+    answer: 'העמלה נקבעת על פי חוק התיווך במקרקעין ובהתאם לסוג ושווי הנכס. אנחנו שקופים לחלוטין לגבי העמלות ומסבירים בדיוק מה כלול בשירות.',
+    category: 'general',
+    icon: '💰'
   },
   {
     question: 'מה ההבדל בין השכרה רגילה להשכרה מנוהלת?',
-    answer: 'בהשכרה מנוהלת אנו דואגים לכל - מציאת שוכרים, גביית שכירות, תחזוקה וטיפול בתקלות.',
-    category: 'rental'
+    answer: 'בהשכרה מנוהלת אנו דואגים לכל - מציאת שוכרים איכותיים, בדיקות אמינות, גביית שכירות, תחזוקה שוטפת וטיפול בתקלות. השירות מושלם למי שרוצה להשכיר ללא כאבי ראש.',
+    category: 'rental',
+    icon: '📋'
   },
   {
     question: 'האם אתם עובדים גם מחוץ לחיפה?',
-    answer: 'כן, אנו פועלים בכל אזור הצפון - חיפה, קריות, עכו, נהריה וכל היישובים בסביבה.',
-    category: 'general'
+    answer: 'כן, אנו פועלים בכל אזור הצפון - חיפה, קריות, עכו, נהריה וכל היישובים בסביבה. הידע המקומי שלנו מאפשר לנו לתת שירות מעולה בכל האזור.',
+    category: 'general',
+    icon: '📍'
   }
 ];
+
+const categoryBadges = {
+  selling: { label: 'מכירה', color: 'primary' },
+  buying: { label: 'קנייה', color: 'secondary' },
+  rental: { label: 'השכרה', color: 'outline' },
+  valuation: { label: 'הערכת שווי', color: 'ghost' },
+  general: { label: 'כללי', color: 'primary' },
+};
 
 const ServicesFAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -52,23 +62,31 @@ const ServicesFAQ = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container">
+    <section className="py-24 relative">
+      <div className="container relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <Badge variant="primary" icon={HelpCircle} className="mb-4">
+        <div className="text-center mb-16">
+          <Badge variant="solid" size="lg" icon={HelpCircle} className="mb-6 animate-fade-in shadow-gold-lg" glow>
             שאלות נפוצות
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            יש לכם שאלות? יש לנו תשובות
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-slide-up">
+            <span className="text-white">יש לכם </span>
+            <span className="text-gradient-gold">שאלות?</span>
+            <br />
+            <span className="text-white">יש לנו </span>
+            <span className="text-gradient-gold">תשובות</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          
+          <p className="text-xl text-dark-300 max-w-2xl mx-auto animate-slide-up animation-delay-200">
             ריכזנו עבורכם את השאלות הנפוצות ביותר
           </p>
+          
+          {/* Luxury Divider */}
+          <div className="divider-gold mt-8" />
         </div>
 
         {/* FAQ List */}
-<<<<<<< HEAD
         <div className="max-w-4xl mx-auto space-y-6">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
@@ -205,70 +223,6 @@ const ServicesFAQ = () => {
               </div>
             </div>
           </Card>
-=======
-        <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <Card 
-              key={index}
-              variant={openIndex === index ? 'elevated' : 'default'}
-              className="transition-all duration-300"
-            >
-              <CardContent className="p-0">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-sm font-bold text-primary-600">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <ChevronDown 
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
-                      openIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                
-                {openIndex === index && (
-                  <div className="px-6 pb-6">
-                    <div className="pr-12">
-                      <p className="text-gray-600 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                      <Badge 
-                        variant="outline" 
-                        size="sm" 
-                        className="mt-3"
-                      >
-                        {faq.category === 'selling' && 'מכירה'}
-                        {faq.category === 'buying' && 'קנייה'}
-                        {faq.category === 'rental' && 'השכרה'}
-                        {faq.category === 'valuation' && 'הערכת שווי'}
-                        {faq.category === 'general' && 'כללי'}
-                      </Badge>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Contact CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
-            לא מצאתם תשובה לשאלה שלכם?
-          </p>
-          <Button variant="primary" size="lg" icon={Phone}>
-            דברו איתנו
-          </Button>
->>>>>>> parent of 0101384 (םל)
         </div>
       </div>
     </section>
