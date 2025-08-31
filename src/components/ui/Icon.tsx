@@ -1,4 +1,5 @@
-// src/components/ui/Icon.tsx
+// File: src/components/ui/Icon.tsx
+
 import * as LucideIcons from 'lucide-react';
 import { LucideProps } from 'lucide-react';
 
@@ -12,7 +13,7 @@ interface IconProps extends LucideProps {
  * Renders a Lucide icon by name
  * 
  * @example
- * <Icon name="Home" className="w-6 h-6 text-primary-600" />
+ * <Icon name="Home" className="w-6 h-6 text-[#D4AF37]" />
  * <Icon name="Phone" size={32} />
  */
 export const Icon = ({ name, fallback, ...props }: IconProps) => {
@@ -36,26 +37,26 @@ export const iconSizes = {
   '2xl': 48,
 } as const;
 
-// Wrapper components for specific use cases
+// Wrapper components for specific use cases - Updated for black & gold theme
 export const FeatureIcon = ({ name, ...props }: IconProps) => (
-  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-100 text-primary-600 rounded-lg">
+  <div className="inline-flex items-center justify-center w-12 h-12 bg-[#D4AF37]/20 text-[#D4AF37] rounded-lg">
     <Icon name={name} size={iconSizes.md} {...props} />
   </div>
 );
 
 export const ServiceIcon = ({ name, ...props }: IconProps) => (
-  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-gold text-white rounded-full">
+  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-black rounded-full">
     <Icon name={name} size={iconSizes.lg} {...props} />
   </div>
 );
 
 export const StatIcon = ({ name, color = 'primary', ...props }: IconProps & { color?: string }) => {
   const colorClasses = {
-    primary: 'bg-primary-100 text-primary-800',
-    green: 'bg-green-100 text-green-800',
-    blue: 'bg-blue-100 text-blue-800',
-    purple: 'bg-purple-100 text-purple-800',
-    gold: 'bg-yellow-100 text-yellow-800',
+    primary: 'bg-[#D4AF37]/20 text-[#D4AF37]',
+    green: 'bg-green-900/20 text-green-400',
+    blue: 'bg-blue-900/20 text-blue-400',
+    purple: 'bg-purple-900/20 text-purple-400',
+    gold: 'bg-[#FFD700]/20 text-[#FFD700]',
   };
 
   return (
@@ -65,7 +66,7 @@ export const StatIcon = ({ name, color = 'primary', ...props }: IconProps & { co
   );
 };
 
-// Button with icon component
+// Button with icon component - Updated for black & gold theme
 interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: string;
   children: React.ReactNode;
@@ -81,7 +82,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button 
-      className={`inline-flex items-center gap-2 ${className}`}
+      className={`inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#FFD700] ${className}`}
       {...props}
     >
       {iconPosition === 'left' && <Icon name={icon} size={iconSizes.sm} />}

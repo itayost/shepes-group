@@ -9,21 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // צבע ראשי - זהב
+        // צבע ראשי - זהב יוקרתי
         primary: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b', // זהב ראשי
-          600: '#d97706', // זהב כהה
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-          950: '#451a03', // זהב כהה מאוד
+          50: '#fffef7',
+          100: '#fffce8',
+          200: '#fff5c2',
+          300: '#ffe88c',
+          400: '#FFD700', // Gold
+          500: '#D4AF37', // Luxury gold - main
+          600: '#B8860B', // Dark gold
+          700: '#996515',
+          800: '#7a4f11',
+          900: '#5c3a0d',
+          950: '#3d2507',
         },
-        // צבע משני - שחור/אפור כהה
+        // צבע משני - שחור
         secondary: {
           50: '#fafafa',
           100: '#f5f5f5',
@@ -34,35 +34,39 @@ const config: Config = {
           600: '#525252',
           700: '#404040',
           800: '#262626',
-          900: '#171717', // שחור רך
-          950: '#0a0a0a', // שחור עמוק
+          900: '#171717',
+          950: '#0a0a0a',
         },
-        // צבע הדגשה - זהב מטאלי
+        // צבע הדגשה - זהב מטאלי בהיר
         accent: {
           50: '#fffdf7',
           100: '#fffaeb',
           200: '#fff3c7',
-          300: '#ffe894',
-          400: '#ffd84c',
-          500: '#d4af37', // זהב מטאלי קלאסי
-          600: '#b8860b', // זהב כהה מטאלי
+          300: '#FFE55C', // Light gold
+          400: '#FFD700', // Pure gold
+          500: '#D4AF37', // Classic metallic gold
+          600: '#B8860B', // Dark metallic gold
           700: '#996515',
           800: '#7a4f11',
           900: '#5c3a0d',
         },
-        // צבעים נוספים
+        // צבעי רקע - שחור
         background: {
-          DEFAULT: '#ffffff',
-          secondary: '#fafafa',
-          tertiary: '#f5f5f5',
-          dark: '#0a0a0a',
+          DEFAULT: '#000000',     // Pure black
+          secondary: '#0a0a0a',   // Soft black
+          tertiary: '#141414',    // Lighter black
+          card: '#1a1a1a',       // Card backgrounds
+          elevated: '#1f1f1f',   // Elevated elements
+          dark: '#000000',
         },
+        // צבעי טקסט - מותאמים לרקע שחור
         text: {
-          primary: '#171717',    // שחור רך לטקסט
-          secondary: '#525252',   // אפור כהה
-          muted: '#737373',      // אפור בינוני
-          light: '#ffffff',      // לבן לטקסט על רקע כהה
-          gold: '#d97706',       // זהב כהה לטקסטים
+          primary: '#ffffff',     // White for main text
+          secondary: '#e5e5e5',   // Light gray
+          muted: '#a3a3a3',      // Muted gray
+          light: '#ffffff',      // White
+          gold: '#D4AF37',       // Gold text
+          'gold-bright': '#FFD700', // Bright gold
         },
         // צבעי תמיכה
         success: {
@@ -119,19 +123,24 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-luxury': 'linear-gradient(135deg, #0a0a0a 0%, #171717 50%, #0a0a0a 100%)',
-        'gradient-gold': 'linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #d97706 100%)',
+        'gradient-luxury': 'linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
+        'gradient-gold': 'linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #FFD700 100%)',
+        'gradient-gold-subtle': 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)',
+        'gradient-black-gold': 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #141414 100%)',
       },
       boxShadow: {
-        'gold': '0 4px 20px -2px rgba(245, 158, 11, 0.25)',
-        'gold-lg': '0 10px 40px -3px rgba(245, 158, 11, 0.3)',
-        'luxury': '0 20px 50px -12px rgba(0, 0, 0, 0.5)',
+        'gold': '0 4px 20px -2px rgba(212, 175, 55, 0.25)',
+        'gold-lg': '0 10px 40px -3px rgba(212, 175, 55, 0.3)',
+        'gold-glow': '0 0 30px rgba(212, 175, 55, 0.4)',
+        'luxury': '0 20px 50px -12px rgba(212, 175, 55, 0.15)',
+        'dark': '0 10px 30px -5px rgba(0, 0, 0, 0.8)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'shimmer': 'shimmer 2s linear infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'gold-pulse': 'goldPulse 3s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -147,8 +156,18 @@ const config: Config = {
           '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px rgba(245, 158, 11, 0.5)' },
-          '100%': { boxShadow: '0 0 20px rgba(245, 158, 11, 0.8)' },
+          '0%': { boxShadow: '0 0 5px rgba(212, 175, 55, 0.5)' },
+          '100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.8)' },
+        },
+        goldPulse: {
+          '0%, 100%': { 
+            boxShadow: '0 0 10px rgba(212, 175, 55, 0.3)',
+            borderColor: 'rgba(212, 175, 55, 0.5)',
+          },
+          '50%': { 
+            boxShadow: '0 0 30px rgba(212, 175, 55, 0.5)',
+            borderColor: 'rgba(212, 175, 55, 0.8)',
+          },
         },
       },
     },

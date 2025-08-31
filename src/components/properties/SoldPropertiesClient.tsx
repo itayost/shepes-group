@@ -1,3 +1,5 @@
+// File: src/components/properties/SoldPropertiesClient.tsx
+
 'use client';
 
 import PropertyGrid from '@/components/properties/PropertyGrid';
@@ -29,12 +31,12 @@ export default function SoldPropertiesClient() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <>
       {/* Hero Section with Statistics */}
       <PropertyHero />
 
       {/* Properties Grid */}
       <PropertyGrid properties={sortedProperties} />
-    </main>
+    </>
   );
 }

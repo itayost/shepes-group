@@ -1,3 +1,5 @@
+// File: src/components/ui/Textarea.tsx
+
 import { cn } from '@/lib/utils';
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 
@@ -13,7 +15,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label 
             htmlFor={id} 
-            className="mb-2 block text-sm font-medium text-gray-700"
+            className="mb-2 block text-sm font-medium text-[#D4AF37]"
           >
             {label}
           </label>
@@ -21,7 +23,13 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea
           id={id}
           className={cn(
-            'flex min-h-[120px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50',
+            'flex min-h-[120px] w-full rounded-md px-3 py-2 text-sm',
+            'bg-[#1a1a1a] text-white border border-[#D4AF37]/30',
+            'placeholder:text-gray-500',
+            'hover:border-[#D4AF37]/50',
+            'focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent',
+            'disabled:cursor-not-allowed disabled:opacity-50',
+            'transition-all duration-200',
             error && 'border-red-500 focus:ring-red-500',
             className
           )}
@@ -29,7 +37,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
         {error && (
-          <p className="mt-1 text-sm text-red-600">{error}</p>
+          <p className="mt-1 text-sm text-red-400">{error}</p>
         )}
       </div>
     );

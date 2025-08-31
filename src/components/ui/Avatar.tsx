@@ -1,3 +1,5 @@
+// File: src/components/ui/Avatar.tsx
+
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
@@ -44,14 +46,14 @@ export default function Avatar({
   return (
     <div className={cn('relative', sizeClasses[size], className)} {...props}>
       {gradient && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-full" />
       )}
       {border && (
-        <div className="absolute inset-1 bg-white rounded-full" />
+        <div className="absolute inset-1 bg-black rounded-full" />
       )}
       <div className={cn(
         'relative w-full h-full rounded-full overflow-hidden',
-        border && 'ring-2 ring-white'
+        border && 'ring-2 ring-[#D4AF37]'
       )}>
         {src ? (
           <Image
@@ -61,18 +63,18 @@ export default function Avatar({
             className="object-cover object-top"
           />
         ) : (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-600">
+          <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20">
             {fallback || alt?.charAt(0).toUpperCase()}
           </div>
         )}
       </div>
       {status && (
         <div className={cn(
-          'absolute bottom-0 right-0 rounded-full ring-2 ring-white',
+          'absolute bottom-0 right-0 rounded-full ring-2 ring-black',
           statusSizeClasses[size],
           {
             'bg-green-500': status === 'online',
-            'bg-gray-400': status === 'offline',
+            'bg-gray-600': status === 'offline',
             'bg-red-500': status === 'busy',
             'bg-yellow-500': status === 'away',
           }

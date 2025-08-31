@@ -1,3 +1,5 @@
+// File: src/app/page.tsx
+
 import CTASection from '@/components/home/CTASection';
 import FeaturedSoldProperties from '@/components/home/FeaturedSoldProperties';
 import HeroSection from '@/components/home/HeroSection';
@@ -13,7 +15,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       {/* Hero Section */}
       <HeroSection />
       

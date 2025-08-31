@@ -1,3 +1,5 @@
+// File: src/app/contact/page.tsx
+
 import ContactFAQ from '@/components/contact/ContactFAQ';
 import ContactForm from '@/components/contact/ContactForm';
 import ContactHero from '@/components/contact/ContactHero';
@@ -12,12 +14,12 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#0a0a0a] to-black">
       {/* Hero Section */}
       <ContactHero />
 
       {/* Contact Info & Form Section */}
-      <section className="py-20">
+      <section className="py-20 bg-black">
         <div className="container">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info - Left Side */}

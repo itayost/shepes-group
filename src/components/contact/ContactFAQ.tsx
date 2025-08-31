@@ -1,3 +1,5 @@
+// File: src/components/contact/ContactFAQ.tsx
+
 'use client';
 
 import Badge from '@/components/ui/Badge';
@@ -34,16 +36,16 @@ const ContactFAQ = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-b from-[#0a0a0a] to-black">
       <div className="container">
         <div className="text-center mb-12">
-          <Badge variant="primary" icon={HelpCircle} className="mb-4">
+          <Badge variant="primary" icon={HelpCircle} className="mb-4 bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">
             שאלות נפוצות
           </Badge>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
             יש לכם שאלות?
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             כאן תמצאו תשובות לשאלות הנפוצות
           </p>
         </div>
@@ -53,18 +55,18 @@ const ContactFAQ = () => {
             <Card 
               key={index}
               variant={openIndex === index ? 'elevated' : 'default'}
-              className="transition-all duration-300"
+              className="transition-all duration-300 bg-[#1a1a1a] border border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
             >
               <CardContent className="p-0">
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full p-6 text-right flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full p-6 text-right flex items-center justify-between hover:bg-[#D4AF37]/5 transition-colors"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-white">
                     {faq.question}
                   </h3>
                   <ChevronDown 
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-[#D4AF37] transition-transform duration-300 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -72,7 +74,7 @@ const ContactFAQ = () => {
                 
                 {openIndex === index && (
                   <div className="px-6 pb-6">
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-400 leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -83,11 +85,15 @@ const ContactFAQ = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-400 mb-4">
             לא מצאתם את התשובה שחיפשתם?
           </p>
           <Link href="#contact-form">
-            <Button variant="primary" icon={Phone}>
+            <Button 
+              variant="primary" 
+              icon={Phone}
+              className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow"
+            >
               צרו איתנו קשר
             </Button>
           </Link>

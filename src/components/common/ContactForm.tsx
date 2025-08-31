@@ -1,3 +1,5 @@
+// File: src/components/common/ContactForm.tsx
+
 'use client';
 
 import Button from '@/components/ui/Button';
@@ -59,10 +61,12 @@ export default function ContactForm() {
 
   return (
     <>
-      <Card className="mx-auto w-full max-w-2xl">
+      <Card className="mx-auto w-full max-w-2xl bg-[#1a1a1a] border-[#D4AF37]/30 shadow-gold">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">צור קשר</CardTitle>
-          <p className="text-center text-gray-600">
+          <CardTitle className="text-center text-2xl bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            צור קשר
+          </CardTitle>
+          <p className="text-center text-gray-400">
             נשמח לשמוע ממך! מלא את הטופס ונחזור אליך בהקדם
           </p>
         </CardHeader>
@@ -126,12 +130,12 @@ export default function ContactForm() {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full"
+                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow font-bold"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
                     שולח...
                   </span>
                 ) : (

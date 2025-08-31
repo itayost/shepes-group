@@ -1,3 +1,5 @@
+// File: src/components/ui/Stat.tsx
+
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 
@@ -34,16 +36,16 @@ export default function Stat({
         'p-4': size === 'sm',
         'p-6': size === 'md',
         'p-8': size === 'lg',
-        'border-r border-gray-200 last:border-r-0': variant === 'bordered',
-        'bg-primary-50 rounded-lg': variant === 'filled',
+        'border-r border-[#D4AF37]/20 last:border-r-0': variant === 'bordered',
+        'bg-[#1a1a1a] rounded-lg border border-[#D4AF37]/20': variant === 'filled',
       },
       className
     )}>
       {Icon && (
         <div className="flex justify-center mb-3">
-          <div className="p-2 bg-primary-100 rounded-lg">
+          <div className="p-2 bg-[#D4AF37]/20 rounded-lg">
             <Icon className={cn(
-              'text-primary-600',
+              'text-[#D4AF37]',
               {
                 'w-4 h-4': size === 'sm',
                 'w-5 h-5': size === 'md',
@@ -54,7 +56,7 @@ export default function Stat({
         </div>
       )}
       <div className={cn(
-        'font-bold text-primary-700',
+        'font-bold text-[#FFD700]',
         {
           'text-lg': size === 'sm',
           'text-xl': size === 'md',
@@ -66,7 +68,7 @@ export default function Stat({
         {suffix}
       </div>
       <div className={cn(
-        'text-gray-600',
+        'text-gray-400',
         {
           'text-xs': size === 'sm',
           'text-sm': size === 'md',
@@ -78,7 +80,7 @@ export default function Stat({
       {trend && (
         <div className={cn(
           'mt-2 text-xs font-medium',
-          trend.isPositive ? 'text-green-600' : 'text-red-600'
+          trend.isPositive ? 'text-green-400' : 'text-red-400'
         )}>
           {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
         </div>

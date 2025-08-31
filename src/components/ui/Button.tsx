@@ -1,3 +1,5 @@
+// File: src/components/ui/Button.tsx
+
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
@@ -29,19 +31,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
           'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2',
-          'focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          'focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 focus-visible:ring-offset-black',
           'disabled:pointer-events-none disabled:opacity-50',
           {
-            // Variants
-            'bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5': 
+            // Variants - Updated for black & gold theme
+            'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
               variant === 'primary',
-            'border border-primary-600 bg-white text-primary-600 hover:bg-primary-50': 
+            'bg-black text-[#D4AF37] border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black hover:shadow-gold': 
               variant === 'secondary',
-            'border border-gray-200 bg-white hover:border-primary-200 hover:bg-gray-50': 
+            'bg-transparent text-[#D4AF37] border-2 border-[#D4AF37]/50 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10': 
               variant === 'outline',
-            'text-gray-700 hover:bg-gray-100 hover:text-gray-900': 
+            'text-gray-400 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]': 
               variant === 'ghost',
-            'bg-gradient-to-r from-primary-500 to-primary-700 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5': 
+            'bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] text-black shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
               variant === 'gradient',
             'bg-red-600 text-white hover:bg-red-700 shadow-lg hover:shadow-xl': 
               variant === 'danger',

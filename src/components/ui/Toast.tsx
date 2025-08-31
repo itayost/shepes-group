@@ -1,3 +1,5 @@
+// File: src/components/ui/Toast.tsx
+
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -55,17 +57,17 @@ export default function Toast({
   };
 
   const styles = {
-    success: 'bg-green-50 text-green-900 border-green-200',
-    error: 'bg-red-50 text-red-900 border-red-200',
-    info: 'bg-blue-50 text-blue-900 border-blue-200',
-    warning: 'bg-yellow-50 text-yellow-900 border-yellow-200',
+    success: 'bg-green-900/20 text-green-400 border-green-400/30',
+    error: 'bg-red-900/20 text-red-400 border-red-400/30',
+    info: 'bg-blue-900/20 text-blue-400 border-blue-400/30',
+    warning: 'bg-yellow-900/20 text-yellow-400 border-yellow-400/30',
   };
 
   const iconStyles = {
-    success: 'text-green-600',
-    error: 'text-red-600',
-    info: 'text-blue-600',
-    warning: 'text-yellow-600',
+    success: 'text-green-400',
+    error: 'text-red-400',
+    info: 'text-blue-400',
+    warning: 'text-yellow-400',
   };
 
   const positions = {
@@ -83,7 +85,8 @@ export default function Toast({
     <div
       className={cn(
         'fixed z-50 flex items-start gap-3 min-w-[320px] max-w-md',
-        'rounded-lg border px-4 py-3 shadow-xl transition-all duration-300',
+        'rounded-lg border px-4 py-3 shadow-xl backdrop-blur-md transition-all duration-300',
+        'bg-black/90',
         styles[type],
         positions[position],
         isExiting ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
@@ -98,7 +101,7 @@ export default function Toast({
         {action && (
           <button
             onClick={action.onClick}
-            className="mt-2 text-xs font-medium underline hover:no-underline"
+            className="mt-2 text-xs font-medium underline hover:no-underline text-[#D4AF37]"
           >
             {action.label}
           </button>
@@ -106,7 +109,7 @@ export default function Toast({
       </div>
       <button
         onClick={handleClose}
-        className="ml-4 rounded-lg p-1 hover:bg-black/5 transition-colors"
+        className="ml-4 rounded-lg p-1 hover:bg-white/10 transition-colors"
       >
         <X className="w-4 h-4" />
       </button>

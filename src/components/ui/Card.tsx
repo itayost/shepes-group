@@ -1,3 +1,5 @@
+// File: src/components/ui/Card.tsx
+
 import { cn } from '@/lib/utils';
 import { HTMLAttributes, forwardRef } from 'react';
 
@@ -11,14 +13,15 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        'bg-white rounded-xl overflow-hidden transition-all duration-300',
+        'rounded-xl overflow-hidden transition-all duration-300',
         {
-          'border border-gray-100 shadow-lg': variant === 'default',
-          'shadow-xl': variant === 'elevated',
-          'bg-gradient-to-b from-gray-50 to-white border border-gray-100': variant === 'gradient',
-          'border-2 border-gray-200': variant === 'outlined',
-          'hover:shadow-xl hover:-translate-y-1': hover && variant === 'default',
-          'hover:shadow-2xl': hover && variant === 'elevated',
+          // Updated for black & gold theme
+          'bg-[#1a1a1a] border border-[#D4AF37]/20 shadow-dark': variant === 'default',
+          'bg-[#1a1a1a] shadow-gold border border-[#D4AF37]/30': variant === 'elevated',
+          'bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20': variant === 'gradient',
+          'bg-black border-2 border-[#D4AF37]/40': variant === 'outlined',
+          'hover:shadow-gold hover:-translate-y-1 hover:border-[#D4AF37]/40': hover && variant === 'default',
+          'hover:shadow-gold-glow': hover && variant === 'elevated',
         },
         className
       )}
@@ -44,7 +47,7 @@ const CardTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingEle
     <h3
       ref={ref}
       className={cn(
-        'text-2xl font-bold text-gray-900 tracking-tight',
+        'text-2xl font-bold text-white tracking-tight',
         className
       )}
       {...props}
@@ -57,7 +60,7 @@ const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLPara
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-sm text-gray-600', className)}
+      className={cn('text-sm text-gray-400', className)}
       {...props}
     />
   )

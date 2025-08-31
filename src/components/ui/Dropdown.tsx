@@ -53,7 +53,7 @@ export default function Dropdown({
         <div
           className={cn(
             'absolute z-50 mt-2 min-w-[200px]',
-            'bg-white rounded-lg shadow-xl border border-gray-100',
+            'bg-[#1a1a1a] rounded-lg shadow-gold border border-[#D4AF37]/20',
             'transition-all duration-200 animate-in fade-in slide-in-from-top-2',
             positionClasses[position]
           )}
@@ -61,7 +61,7 @@ export default function Dropdown({
           <div className="py-2">
             {items.map((item, index) => {
               if (item.divider) {
-                return <div key={index} className="my-2 border-t border-gray-100" />;
+                return <div key={index} className="my-2 border-t border-[#D4AF37]/10" />;
               }
               
               return (
@@ -74,11 +74,11 @@ export default function Dropdown({
                   disabled={item.disabled}
                   className={cn(
                     'w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left',
-                    'hover:bg-gray-50 transition-colors',
+                    'text-gray-300 hover:text-white hover:bg-[#D4AF37]/10 transition-colors',
                     item.disabled && 'opacity-50 cursor-not-allowed'
                   )}
                 >
-                  {item.icon}
+                  {item.icon && <span className="text-[#D4AF37]">{item.icon}</span>}
                   <span>{item.label}</span>
                 </button>
               );

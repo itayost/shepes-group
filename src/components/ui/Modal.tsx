@@ -1,3 +1,5 @@
+// File: src/components/ui/Modal.tsx
+
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -45,14 +47,14 @@ export default function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
         onClick={closeOnOverlayClick ? onClose : undefined}
       />
       
       {/* Modal */}
       <div
         className={cn(
-          'relative bg-white rounded-xl shadow-2xl transition-all duration-300',
+          'relative bg-[#1a1a1a] rounded-xl shadow-gold border border-[#D4AF37]/20 transition-all duration-300',
           'max-h-[90vh] overflow-auto',
           {
             'w-full max-w-sm': size === 'sm',
@@ -66,15 +68,15 @@ export default function Modal({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between p-6 border-b border-gray-100">
+          <div className="flex items-start justify-between p-6 border-b border-[#D4AF37]/20">
             <div>
-              {title && <h3 className="text-2xl font-bold text-gray-900">{title}</h3>}
-              {description && <p className="mt-1 text-sm text-gray-600">{description}</p>}
+              {title && <h3 className="text-2xl font-bold text-[#FFD700]">{title}</h3>}
+              {description && <p className="mt-1 text-sm text-gray-400">{description}</p>}
             </div>
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="ml-auto rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                className="ml-auto rounded-lg p-1.5 text-gray-400 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -83,7 +85,7 @@ export default function Modal({
         )}
         
         {/* Content */}
-        <div className="p-6">{children}</div>
+        <div className="p-6 text-white">{children}</div>
       </div>
     </div>
   );

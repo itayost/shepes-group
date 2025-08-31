@@ -1,3 +1,5 @@
+// File: src/components/ui/Tabs.tsx
+
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -44,9 +46,8 @@ export default function Tabs({
     setActiveTab(tabId);
     onChange?.(tabId);
     
-    // Scroll to top of the tabs section when changing tabs
     if (scrollToTopOnChange && tabsSectionRef.current) {
-      const yOffset = stickyOffset || -80; // Adjust based on header height
+      const yOffset = stickyOffset || -80;
       const element = tabsSectionRef.current;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       
@@ -54,7 +55,6 @@ export default function Tabs({
     }
   };
 
-  // Check scroll position to show/hide gradient indicators
   const checkScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -63,7 +63,6 @@ export default function Tabs({
     }
   };
 
-  // Check if tabs are stuck (for visual feedback)
   useEffect(() => {
     if (!sticky || !stickyContainerRef.current) return;
 
@@ -101,7 +100,6 @@ export default function Tabs({
     return () => window.removeEventListener('resize', checkScroll);
   }, [tabs]);
 
-  // Scroll active tab into view on mobile
   useEffect(() => {
     if (scrollContainerRef.current) {
       const activeButton = scrollContainerRef.current.querySelector(`[data-tab-id="${activeTab}"]`);
@@ -113,57 +111,49 @@ export default function Tabs({
 
   return (
     <div ref={tabsSectionRef} className={cn('w-full', className)}>
-      {/* Sticky Container */}
       <div
         ref={stickyContainerRef}
         className={cn(
           'relative',
           sticky && 'sticky z-40',
           sticky && `top-[${stickyOffset}px]`,
-          // Add shadow when stuck
-          isStuck && 'shadow-md'
+          isStuck && 'shadow-gold'
         )}
         style={sticky ? { top: `${stickyOffset}px` } : undefined}
       >
-        {/* Background for sticky tabs */}
         <div className={cn(
-          'absolute inset-0 bg-white',
-          variant === 'pills' && 'bg-gray-100',
-          sticky && isStuck && 'border-b border-gray-200'
+          'absolute inset-0 bg-black',
+          variant === 'pills' && 'bg-[#1a1a1a]',
+          sticky && isStuck && 'border-b border-[#D4AF37]/20'
         )} />
         
-        {/* Tab List Container with gradient indicators */}
         <div className="relative">
-          {/* Left gradient indicator */}
           {showLeftGradient && (
             <div className={cn(
               'absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none',
-              'bg-gradient-to-r from-white to-transparent',
-              variant === 'pills' && 'from-gray-100'
+              'bg-gradient-to-r from-black to-transparent',
+              variant === 'pills' && 'from-[#1a1a1a]'
             )} />
           )}
 
-          {/* Right gradient indicator */}
           {showRightGradient && (
             <div className={cn(
               'absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none',
-              'bg-gradient-to-l from-white to-transparent',
-              variant === 'pills' && 'from-gray-100'
+              'bg-gradient-to-l from-black to-transparent',
+              variant === 'pills' && 'from-[#1a1a1a]'
             )} />
           )}
 
-          {/* Scrollable Tab List */}
           <div
             ref={scrollContainerRef}
             onScroll={checkScroll}
             className={cn(
               'flex overflow-x-auto scrollbar-hide relative',
               {
-                'border-b border-gray-200': (variant === 'default' || variant === 'underline') && !isStuck,
-                'gap-2 bg-gray-100 p-1 rounded-lg': variant === 'pills',
-                'py-2': sticky && variant !== 'pills', // Add padding for sticky tabs
+                'border-b border-[#D4AF37]/20': (variant === 'default' || variant === 'underline') && !isStuck,
+                'gap-2 bg-[#1a1a1a] p-1 rounded-lg': variant === 'pills',
+                'py-2': sticky && variant !== 'pills',
               },
-              // Hide scrollbar but keep functionality
               'scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]',
               '[&::-webkit-scrollbar]:hidden'
             )}
@@ -175,39 +165,29 @@ export default function Tabs({
                 onClick={() => handleTabChange(tab.id)}
                 className={cn(
                   'flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200',
-                  'whitespace-nowrap flex-shrink-0', // Prevent wrapping and shrinking
+                  'whitespace-nowrap flex-shrink-0',
                   {
-                    // Combined border-b-2 for both default and underline variants
                     'border-b-2': variant === 'default' || variant === 'underline',
                     
-                    // Active tab styles for default variant
-                    'border-primary-600 text-primary-600': variant === 'default' && activeTab === tab.id,
+                    'border-[#D4AF37] text-[#D4AF37]': variant === 'default' && activeTab === tab.id,
+                    'border-[#D4AF37] text-white': variant === 'underline' && activeTab === tab.id,
+                    'border-transparent text-gray-400 hover:text-white': (variant === 'default' || variant === 'underline') && activeTab !== tab.id,
                     
-                    // Active tab styles for underline variant
-                    'border-primary-600 text-gray-900': variant === 'underline' && activeTab === tab.id,
-                    
-                    // Inactive tab styles for default and underline variants (combined)
-                    'border-transparent text-gray-600 hover:text-gray-900': (variant === 'default' || variant === 'underline') && activeTab !== tab.id,
-                    
-                    // Pills variant
                     'rounded-lg': variant === 'pills',
-                    'bg-white shadow-sm text-gray-900': variant === 'pills' && activeTab === tab.id,
-                    'text-gray-600 hover:text-gray-900': variant === 'pills' && activeTab !== tab.id,
+                    'bg-black shadow-gold text-[#D4AF37]': variant === 'pills' && activeTab === tab.id,
+                    'text-gray-400 hover:text-white': variant === 'pills' && activeTab !== tab.id,
                     
-                    // Margin adjustments
                     '-mb-px': (variant === 'default' || variant === 'underline') && !sticky,
                     'mb-[-2px]': (variant === 'default' || variant === 'underline') && sticky,
                   }
                 )}
               >
                 {tab.icon}
-                <span className={cn(
-                  'text-sm md:text-base', // Responsive text size
-                )}>
+                <span className={cn('text-sm md:text-base')}>
                   {tab.label}
                 </span>
                 {tab.badge && (
-                  <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary-100 text-primary-700 rounded-full">
+                  <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-[#D4AF37]/20 text-[#D4AF37] rounded-full">
                     {tab.badge}
                   </span>
                 )}
@@ -217,11 +197,7 @@ export default function Tabs({
         </div>
       </div>
       
-      {/* Tab Panel */}
-      <div className={cn(
-        'mt-6',
-        sticky && 'min-h-[600px]' // Ensure content area has minimum height for scrolling
-      )}>
+      <div className={cn('mt-6', sticky && 'min-h-[600px]')}>
         {tabs.find((tab) => tab.id === activeTab)?.content}
       </div>
     </div>

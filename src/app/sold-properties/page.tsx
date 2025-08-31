@@ -1,3 +1,5 @@
+// File: src/app/sold-properties/page.tsx
+
 import SoldPropertiesClient from '@/components/properties/SoldPropertiesClient';
 import { SITE_CONFIG } from '@/lib/constants';
 
@@ -7,5 +9,9 @@ export const metadata = {
 };
 
 export default function SoldPropertiesPage() {
-  return <SoldPropertiesClient />;
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+      <SoldPropertiesClient />
+    </main>
+  );
 }

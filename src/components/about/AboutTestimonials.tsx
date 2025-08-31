@@ -1,3 +1,5 @@
+// File: src/components/about/AboutTestimonials.tsx
+
 'use client';
 
 import Avatar from '@/components/ui/Avatar';
@@ -23,28 +25,28 @@ const AboutTestimonials = () => {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-[#0a0a0a]">
       <div className="container">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <Badge variant="primary" icon={Star} className="mb-4">
+          <Badge variant="primary" icon={Star} className="mb-4 bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]">
             המלצות לקוחות
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
             מה הלקוחות שלנו אומרים
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             עשרות משפחות מרוצות שמצאו את הבית המושלם
           </p>
         </div>
         
         {/* Testimonial Card */}
         <div className="max-w-4xl mx-auto">
-          <Card variant="elevated" className="relative">
+          <Card variant="elevated" className="relative bg-[#1a1a1a] border border-[#D4AF37]/30 shadow-gold">
             <CardContent className="p-8 md:p-12">
               {/* Quote Icon */}
               <div className="absolute top-6 right-6">
-                <Quote className="w-12 h-12 text-primary-100" />
+                <Quote className="w-12 h-12 text-[#D4AF37]/30" />
               </div>
               
               {/* Rating */}
@@ -52,13 +54,13 @@ const AboutTestimonials = () => {
                 {[...Array(current.rating)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className="w-6 h-6 text-yellow-400 fill-yellow-400"
+                    className="w-6 h-6 text-[#FFD700] fill-[#FFD700]"
                   />
                 ))}
               </div>
               
               {/* Content */}
-              <blockquote className="text-xl text-gray-700 text-center mb-8 leading-relaxed">
+              <blockquote className="text-xl text-gray-200 text-center mb-8 leading-relaxed">
                 {`"${current.content}"`}
               </blockquote>
               
@@ -68,11 +70,12 @@ const AboutTestimonials = () => {
                   size="lg"
                   fallback={current.name[0]}
                   border
+                  className="border-[#D4AF37] bg-[#D4AF37]/10 text-[#D4AF37]"
                 />
                 <div>
-                  <p className="font-bold text-lg text-gray-900">{current.name}</p>
-                  <p className="text-gray-600">{current.type}</p>
-                  <Badge variant="outline" size="sm" className="mt-1">
+                  <p className="font-bold text-lg text-[#FFD700]">{current.name}</p>
+                  <p className="text-gray-400">{current.type}</p>
+                  <Badge variant="outline" size="sm" className="mt-1 border-[#D4AF37]/50 text-[#D4AF37] bg-[#D4AF37]/10">
                     עבדו עם: {current.agent}
                   </Badge>
                 </div>
@@ -85,7 +88,7 @@ const AboutTestimonials = () => {
                   size="sm"
                   icon={ChevronRight}
                   onClick={prevTestimonial}
-                  className="rounded-full"
+                  className="rounded-full text-[#D4AF37] hover:bg-[#D4AF37]/20"
                 />
                 
                 {/* Dots */}
@@ -94,10 +97,10 @@ const AboutTestimonials = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      className={`h-2 rounded-full transition-all duration-300 ${
                         index === currentIndex 
-                          ? 'w-8 bg-primary-600' 
-                          : 'bg-gray-300 hover:bg-gray-400'
+                          ? 'w-8 bg-gradient-to-r from-[#D4AF37] to-[#FFD700]' 
+                          : 'w-2 bg-gray-600 hover:bg-gray-500'
                       }`}
                     />
                   ))}
@@ -108,7 +111,7 @@ const AboutTestimonials = () => {
                   size="sm"
                   icon={ChevronLeft}
                   onClick={nextTestimonial}
-                  className="rounded-full"
+                  className="rounded-full text-[#D4AF37] hover:bg-[#D4AF37]/20"
                 />
               </div>
             </CardContent>

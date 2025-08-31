@@ -1,3 +1,5 @@
+// File: src/components/ui/Badge.tsx
+
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 import { HTMLAttributes } from 'react';
@@ -25,14 +27,14 @@ export default function Badge({
       className={cn(
         'inline-flex items-center gap-1 font-medium transition-all duration-200',
         {
-          // Variants
-          'bg-gray-100 text-gray-700': variant === 'default',
-          'bg-primary-100 text-primary-700 border border-primary-200': variant === 'primary',
-          'bg-gray-900 text-white': variant === 'secondary',
-          'bg-green-100 text-green-700 border border-green-200': variant === 'success',
-          'bg-yellow-50 text-yellow-700 border border-yellow-200': variant === 'warning',
-          'bg-red-100 text-red-700 border border-red-200': variant === 'danger',
-          'bg-white border-2 border-primary-200 text-primary-700': variant === 'outline',
+          // Variants - Updated for black & gold theme
+          'bg-[#1a1a1a] text-gray-300 border border-[#D4AF37]/20': variant === 'default',
+          'bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30': variant === 'primary',
+          'bg-black text-[#FFD700] border border-[#D4AF37]/50': variant === 'secondary',
+          'bg-green-900/20 text-green-400 border border-green-400/30': variant === 'success',
+          'bg-yellow-900/20 text-yellow-400 border border-yellow-400/30': variant === 'warning',
+          'bg-red-900/20 text-red-400 border border-red-400/30': variant === 'danger',
+          'bg-transparent border-2 border-[#D4AF37]/50 text-[#D4AF37]': variant === 'outline',
           
           // Sizes
           'px-2 py-0.5 text-xs': size === 'xs',
@@ -53,12 +55,12 @@ export default function Badge({
         <span className={cn(
           'w-1.5 h-1.5 rounded-full',
           {
-            'bg-gray-600': variant === 'default',
-            'bg-primary-600': variant === 'primary',
-            'bg-white': variant === 'secondary',
-            'bg-green-600': variant === 'success',
-            'bg-yellow-600': variant === 'warning',
-            'bg-red-600': variant === 'danger',
+            'bg-gray-400': variant === 'default',
+            'bg-[#D4AF37]': variant === 'primary',
+            'bg-[#FFD700]': variant === 'secondary',
+            'bg-green-400': variant === 'success',
+            'bg-yellow-400': variant === 'warning',
+            'bg-red-400': variant === 'danger',
           }
         )} />
       )}

@@ -1,3 +1,5 @@
+// File: src/components/ui/Progress.tsx
+
 import { cn } from '@/lib/utils';
 
 export interface ProgressProps {
@@ -24,31 +26,31 @@ export default function Progress({
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
   const colorClasses = {
-    primary: 'bg-primary-600',
-    success: 'bg-green-600',
-    warning: 'bg-yellow-500',
-    danger: 'bg-red-600',
+    primary: 'bg-[#D4AF37]',
+    success: 'bg-green-400',
+    warning: 'bg-yellow-400',
+    danger: 'bg-red-400',
   };
 
   const gradientClasses = {
-    primary: 'bg-gradient-to-r from-primary-500 to-primary-700',
-    success: 'bg-gradient-to-r from-green-500 to-green-700',
-    warning: 'bg-gradient-to-r from-yellow-400 to-yellow-600',
-    danger: 'bg-gradient-to-r from-red-500 to-red-700',
+    primary: 'bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700]',
+    success: 'bg-gradient-to-r from-green-600 to-green-400',
+    warning: 'bg-gradient-to-r from-yellow-600 to-yellow-400',
+    danger: 'bg-gradient-to-r from-red-600 to-red-400',
   };
 
   return (
     <div className={cn('w-full', className)}>
       {(label || showValue) && (
         <div className="flex justify-between items-center mb-2">
-          {label && <span className="text-sm font-medium text-gray-700">{label}</span>}
+          {label && <span className="text-sm font-medium text-[#D4AF37]">{label}</span>}
           {showValue && (
-            <span className="text-sm font-medium text-gray-900">{percentage.toFixed(0)}%</span>
+            <span className="text-sm font-medium text-white">{percentage.toFixed(0)}%</span>
           )}
         </div>
       )}
       <div className={cn(
-        'w-full bg-gray-200 rounded-full overflow-hidden',
+        'w-full bg-[#0a0a0a] rounded-full overflow-hidden border border-[#D4AF37]/20',
         {
           'h-1': size === 'xs',
           'h-2': size === 'sm',
