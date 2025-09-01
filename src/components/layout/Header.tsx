@@ -137,7 +137,7 @@ const Header = () => {
       {/* Mobile Menu Side Panel */}
       <div 
         className={cn(
-          'fixed top-0 right-0 h-full w-[85%] max-w-sm bg-black shadow-gold-lg z-50',
+          'fixed top-0 right-0 h-full w-[85%] max-w-sm bg-black z-50',
           'transform transition-transform duration-300 ease-out lg:hidden',
           'border-l border-[#D4AF37]/30',
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
