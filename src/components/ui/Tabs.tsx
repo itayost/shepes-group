@@ -41,8 +41,10 @@ export default function Tabs({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabsSectionRef = useRef<HTMLDivElement>(null);
   const stickyContainerRef = useRef<HTMLDivElement>(null);
+  const hasUserInteracted = useRef(false);
 
   const handleTabChange = (tabId: string) => {
+    hasUserInteracted.current = true;
     setActiveTab(tabId);
     onChange?.(tabId);
     
@@ -100,7 +102,11 @@ export default function Tabs({
     return () => window.removeEventListener('resize', checkScroll);
   }, [tabs]);
 
+  // Only scroll active tab into view if user has interacted with tabs
   useEffect(() => {
+    // Never scroll on mount or without user interaction
+    if (!hasUserInteracted.current) return;
+
     if (scrollContainerRef.current) {
       const activeButton = scrollContainerRef.current.querySelector(`[data-tab-id="${activeTab}"]`);
       if (activeButton) {
@@ -109,6 +115,27 @@ export default function Tabs({
     }
   }, [activeTab]);
 
+  // Prevent any scroll on mount
+  useEffect(() => {
+    const initialScrollY = window.scrollY;
+    
+    // Restore scroll position if it changes unexpectedly
+    const preventScroll = () => {
+      if (!hasUserInteracted.current && window.scrollY !== initialScrollY) {
+        window.scrollTo(0, initialScrollY);
+      }
+    };
+
+    // Use a small delay to catch any async scroll attempts
+    const timeouts = [
+      setTimeout(preventScroll, 0),
+      setTimeout(preventScroll, 50),
+      setTimeout(preventScroll, 100),
+    ];
+
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
+
   return (
     <div ref={tabsSectionRef} className={cn('w-full', className)}>
       <div
@@ -116,7 +143,6 @@ export default function Tabs({
         className={cn(
           'relative',
           sticky && 'sticky z-40',
-          sticky && `top-[${stickyOffset}px]`,
           isStuck && 'shadow-gold'
         )}
         style={sticky ? { top: `${stickyOffset}px` } : undefined}

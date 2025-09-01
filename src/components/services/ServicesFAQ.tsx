@@ -3,135 +3,161 @@
 'use client';
 
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
-import { ChevronDown, HelpCircle, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import {
+  ChevronDown,
+  HelpCircle,
+  Sparkles
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
-const faqs = [
+const faqData = [
   {
     question: 'כמה זמן לוקח למכור נכס?',
-    answer: 'בממוצע, אנחנו מוכרים נכסים תוך 21 ימים. הזמן המדויק תלוי במיקום, מחיר ומצב הנכס.',
-    category: 'selling'
+    answer: 'בממוצע, הנכסים שלנו נמכרים תוך 21 ימים בלבד. הזמן תלוי במיקום, מחיר ומצב הנכס.'
   },
   {
     question: 'מה כולל השירות של ליווי בקנייה?',
-    answer: 'ליווי מלא החל מחיפוש הנכס, בדיקות, משא ומתן, ליווי משפטי ועד קבלת המפתחות.',
-    category: 'buying'
+    answer: 'ליווי מלא החל מחיפוש הנכס, בדיקות, משא ומתן, ליווי משפטי ועד קבלת המפתחות.'
   },
   {
     question: 'האם הערכת השווי בחינם?',
-    answer: 'כן, אנו מציעים הערכת שווי חינם ללא התחייבות לכל לקוחותינו.',
-    category: 'valuation'
+    answer: 'כן! אנו מציעים הערכת שווי מקצועית וחינמית ללא כל התחייבות.'
   },
   {
     question: 'איך אתם קובעים את עמלת התיווך?',
-    answer: 'העמלה נקבעת על פי חוק התיווך במקרקעין ובהתאם לסוג ושווי הנכס.',
-    category: 'general'
+    answer: 'העמלה נקבעת על פי חוק - 2% מסכום העסקה בתוספת מע"מ.'
   },
   {
-    question: 'מה ההבדל בין השכרה רגילה להשכרה מנוהלת?',
-    answer: 'בהשכרה מנוהלת אנו דואגים לכל - מציאת שוכרים, גביית שכירות, תחזוקה וטיפול בתקלות.',
-    category: 'rental'
+    question: 'מה ההבדל בין השכרה רגילה למנוהלת?',
+    answer: 'בהשכרה מנוהלת אנו דואגים לכל - מציאת שוכרים, גביית שכירות, תחזוקה וטיפול בתקלות.'
   },
   {
-    question: 'האם אתם עובדים גם מחוץ לחיפה?',
-    answer: 'כן, אנו פועלים בכל אזור הצפון - חיפה, קריות, עכו, נהריה וכל היישובים בסביבה.',
-    category: 'general'
+    question: 'האם אתם עובדים מחוץ לחיפה?',
+    answer: 'כן! אנו פועלים בכל אזור הצפון - חיפה, קריות, עכו, נהריה וכל היישובים בסביבה.'
   }
 ];
 
 const ServicesFAQ = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  // Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-[#0a0a0a]">
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <Badge variant="primary" icon={HelpCircle} className="mb-4 bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">
-            שאלות נפוצות
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
-            יש לכם שאלות? יש לנו תשובות
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            ריכזנו עבורכם את השאלות הנפוצות ביותר
-          </p>
-        </div>
-
-        {/* FAQ List */}
-        <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <Card 
-              key={index}
-              variant={openIndex === index ? 'elevated' : 'default'}
-              className="transition-all duration-300 bg-[#1a1a1a] border border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+    <section 
+      ref={sectionRef}
+      className="relative py-16 md:py-24 bg-gradient-to-b from-[#0a0a0a] to-black overflow-hidden"
+    >
+      {/* Simple background accent */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      
+      <div className="container relative">
+        <div className="max-w-3xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <Badge 
+              variant="outline" 
+              className={cn(
+                "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
             >
-              <CardContent className="p-0">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-[#D4AF37]/5 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-sm font-bold text-[#D4AF37]">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <ChevronDown 
-                    className={`w-5 h-5 text-[#D4AF37] transition-transform duration-300 ${
-                      openIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                
-                {openIndex === index && (
-                  <div className="px-6 pb-6">
-                    <div className="pr-12">
-                      <p className="text-gray-400 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                      <Badge 
-                        variant="outline" 
-                        size="sm" 
-                        className="mt-3 border-[#D4AF37]/30 text-[#D4AF37] bg-[#D4AF37]/10"
-                      >
-                        {faq.category === 'selling' && 'מכירה'}
-                        {faq.category === 'buying' && 'קנייה'}
-                        {faq.category === 'rental' && 'השכרה'}
-                        {faq.category === 'valuation' && 'הערכת שווי'}
-                        {faq.category === 'general' && 'כללי'}
-                      </Badge>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              <Sparkles className="w-3 h-3 ml-1" />
+              שאלות נפוצות
+            </Badge>
+            
+            <h2 className={cn(
+              "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
+              <span className="text-white">יש לכם </span>
+              <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+                שאלות?
+              </span>
+            </h2>
+            
+            <p className={cn(
+              "text-lg md:text-xl text-gray-300 transition-all duration-700 delay-200",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
+              התשובות לשאלות הנפוצות ביותר
+            </p>
+          </div>
 
-        {/* Contact CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-400 mb-4">
-            לא מצאתם תשובה לשאלה שלכם?
-          </p>
-          <Button 
-            variant="primary" 
-            size="lg" 
-            icon={Phone}
-            className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow"
-          >
-            דברו איתנו
-          </Button>
+          {/* FAQ Items */}
+          <div className="space-y-4">
+            {faqData.map((item, index) => {
+              const isActive = activeIndex === index;
+              
+              return (
+                <div
+                  key={index}
+                  className={cn(
+                    "bg-[#1a1a1a] border rounded-xl transition-all duration-500",
+                    isActive 
+                      ? "border-[#D4AF37] shadow-gold" 
+                      : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40",
+                    isVisible 
+                      ? "opacity-100 translate-y-0" 
+                      : "opacity-0 translate-y-4"
+                  )}
+                  style={{
+                    transitionDelay: isVisible ? `${300 + index * 50}ms` : '0ms'
+                  }}
+                >
+                  <button
+                    onClick={() => setActiveIndex(isActive ? null : index)}
+                    className="w-full p-4 md:p-6 flex items-center justify-between text-right"
+                  >
+                    <div className="flex items-center gap-4">
+                      <HelpCircle className={cn(
+                        "w-5 h-5",
+                        isActive ? "text-[#D4AF37]" : "text-gray-500"
+                      )} />
+                      <h3 className={cn(
+                        "text-lg font-bold transition-colors",
+                        isActive ? "text-[#FFD700]" : "text-white"
+                      )}>
+                        {item.question}
+                      </h3>
+                    </div>
+                    <ChevronDown className={cn(
+                      "w-5 h-5 transition-transform duration-300",
+                      isActive ? "rotate-180 text-[#D4AF37]" : "text-gray-500"
+                    )} />
+                  </button>
+                  
+                  {/* Answer */}
+                  <div className={cn(
+                    "overflow-hidden transition-all duration-500",
+                    isActive ? "max-h-40" : "max-h-0"
+                  )}>
+                    <p className="px-4 md:px-6 pb-4 md:pb-6 text-gray-300">
+                      {item.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

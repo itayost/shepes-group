@@ -2,18 +2,47 @@
 
 'use client';
 
-import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
 import { getHomePageTestimonials } from '@/data/testimonials';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
-import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  MapPin,
+  Quote,
+  Star
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const Testimonials = () => {
   const testimonials = getHomePageTestimonials();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
+  // Intersection Observer for fade-in animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Navigation functions
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
@@ -22,100 +51,375 @@ const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const current = testimonials[currentIndex];
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    // RTL: Swipe right-to-left goes next, left-to-right goes previous
+    if (isLeftSwipe) {
+      nextTestimonial();
+    }
+    if (isRightSwipe) {
+      prevTestimonial();
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') nextTestimonial();
+      if (e.key === 'ArrowRight') prevTestimonial();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-[#0a0a0a]">
-      <div className="container">
+    <section 
+      ref={sectionRef}
+      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+    >
+      {/* Background accent */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      
+      <div className="container relative">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <Badge variant="primary" icon={Star} className="mb-4 bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]">
+        <div className="text-center mb-12 md:mb-16">
+          <Badge 
+            variant="outline" 
+            className={cn(
+              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+          >
             המלצות לקוחות
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
-            מה הלקוחות שלנו אומרים
+          
+          <h2 className={cn(
+            "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
+            <span className="text-white">מה </span>
+            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+              הלקוחות שלנו
+            </span>
+            <span className="text-white"> אומרים</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          
+          <p className={cn(
+            "text-lg md:text-xl text-gray-300 max-w-2xl mx-auto transition-all duration-700 delay-200",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
             עשרות משפחות מרוצות שמצאו את הבית המושלם
           </p>
         </div>
-        
-        {/* Testimonial Card */}
-        <div className="max-w-4xl mx-auto">
-          <Card variant="elevated" className="relative bg-[#1a1a1a] border border-[#D4AF37]/30 shadow-gold">
-            <CardContent className="p-8 md:p-12">
-              {/* Quote Icon */}
-              <div className="absolute top-6 right-6">
-                <Quote className="w-12 h-12 text-[#D4AF37]/30" />
-              </div>
-              
-              {/* Rating */}
-              <div className="flex justify-center mb-6">
-                {[...Array(current.rating)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className="w-6 h-6 text-[#FFD700] fill-[#FFD700]"
-                  />
-                ))}
-              </div>
-              
-              {/* Content */}
-              <blockquote className="text-xl text-gray-200 text-center mb-8 leading-relaxed">
-                {`"${current.content}"`}
-              </blockquote>
-              
-              {/* Author */}
-              <div className="flex items-center justify-center gap-4">
-                <Avatar 
-                  size="lg"
-                  fallback={current.name[0]}
-                  border
-                  className="border-[#D4AF37] bg-[#D4AF37]/10 text-[#D4AF37]"
-                />
-                <div>
-                  <p className="font-bold text-lg text-[#FFD700]">{current.name}</p>
-                  <p className="text-gray-400">{current.type}</p>
-                  <Badge variant="outline" size="sm" className="mt-1 border-[#D4AF37]/50 text-[#D4AF37] bg-[#D4AF37]/10">
-                    עבדו עם: {current.agent}
-                  </Badge>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div 
+            className="relative mx-4"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* Single Testimonial Display - Show one at a time */}
+            <div className="bg-[#1a1a1a] border border-[#D4AF37]/30 rounded-2xl p-6">
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial.id}
+                  className={cn(
+                    "transition-opacity duration-300",
+                    currentIndex === index ? "block" : "hidden"
+                  )}
+                >
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className="w-4 h-4 text-[#FFD700] fill-[#FFD700]"
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Quote */}
+                  <div className="relative mb-6">
+                    <Quote className="absolute -top-2 -right-2 w-8 h-8 text-[#D4AF37]/20" />
+                    <p className="text-gray-200 leading-relaxed pr-6">
+                      {testimonial.content}
+                    </p>
+                  </div>
+                  
+                  {/* Property Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {testimonial.propertyType && (
+                      <Badge 
+                        variant="outline" 
+                        size="sm"
+                        className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                      >
+                        <Home className="w-3 h-3 ml-1" />
+                        {testimonial.propertyType}
+                      </Badge>
+                    )}
+                    {testimonial.neighborhood && (
+                      <Badge 
+                        variant="outline" 
+                        size="sm"
+                        className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                      >
+                        <MapPin className="w-3 h-3 ml-1" />
+                        {testimonial.neighborhood}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  {/* Author */}
+                  <div className="flex items-center justify-between border-t border-[#D4AF37]/20 pt-4">
+                    <div>
+                      <p className="font-bold text-[#FFD700]">{testimonial.name}</p>
+                      <p className="text-sm text-gray-400">{testimonial.type}</p>
+                    </div>
+                    <Badge 
+                      variant="outline" 
+                      size="sm"
+                      className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                    >
+                      {testimonial.agent}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+            
+            {/* Navigation Dots */}
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={cn(
+                    "h-2 rounded-full transition-all duration-300",
+                    index === currentIndex 
+                      ? "w-8 bg-gradient-to-r from-[#D4AF37] to-[#FFD700]" 
+                      : "w-2 bg-gray-600"
+                  )}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+            
+            {/* Swipe Hint */}
+            <p className="text-center text-xs text-gray-500 mt-4 flex items-center justify-center gap-2">
+              <ChevronRight className="w-3 h-3" />
+              <span>החליקו לצדדים לעוד המלצות</span>
+              <ChevronLeft className="w-3 h-3" />
+            </p>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:block">
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {testimonials.slice(0, 4).map((testimonial, index) => {
+              const isLarge = index === 0 || index === 3;
               
-              {/* Navigation */}
-              <div className="flex justify-center gap-4 mt-8">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  icon={ChevronRight}
-                  onClick={prevTestimonial}
-                  className="rounded-full text-[#D4AF37] hover:bg-[#D4AF37]/20"
-                />
-                
-                {/* Dots */}
-                <div className="flex items-center gap-2">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentIndex(index)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        index === currentIndex 
-                          ? 'w-8 bg-gradient-to-r from-[#D4AF37] to-[#FFD700]' 
-                          : 'w-2 bg-gray-600 hover:bg-gray-500'
-                      }`}
-                    />
-                  ))}
+              return (
+                <div
+                  key={testimonial.id}
+                  className={cn(
+                    "bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl",
+                    "hover:border-[#D4AF37]/40 hover:shadow-lg",
+                    "transition-all duration-500",
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+                    isLarge && "md:col-span-2"
+                  )}
+                  style={{
+                    transitionDelay: isVisible ? `${300 + index * 100}ms` : '0ms'
+                  }}
+                >
+                  {/* Large Card Layout */}
+                  {isLarge ? (
+                    <div className="p-8 h-full flex flex-col">
+                      {/* Top Section with Author and Rating */}
+                      <div className="flex justify-between items-start mb-6">
+                        {/* Author Info */}
+                        <div className="flex items-center gap-4">
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/20 flex items-center justify-center">
+                            <span className="text-xl font-bold text-[#D4AF37]">
+                              {testimonial.name[0]}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="text-lg font-bold text-[#FFD700]">
+                              {testimonial.name}
+                            </p>
+                            <p className="text-sm text-gray-400">{testimonial.type}</p>
+                          </div>
+                        </div>
+                        
+                        {/* Agent Badge */}
+                        <Badge 
+                          variant="outline" 
+                          className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                        >
+                          {testimonial.agent}
+                        </Badge>
+                      </div>
+                      
+                      {/* Rating */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className="w-5 h-5 text-[#FFD700] fill-[#FFD700]"
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Quote - Takes up main space */}
+                      <div className="relative flex-1 mb-6">
+                        <Quote className="absolute -top-2 -right-2 w-12 h-12 text-[#D4AF37]/20" />
+                        <p className="text-lg text-gray-200 leading-relaxed pr-10">
+                          {testimonial.content}
+                        </p>
+                      </div>
+                      
+                      {/* Property Tags - Bottom */}
+                      <div className="flex flex-wrap gap-2 pt-6 border-t border-[#D4AF37]/20">
+                        {testimonial.propertyType && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                          >
+                            <Home className="w-3 h-3 ml-1" />
+                            {testimonial.propertyType}
+                          </Badge>
+                        )}
+                        {testimonial.neighborhood && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                          >
+                            <MapPin className="w-3 h-3 ml-1" />
+                            {testimonial.neighborhood}
+                          </Badge>
+                        )}
+                        {testimonial.date && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                          >
+                            <Calendar className="w-3 h-3 ml-1" />
+                            {new Date(testimonial.date).toLocaleDateString('he-IL', { 
+                              month: 'short', 
+                              year: 'numeric' 
+                            })}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    /* Regular Card Layout */
+                    <div className="p-6 h-full flex flex-col">
+                      {/* Rating */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className="w-4 h-4 text-[#FFD700] fill-[#FFD700]"
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Quote */}
+                      <div className="relative flex-1 mb-6">
+                        <Quote className="absolute -top-2 -right-2 w-8 h-8 text-[#D4AF37]/20" />
+                        <p className="text-gray-200 leading-relaxed pr-8">
+                          {testimonial.content}
+                        </p>
+                      </div>
+                      
+                      {/* Property Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {testimonial.propertyType && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                          >
+                            <Home className="w-3 h-3 ml-1" />
+                            {testimonial.propertyType}
+                          </Badge>
+                        )}
+                        {testimonial.neighborhood && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                          >
+                            <MapPin className="w-3 h-3 ml-1" />
+                            {testimonial.neighborhood}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      {/* Author */}
+                      <div className="flex items-center justify-between border-t border-[#D4AF37]/20 pt-4">
+                        <div>
+                          <p className="font-bold text-[#FFD700]">{testimonial.name}</p>
+                          <p className="text-sm text-gray-400">{testimonial.type}</p>
+                        </div>
+                        <Badge 
+                          variant="outline" 
+                          size="sm"
+                          className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                        >
+                          {testimonial.agent}
+                        </Badge>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  icon={ChevronLeft}
-                  onClick={nextTestimonial}
-                  className="rounded-full text-[#D4AF37] hover:bg-[#D4AF37]/20"
-                />
-              </div>
-            </CardContent>
-          </Card>
+              );
+            })}
+          </div>
+          
+          {/* Desktop Navigation (if more than 4 testimonials) */}
+          {testimonials.length > 4 && (
+            <div className="flex justify-center gap-4 mt-8">
+              <button
+                onClick={prevTestimonial}
+                className="p-2 rounded-full bg-[#1a1a1a] border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all"
+                aria-label="Previous testimonial"
+              >
+                <ChevronRight className="w-5 h-5 text-[#D4AF37]" />
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="p-2 rounded-full bg-[#1a1a1a] border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all"
+                aria-label="Next testimonial"
+              >
+                <ChevronLeft className="w-5 h-5 text-[#D4AF37]" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

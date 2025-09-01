@@ -5,7 +5,8 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
   title: 'נכסים שמכרנו | ' + SITE_CONFIG.name,
-  description: 'גלריית נכסים שמכרנו בהצלחה בחיפה והצפון - עשרות משפחות מרוצות שמצאו את הבית המושלם',
+  description: 'גלריית נכסים שמכרנו בהצלחה בחיפה והצפון - 150+ עסקאות מוצלחות, 98% שביעות רצון',
+  keywords: ['נכסים למכירה', 'דירות שנמכרו', 'הצלחות', 'שפס נדל"ן', 'חיפה', 'נדל"ן'],
 };
 
 export default function SoldPropertiesPage() {

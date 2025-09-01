@@ -8,27 +8,22 @@ import { soldProperties } from '@/data/soldProperties';
 import { useState } from 'react';
 
 export default function SoldPropertiesClient() {
-  const [sortBy, setSortBy] = useState<string>('date');
+  const [sortBy, setSortBy] = useState<string>('date-desc');
+  const [filterType, setFilterType] = useState<string>('all');
+  const [filterNeighborhood, setFilterNeighborhood] = useState<string>('all');
 
-  // Sort properties
-  const sortedProperties = [...soldProperties].sort((a, b) => {
-    switch (sortBy) {
-      case 'date':
-        return b.soldDate.localeCompare(a.soldDate);
-      case 'price-high':
-        return b.soldPrice - a.soldPrice;
-      case 'price-low':
-        return a.soldPrice - b.soldPrice;
-      case 'days-fast':
-        return a.daysOnMarket - b.daysOnMarket;
-      case 'days-slow':
-        return b.daysOnMarket - a.daysOnMarket;
-      case 'performance':
-        return (b.soldPrice / b.askingPrice) - (a.soldPrice / a.askingPrice);
-      default:
-        return 0;
-    }
-  });
+  // Filter properties
+  let filteredProperties = [...soldProperties];
+  
+  // Apply type filter
+  if (filterType !== 'all') {
+    filteredProperties = filteredProperties.filter(p => p.type === filterType);
+  }
+  
+  // Apply neighborhood filter
+  if (filterNeighborhood !== 'all') {
+    filteredProperties = filteredProperties.filter(p => p.neighborhood === filterNeighborhood);
+  }
 
   return (
     <>
@@ -36,7 +31,7 @@ export default function SoldPropertiesClient() {
       <PropertyHero />
 
       {/* Properties Grid */}
-      <PropertyGrid properties={sortedProperties} />
+      <PropertyGrid properties={filteredProperties} />
     </>
   );
 }

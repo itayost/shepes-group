@@ -1,233 +1,421 @@
+// File: src/components/contact/ContactForm.tsx
+
 'use client';
 
-import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import Input from '@/components/ui/Input';
-import Progress from '@/components/ui/Progress';
-import Textarea from '@/components/ui/Textarea';
-import Toast from '@/components/ui/Toast';
+import { Card, CardContent } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 import { ContactFormData, contactFormSchema } from '@/lib/validations';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckCircle, Mail, MessageSquare, Phone, Send, User } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import {
+  AlertCircle,
+  CheckCircle,
+  Loader2,
+  Mail,
+  MessageSquare,
+  Phone,
+  Send,
+  Sparkles,
+  User
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const ContactForm = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [toast, setToast] = useState<{
-    message: string;
-    description?: string;
-    type: 'success' | 'error';
-  } | null>(null);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isValid },
-    watch,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-    mode: 'onChange',
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
   });
+  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isVisible, setIsVisible] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Watch form completeness
-  const formValues = watch();
-  const completionPercentage = Object.keys(formValues).filter(
-    key => formValues[key as keyof ContactFormData]
-  ).length * 20; // 5 fields = 20% each
+  // Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Handle input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  // Validate form
+  const validateForm = (): boolean => {
+    try {
+      contactFormSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error: any) {
+      const fieldErrors: Partial<ContactFormData> = {};
+      error.errors?.forEach((err: any) => {
+        const field = err.path[0];
+        fieldErrors[field as keyof ContactFormData] = err.message;
+      });
+      setErrors(fieldErrors);
+      return false;
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     
+    if (!validateForm()) {
+      // Shake animation for form
+      formRef.current?.classList.add('animate-shake');
+      setTimeout(() => formRef.current?.classList.remove('animate-shake'), 500);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
+      if (!response.ok) throw new Error('Failed to send message');
 
-      if (response.ok) {
-        setIsSuccess(true);
-        setToast({
-          message: 'ההודעה נשלחה בהצלחה!',
-          description: 'נחזור אליך בהקדם האפשרי',
-          type: 'success',
-        });
-        reset();
-        setTimeout(() => setIsSuccess(false), 5000);
-      } else {
-        throw new Error(result.error || 'שגיאה בשליחת ההודעה');
-      }
+      setSubmitStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } catch (error) {
-      setToast({
-        message: 'שגיאה בשליחת ההודעה',
-        description: 'אנא נסו שוב או צרו קשר טלפוני',
-        type: 'error',
-      });
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+      // Reset error message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSuccess) {
-    return (
-      <Card variant="elevated" className="text-center py-12">
-        <CardContent>
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
-            <CheckCircle className="w-10 h-10 text-green-600" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
-            תודה על פנייתך!
-          </h3>
-          <p className="text-gray-600 mb-6">
-            קיבלנו את הודעתך ונחזור אליך בהקדם האפשרי
-          </p>
-          <Button 
-            variant="outline" 
-            onClick={() => setIsSuccess(false)}
-          >
-            שלח הודעה נוספת
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Quick subject suggestions
+  const subjectSuggestions = [
+    'מעוניין למכור נכס',
+    'מחפש נכס לקנייה',
+    'צריך הערכת שווי',
+    'שאלה כללית'
+  ];
 
   return (
-    <>
-      <Card variant="elevated">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl">השאירו פרטים</CardTitle>
-            <Badge variant="primary" icon={Send}>
-              מענה תוך 24 שעות
-            </Badge>
-          </div>
-          <p className="text-gray-600 mt-2">
-            מלאו את הטופס ונחזור אליכם בהקדם האפשרי
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mt-4">
-            <div className="flex justify-between text-xs text-gray-600 mb-1">
-              <span>השלמת הטופס</span>
-              <span>{completionPercentage}%</span>
+    <div ref={sectionRef}>
+      <Card 
+        variant="default" 
+        className={cn(
+          "bg-[#1a1a1a] border-[#D4AF37]/30 transition-all duration-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}
+      >
+        <CardContent className="p-6 md:p-8">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <MessageSquare className="w-5 h-5 text-[#D4AF37]" />
+              <h2 className="text-2xl font-bold text-white">שלח לנו הודעה</h2>
             </div>
-            <Progress 
-              value={completionPercentage} 
-              variant="gradient"
-              size="sm"
-            />
+            <p className="text-gray-400">
+              מלא את הפרטים ונחזור אליך בהקדם האפשרי
+            </p>
           </div>
-        </CardHeader>
-        
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Name & Email */}
-            <div className="grid gap-6 md:grid-cols-2">
-              <Input
-                id="name"
-                label="שם מלא"
-                placeholder="ישראל ישראלי"
-                icon={User}
-                error={errors.name?.message}
-                {...register('name')}
-                disabled={isSubmitting}
+
+          {/* Form */}
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+            {/* Name & Phone Row - Mobile: Stack, Desktop: Grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Name Field */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  שם מלא *
+                </label>
+                <div className="relative">
+                  <div className={cn(
+                    "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
+                    focusedField === 'name' ? "text-[#D4AF37]" : "text-gray-500"
+                  )}>
+                    <User className="w-5 h-5" />
+                  </div>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
+                    className={cn(
+                      "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
+                      "text-white placeholder-gray-500",
+                      "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                      "transition-all duration-300",
+                      errors.name 
+                        ? "border-red-500 focus:ring-red-500/50" 
+                        : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                    )}
+                    placeholder="ישראל ישראלי"
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.name}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Phone Field */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  טלפון
+                </label>
+                <div className="relative">
+                  <div className={cn(
+                    "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
+                    focusedField === 'phone' ? "text-[#D4AF37]" : "text-gray-500"
+                  )}>
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('phone')}
+                    onBlur={() => setFocusedField(null)}
+                    className={cn(
+                      "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
+                      "text-white placeholder-gray-500",
+                      "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                      "transition-all duration-300",
+                      errors.phone 
+                        ? "border-red-500 focus:ring-red-500/50" 
+                        : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                    )}
+                    placeholder="050-1234567"
+                    dir="ltr"
+                  />
+                  {errors.phone && (
+                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.phone}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Email Field */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                אימייל *
+              </label>
+              <div className="relative">
+                <div className={cn(
+                  "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
+                  focusedField === 'email' ? "text-[#D4AF37]" : "text-gray-500"
+                )}>
+                  <Mail className="w-5 h-5" />
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField('email')}
+                  onBlur={() => setFocusedField(null)}
+                  className={cn(
+                    "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
+                    "text-white placeholder-gray-500",
+                    "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                    "transition-all duration-300",
+                    errors.email 
+                      ? "border-red-500 focus:ring-red-500/50" 
+                      : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                  )}
+                  placeholder="example@email.com"
+                  dir="ltr"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3" />
+                    {errors.email}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Subject Field */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                נושא הפנייה *
+              </label>
+              <input
+                type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                onFocus={() => setFocusedField('subject')}
+                onBlur={() => setFocusedField(null)}
+                className={cn(
+                  "w-full px-4 py-3 bg-black/50 border rounded-lg",
+                  "text-white placeholder-gray-500",
+                  "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                  "transition-all duration-300",
+                  errors.subject 
+                    ? "border-red-500 focus:ring-red-500/50" 
+                    : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                )}
+                placeholder="במה נוכל לעזור?"
               />
               
-              <Input
-                id="email"
-                label="אימייל"
-                type="email"
-                placeholder="example@email.com"
-                icon={Mail}
-                dir="ltr"
-                error={errors.email?.message}
-                {...register('email')}
-                disabled={isSubmitting}
-              />
-            </div>
-
-            {/* Phone & Subject */}
-            <div className="grid gap-6 md:grid-cols-2">
-              <Input
-                id="phone"
-                label="טלפון"
-                type="tel"
-                placeholder="050-1234567"
-                icon={Phone}
-                dir="ltr"
-                error={errors.phone?.message}
-                {...register('phone')}
-                disabled={isSubmitting}
-              />
+              {/* Quick Subject Suggestions */}
+              <div className="flex flex-wrap gap-2 mt-2">
+                {subjectSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, subject: suggestion }))}
+                    className={cn(
+                      "text-xs px-3 py-1 rounded-full transition-all",
+                      "border border-[#D4AF37]/20 hover:border-[#D4AF37]/40",
+                      "bg-[#D4AF37]/5 hover:bg-[#D4AF37]/10",
+                      "text-gray-400 hover:text-[#D4AF37]",
+                      formData.subject === suggestion && "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/50"
+                    )}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
               
-              <Input
-                id="subject"
-                label="נושא"
-                placeholder="בנושא..."
-                icon={MessageSquare}
-                error={errors.subject?.message}
-                {...register('subject')}
-                disabled={isSubmitting}
+              {errors.subject && (
+                <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" />
+                  {errors.subject}
+                </p>
+              )}
+            </div>
+
+            {/* Message Field */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                הודעה *
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                onFocus={() => setFocusedField('message')}
+                onBlur={() => setFocusedField(null)}
+                rows={5}
+                className={cn(
+                  "w-full px-4 py-3 bg-black/50 border rounded-lg resize-none",
+                  "text-white placeholder-gray-500",
+                  "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                  "transition-all duration-300",
+                  errors.message 
+                    ? "border-red-500 focus:ring-red-500/50" 
+                    : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                )}
+                placeholder="ספר לנו איך נוכל לעזור לך..."
               />
+              <div className="flex justify-between items-center mt-1">
+                {errors.message ? (
+                  <p className="text-xs text-red-500 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3" />
+                    {errors.message}
+                  </p>
+                ) : (
+                  <span className="text-xs text-gray-500">* שדות חובה</span>
+                )}
+                <span className={cn(
+                  "text-xs transition-colors",
+                  formData.message.length > 900 ? "text-yellow-500" : "text-gray-500"
+                )}>
+                  {formData.message.length}/1000
+                </span>
+              </div>
             </div>
 
-            {/* Message */}
-            <Textarea
-              id="message"
-              label="הודעה"
-              placeholder="ספרו לנו במה נוכל לעזור..."
-              rows={5}
-              error={errors.message?.message}
-              {...register('message')}
-              disabled={isSubmitting}
-            />
+            {/* Submit Status Messages */}
+            {submitStatus === 'success' && (
+              <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <p className="text-green-500">ההודעה נשלחה בהצלחה! נחזור אליך בהקדם.</p>
+              </div>
+            )}
 
-            {/* Privacy Notice */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-xs text-gray-600">
-                בשליחת הטופס אני מאשר/ת קבלת מידע שיווקי ויצירת קשר טלפוני.
-                הפרטים שלך בטוחים אצלנו ולא יועברו לצד שלישי.
-              </p>
-            </div>
+            {submitStatus === 'error' && (
+              <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-red-500" />
+                <p className="text-red-500">אופס! משהו השתבש. אנא נסה שוב.</p>
+              </div>
+            )}
 
             {/* Submit Button */}
             <Button
               type="submit"
               size="lg"
-              variant="gradient"
+              variant="primary"
               fullWidth
-              disabled={isSubmitting || !isValid}
-              icon={Send}
+              disabled={isSubmitting}
+              className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#FFD700] hover:to-[#D4AF37]"
             >
               {isSubmitting ? (
                 <>
-                  <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                  <Loader2 className="w-5 h-5 animate-spin" />
                   שולח...
                 </>
               ) : (
-                'שלח הודעה'
+                <>
+                  <Send className="w-5 h-5" />
+                  שלח הודעה
+                </>
               )}
             </Button>
+
+            {/* Privacy Note */}
+            <p className="text-xs text-gray-500 text-center">
+              <Sparkles className="w-3 h-3 inline ml-1 text-[#D4AF37]" />
+              המידע שלך בטוח אצלנו ולא יועבר לצד שלישי
+            </p>
           </form>
         </CardContent>
       </Card>
-
-      {toast && (
-        <Toast
-          message={toast.message}
-          description={toast.description}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
-    </>
+    </div>
   );
 };
 
