@@ -97,9 +97,11 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
       <head>
         {/* תגי Meta נוספים */}
-        <meta name="theme-color" content="#f59e0b" />
+        {/* FIXED: Changed from orange (#f59e0b) to black to match your site design */}
+        <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* IMPROVED: Changed to black-translucent for better visual integration */}
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         
         {/* Schema.org לנדל"ן */}
         <script
