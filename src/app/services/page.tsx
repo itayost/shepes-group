@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <main className="bg-gradient-to-b from-background via-background-secondary to-background">
       {/* Hero Section - Clean and Simple */}
       <ServicesHeroSection />
 

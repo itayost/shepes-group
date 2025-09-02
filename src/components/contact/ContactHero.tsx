@@ -15,7 +15,7 @@ const ContactHero = () => {
     <>
       צוות שפס נדל&quot;ן זמין עבורך בכל שאלה, ייעוץ או בקשה
       <br className="hidden md:block" />
-      <span className="text-[#D4AF37] font-semibold">{SITE_CONFIG.phone}</span> | {SITE_CONFIG.email}
+      <span className="text-text-gold font-semibold">{SITE_CONFIG.phone}</span> | {SITE_CONFIG.email}
     </>
   );
 

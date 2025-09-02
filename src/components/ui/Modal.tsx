@@ -54,7 +54,7 @@ export default function Modal({
       {/* Modal */}
       <div
         className={cn(
-          'relative bg-[#1a1a1a] rounded-xl shadow-gold border border-[#D4AF37]/20 transition-all duration-300',
+          'relative bg-background-card rounded-xl shadow-gold border border-primary-500/20 transition-all duration-300',
           'max-h-[90vh] overflow-auto',
           {
             'w-full max-w-sm': size === 'sm',
@@ -68,15 +68,15 @@ export default function Modal({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between p-6 border-b border-[#D4AF37]/20">
+          <div className="flex items-start justify-between p-6 border-b border-primary-500/20">
             <div>
-              {title && <h3 className="text-2xl font-bold text-[#FFD700]">{title}</h3>}
+              {title && <h3 className="text-2xl font-bold text-primary-400">{title}</h3>}
               {description && <p className="mt-1 text-sm text-gray-400">{description}</p>}
             </div>
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="ml-auto rounded-lg p-1.5 text-gray-400 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] transition-colors"
+                className="ml-auto rounded-lg p-1.5 text-gray-400 hover:bg-primary-500/10 hover:text-primary-500 transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>

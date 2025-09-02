@@ -90,10 +90,10 @@ const Testimonials = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background to-background-secondary overflow-hidden"
     >
       {/* Background accent */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         {/* Section Header */}
@@ -101,7 +101,7 @@ const Testimonials = () => {
           <Badge 
             variant="outline" 
             className={cn(
-              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              "mb-6 border-primary-500 text-primary-500 bg-primary-500/10 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -113,7 +113,7 @@ const Testimonials = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             <span className="text-white">מה </span>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
               הלקוחות שלנו
             </span>
             <span className="text-white"> אומרים</span>
@@ -136,7 +136,7 @@ const Testimonials = () => {
             onTouchEnd={handleTouchEnd}
           >
             {/* Single Testimonial Display - Show one at a time */}
-            <div className="bg-[#1a1a1a] border border-[#D4AF37]/30 rounded-2xl p-6">
+            <div className="bg-background-card border border-primary-500/30 rounded-2xl p-6">
               {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
@@ -150,14 +150,14 @@ const Testimonials = () => {
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className="w-4 h-4 text-[#FFD700] fill-[#FFD700]"
+                        className="w-4 h-4 text-primary-400 fill-primary-400"
                       />
                     ))}
                   </div>
                   
                   {/* Quote */}
                   <div className="relative mb-6">
-                    <Quote className="absolute -top-2 -right-2 w-8 h-8 text-[#D4AF37]/20" />
+                    <Quote className="absolute -top-2 -right-2 w-8 h-8 text-primary-500/20" />
                     <p className="text-gray-200 leading-relaxed pr-6">
                       {testimonial.content}
                     </p>
@@ -169,7 +169,7 @@ const Testimonials = () => {
                       <Badge 
                         variant="outline" 
                         size="sm"
-                        className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                        className="border-primary-500/30 text-gray-400 bg-transparent"
                       >
                         <Home className="w-3 h-3 ml-1" />
                         {testimonial.propertyType}
@@ -179,7 +179,7 @@ const Testimonials = () => {
                       <Badge 
                         variant="outline" 
                         size="sm"
-                        className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                        className="border-primary-500/30 text-gray-400 bg-transparent"
                       >
                         <MapPin className="w-3 h-3 ml-1" />
                         {testimonial.neighborhood}
@@ -188,15 +188,15 @@ const Testimonials = () => {
                   </div>
                   
                   {/* Author */}
-                  <div className="flex items-center justify-between border-t border-[#D4AF37]/20 pt-4">
+                  <div className="flex items-center justify-between border-t border-primary-500/20 pt-4">
                     <div>
-                      <p className="font-bold text-[#FFD700]">{testimonial.name}</p>
+                      <p className="font-bold text-primary-400">{testimonial.name}</p>
                       <p className="text-sm text-gray-400">{testimonial.type}</p>
                     </div>
                     <Badge 
                       variant="outline" 
                       size="sm"
-                      className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                      className="border-primary-500 text-primary-500 bg-primary-500/10"
                     >
                       {testimonial.agent}
                     </Badge>
@@ -214,7 +214,7 @@ const Testimonials = () => {
                   className={cn(
                     "h-2 rounded-full transition-all duration-300",
                     index === currentIndex 
-                      ? "w-8 bg-gradient-to-r from-[#D4AF37] to-[#FFD700]" 
+                      ? "w-8 bg-gradient-to-r from-primary-500 to-primary-400" 
                       : "w-2 bg-gray-600"
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -241,8 +241,8 @@ const Testimonials = () => {
                 <div
                   key={testimonial.id}
                   className={cn(
-                    "bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl",
-                    "hover:border-[#D4AF37]/40 hover:shadow-lg",
+                    "bg-background-card border border-primary-500/20 rounded-xl",
+                    "hover:border-primary-500/40 hover:shadow-lg",
                     "transition-all duration-500",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
                     isLarge && "md:col-span-2"
@@ -258,13 +258,13 @@ const Testimonials = () => {
                       <div className="flex justify-between items-start mb-6">
                         {/* Author Info */}
                         <div className="flex items-center gap-4">
-                          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/20 flex items-center justify-center">
-                            <span className="text-xl font-bold text-[#D4AF37]">
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-primary-500/20 to-primary-400/20 flex items-center justify-center">
+                            <span className="text-xl font-bold text-primary-500">
                               {testimonial.name[0]}
                             </span>
                           </div>
                           <div>
-                            <p className="text-lg font-bold text-[#FFD700]">
+                            <p className="text-lg font-bold text-primary-400">
                               {testimonial.name}
                             </p>
                             <p className="text-sm text-gray-400">{testimonial.type}</p>
@@ -274,7 +274,7 @@ const Testimonials = () => {
                         {/* Agent Badge */}
                         <Badge 
                           variant="outline" 
-                          className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                          className="border-primary-500 text-primary-500 bg-primary-500/10"
                         >
                           {testimonial.agent}
                         </Badge>
@@ -285,26 +285,26 @@ const Testimonials = () => {
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star 
                             key={i} 
-                            className="w-5 h-5 text-[#FFD700] fill-[#FFD700]"
+                            className="w-5 h-5 text-primary-400 fill-primary-400"
                           />
                         ))}
                       </div>
                       
                       {/* Quote - Takes up main space */}
                       <div className="relative flex-1 mb-6">
-                        <Quote className="absolute -top-2 -right-2 w-12 h-12 text-[#D4AF37]/20" />
+                        <Quote className="absolute -top-2 -right-2 w-12 h-12 text-primary-500/20" />
                         <p className="text-lg text-gray-200 leading-relaxed pr-10">
                           {testimonial.content}
                         </p>
                       </div>
                       
                       {/* Property Tags - Bottom */}
-                      <div className="flex flex-wrap gap-2 pt-6 border-t border-[#D4AF37]/20">
+                      <div className="flex flex-wrap gap-2 pt-6 border-t border-primary-500/20">
                         {testimonial.propertyType && (
                           <Badge 
                             variant="outline" 
                             size="sm"
-                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
                           >
                             <Home className="w-3 h-3 ml-1" />
                             {testimonial.propertyType}
@@ -314,7 +314,7 @@ const Testimonials = () => {
                           <Badge 
                             variant="outline" 
                             size="sm"
-                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
                           >
                             <MapPin className="w-3 h-3 ml-1" />
                             {testimonial.neighborhood}
@@ -324,7 +324,7 @@ const Testimonials = () => {
                           <Badge 
                             variant="outline" 
                             size="sm"
-                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
                           >
                             <Calendar className="w-3 h-3 ml-1" />
                             {new Date(testimonial.date).toLocaleDateString('he-IL', { 
@@ -343,14 +343,14 @@ const Testimonials = () => {
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star 
                             key={i} 
-                            className="w-4 h-4 text-[#FFD700] fill-[#FFD700]"
+                            className="w-4 h-4 text-primary-400 fill-primary-400"
                           />
                         ))}
                       </div>
                       
                       {/* Quote */}
                       <div className="relative flex-1 mb-6">
-                        <Quote className="absolute -top-2 -right-2 w-8 h-8 text-[#D4AF37]/20" />
+                        <Quote className="absolute -top-2 -right-2 w-8 h-8 text-primary-500/20" />
                         <p className="text-gray-200 leading-relaxed pr-8">
                           {testimonial.content}
                         </p>
@@ -362,7 +362,7 @@ const Testimonials = () => {
                           <Badge 
                             variant="outline" 
                             size="sm"
-                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
                           >
                             <Home className="w-3 h-3 ml-1" />
                             {testimonial.propertyType}
@@ -372,7 +372,7 @@ const Testimonials = () => {
                           <Badge 
                             variant="outline" 
                             size="sm"
-                            className="border-[#D4AF37]/30 text-gray-400 bg-transparent"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
                           >
                             <MapPin className="w-3 h-3 ml-1" />
                             {testimonial.neighborhood}
@@ -381,15 +381,15 @@ const Testimonials = () => {
                       </div>
                       
                       {/* Author */}
-                      <div className="flex items-center justify-between border-t border-[#D4AF37]/20 pt-4">
+                      <div className="flex items-center justify-between border-t border-primary-500/20 pt-4">
                         <div>
-                          <p className="font-bold text-[#FFD700]">{testimonial.name}</p>
+                          <p className="font-bold text-primary-400">{testimonial.name}</p>
                           <p className="text-sm text-gray-400">{testimonial.type}</p>
                         </div>
                         <Badge 
                           variant="outline" 
                           size="sm"
-                          className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+                          className="border-primary-500 text-primary-500 bg-primary-500/10"
                         >
                           {testimonial.agent}
                         </Badge>
@@ -406,17 +406,17 @@ const Testimonials = () => {
             <div className="flex justify-center gap-4 mt-8">
               <button
                 onClick={prevTestimonial}
-                className="p-2 rounded-full bg-[#1a1a1a] border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all"
+                className="p-2 rounded-full bg-background-card border border-primary-500/30 hover:border-primary-500 transition-all"
                 aria-label="Previous testimonial"
               >
-                <ChevronRight className="w-5 h-5 text-[#D4AF37]" />
+                <ChevronRight className="w-5 h-5 text-primary-500" />
               </button>
               <button
                 onClick={nextTestimonial}
-                className="p-2 rounded-full bg-[#1a1a1a] border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all"
+                className="p-2 rounded-full bg-background-card border border-primary-500/30 hover:border-primary-500 transition-all"
                 aria-label="Next testimonial"
               >
-                <ChevronLeft className="w-5 h-5 text-[#D4AF37]" />
+                <ChevronLeft className="w-5 h-5 text-primary-500" />
               </button>
             </div>
           )}

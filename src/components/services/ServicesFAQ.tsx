@@ -64,10 +64,10 @@ const ServicesFAQ = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-[#0a0a0a] to-black overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background-secondary to-background overflow-hidden"
     >
       {/* Simple background accent */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         <div className="max-w-3xl mx-auto">
@@ -76,7 +76,7 @@ const ServicesFAQ = () => {
             <Badge 
               variant="outline" 
               className={cn(
-                "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+                "mb-6 border-primary-500 text-primary-500 bg-primary-500/10 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
@@ -89,7 +89,7 @@ const ServicesFAQ = () => {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
               <span className="text-white">יש לכם </span>
-              <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
                 שאלות?
               </span>
             </h2>
@@ -111,10 +111,10 @@ const ServicesFAQ = () => {
                 <div
                   key={index}
                   className={cn(
-                    "bg-[#1a1a1a] border rounded-xl transition-all duration-500",
+                    "bg-background-card border rounded-xl transition-all duration-500",
                     isActive 
-                      ? "border-[#D4AF37] shadow-gold" 
-                      : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40",
+                      ? "border-primary-500 shadow-gold" 
+                      : "border-primary-500/20 hover:border-primary-500/40",
                     isVisible 
                       ? "opacity-100 translate-y-0" 
                       : "opacity-0 translate-y-4"
@@ -130,18 +130,18 @@ const ServicesFAQ = () => {
                     <div className="flex items-center gap-4">
                       <HelpCircle className={cn(
                         "w-5 h-5",
-                        isActive ? "text-[#D4AF37]" : "text-gray-500"
+                        isActive ? "text-primary-500" : "text-gray-500"
                       )} />
                       <h3 className={cn(
                         "text-lg font-bold transition-colors",
-                        isActive ? "text-[#FFD700]" : "text-white"
+                        isActive ? "text-primary-400" : "text-white"
                       )}>
                         {item.question}
                       </h3>
                     </div>
                     <ChevronDown className={cn(
                       "w-5 h-5 transition-transform duration-300",
-                      isActive ? "rotate-180 text-[#D4AF37]" : "text-gray-500"
+                      isActive ? "rotate-180 text-primary-500" : "text-gray-500"
                     )} />
                   </button>
                   

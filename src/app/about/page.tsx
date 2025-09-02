@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black via-[#0a0a0a] to-black">
+    <main className="min-h-screen bg-gradient-luxury">
       {/* Hero Section - Using redesigned component */}
       <AboutHero />
 

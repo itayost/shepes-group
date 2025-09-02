@@ -57,17 +57,17 @@ export default function Toast({
   };
 
   const styles = {
-    success: 'bg-green-900/20 text-green-400 border-green-400/30',
-    error: 'bg-red-900/20 text-red-400 border-red-400/30',
+    success: 'bg-success-900/20 text-success-400 border-success-400/30',
+    error: 'bg-error-900/20 text-error-400 border-error-400/30',
     info: 'bg-blue-900/20 text-blue-400 border-blue-400/30',
-    warning: 'bg-yellow-900/20 text-yellow-400 border-yellow-400/30',
+    warning: 'bg-warning-900/20 text-warning-400 border-warning-400/30',
   };
 
   const iconStyles = {
-    success: 'text-green-400',
-    error: 'text-red-400',
+    success: 'text-success-400',
+    error: 'text-error-400',
     info: 'text-blue-400',
-    warning: 'text-yellow-400',
+    warning: 'text-warning-400',
   };
 
   const positions = {
@@ -101,7 +101,7 @@ export default function Toast({
         {action && (
           <button
             onClick={action.onClick}
-            className="mt-2 text-xs font-medium underline hover:no-underline text-[#D4AF37]"
+            className="mt-2 text-xs font-medium underline hover:no-underline text-primary-500"
           >
             {action.label}
           </button>

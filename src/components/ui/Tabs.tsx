@@ -149,8 +149,8 @@ export default function Tabs({
       >
         <div className={cn(
           'absolute inset-0 bg-black',
-          variant === 'pills' && 'bg-[#1a1a1a]',
-          sticky && isStuck && 'border-b border-[#D4AF37]/20'
+          variant === 'pills' && 'bg-background-card',
+          sticky && isStuck && 'border-b border-primary-500/20'
         )} />
         
         <div className="relative">
@@ -158,7 +158,7 @@ export default function Tabs({
             <div className={cn(
               'absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none',
               'bg-gradient-to-r from-black to-transparent',
-              variant === 'pills' && 'from-[#1a1a1a]'
+              variant === 'pills' && 'from-background-card'
             )} />
           )}
 
@@ -166,7 +166,7 @@ export default function Tabs({
             <div className={cn(
               'absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none',
               'bg-gradient-to-l from-black to-transparent',
-              variant === 'pills' && 'from-[#1a1a1a]'
+              variant === 'pills' && 'from-background-card'
             )} />
           )}
 
@@ -176,8 +176,8 @@ export default function Tabs({
             className={cn(
               'flex overflow-x-auto scrollbar-hide relative',
               {
-                'border-b border-[#D4AF37]/20': (variant === 'default' || variant === 'underline') && !isStuck,
-                'gap-2 bg-[#1a1a1a] p-1 rounded-lg': variant === 'pills',
+                'border-b border-primary-500/20': (variant === 'default' || variant === 'underline') && !isStuck,
+                'gap-2 bg-background-card p-1 rounded-lg': variant === 'pills',
                 'py-2': sticky && variant !== 'pills',
               },
               'scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]',
@@ -195,12 +195,12 @@ export default function Tabs({
                   {
                     'border-b-2': variant === 'default' || variant === 'underline',
                     
-                    'border-[#D4AF37] text-[#D4AF37]': variant === 'default' && activeTab === tab.id,
-                    'border-[#D4AF37] text-white': variant === 'underline' && activeTab === tab.id,
+                    'border-primary-500 text-primary-500': variant === 'default' && activeTab === tab.id,
+                    'border-primary-500 text-white': variant === 'underline' && activeTab === tab.id,
                     'border-transparent text-gray-400 hover:text-white': (variant === 'default' || variant === 'underline') && activeTab !== tab.id,
                     
                     'rounded-lg': variant === 'pills',
-                    'bg-black shadow-gold text-[#D4AF37]': variant === 'pills' && activeTab === tab.id,
+                    'bg-black shadow-gold text-primary-500': variant === 'pills' && activeTab === tab.id,
                     'text-gray-400 hover:text-white': variant === 'pills' && activeTab !== tab.id,
                     
                     '-mb-px': (variant === 'default' || variant === 'underline') && !sticky,
@@ -213,7 +213,7 @@ export default function Tabs({
                   {tab.label}
                 </span>
                 {tab.badge && (
-                  <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-[#D4AF37]/20 text-[#D4AF37] rounded-full">
+                  <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary-500/20 text-primary-500 rounded-full">
                     {tab.badge}
                   </span>
                 )}

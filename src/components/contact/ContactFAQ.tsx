@@ -100,10 +100,10 @@ const ContactFAQ = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-black-gold overflow-hidden"
     >
       {/* Background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         <div className="max-w-4xl mx-auto">
@@ -112,7 +112,7 @@ const ContactFAQ = () => {
             <Badge 
               variant="outline" 
               className={cn(
-                "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+                "mb-6 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
@@ -124,14 +124,14 @@ const ContactFAQ = () => {
               "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
-              <span className="text-white">יש לך </span>
-              <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+              <span className="text-text-primary">יש לך </span>
+              <span className="bg-gradient-gold bg-clip-text text-transparent">
                 שאלות?
               </span>
             </h2>
             
             <p className={cn(
-              "text-lg md:text-xl text-gray-300 max-w-2xl mx-auto transition-all duration-700 delay-200",
+              "text-lg md:text-xl text-text-secondary max-w-2xl mx-auto transition-all duration-700 delay-200",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
               ריכזנו עבורך את התשובות לשאלות הנפוצות ביותר
@@ -148,10 +148,10 @@ const ContactFAQ = () => {
                 <div
                   key={index}
                   className={cn(
-                    "bg-[#1a1a1a] border rounded-xl transition-all duration-500",
+                    "bg-background-card border rounded-xl transition-all duration-500",
                     isActive 
-                      ? "border-[#D4AF37] shadow-gold" 
-                      : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40",
+                      ? "border-primary-500 shadow-gold" 
+                      : "border-primary-500/20 hover:border-primary-500/40",
                     visibleItems[index] 
                       ? "opacity-100 translate-y-0" 
                       : "opacity-0 translate-y-4"
@@ -165,12 +165,12 @@ const ContactFAQ = () => {
                     <div className={cn(
                       "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300",
                       isActive 
-                        ? "bg-gradient-to-br from-[#D4AF37] to-[#B8860B] shadow-gold" 
-                        : "bg-[#D4AF37]/10"
+                        ? "bg-gradient-gold shadow-gold" 
+                        : "bg-primary-500/10"
                     )}>
                       <Icon className={cn(
                         "w-5 h-5 md:w-6 md:h-6",
-                        isActive ? "text-black" : "text-[#D4AF37]"
+                        isActive ? "text-background" : "text-primary-500"
                       )} />
                     </div>
                     
@@ -179,15 +179,15 @@ const ContactFAQ = () => {
                       <div className="flex items-start justify-between gap-4">
                         <h3 className={cn(
                           "text-lg md:text-xl font-bold text-right transition-colors",
-                          isActive ? "text-[#FFD700]" : "text-white"
+                          isActive ? "text-text-gold-bright" : "text-text-primary"
                         )}>
                           {item.question}
                         </h3>
                         <ChevronDown className={cn(
                           "w-5 h-5 flex-shrink-0 transition-all duration-300 mt-1",
                           isActive 
-                            ? "rotate-180 text-[#D4AF37]" 
-                            : "text-gray-500"
+                            ? "rotate-180 text-primary-500" 
+                            : "text-text-muted"
                         )} />
                       </div>
                     </div>
@@ -199,8 +199,8 @@ const ContactFAQ = () => {
                     isActive ? "max-h-96" : "max-h-0"
                   )}>
                     <div className="px-4 md:px-6 pb-4 md:pb-6">
-                      <div className="pr-14 md:pr-16 border-r-2 border-[#D4AF37]/20">
-                        <p className="text-gray-300 leading-relaxed">
+                      <div className="pr-14 md:pr-16 border-r-2 border-primary-500/20">
+                        <p className="text-text-secondary leading-relaxed">
                           {item.answer}
                         </p>
                       </div>
@@ -213,20 +213,20 @@ const ContactFAQ = () => {
 
           {/* CTA Section */}
           <div className={cn(
-            "text-center mt-12 p-6 md:p-8 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] rounded-xl border border-[#D4AF37]/20 transition-all duration-700",
+            "text-center mt-12 p-6 md:p-8 bg-gradient-to-r from-background-card to-background-secondary rounded-xl border border-primary-500/20 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ transitionDelay: '800ms' }}>
-            <HelpCircle className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+            <HelpCircle className="w-12 h-12 text-primary-500 mx-auto mb-4" />
+            <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-2">
               לא מצאת את התשובה שחיפשת?
             </h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-text-muted mb-6">
               אל תהסס ליצור איתנו קשר, נשמח לענות על כל שאלה
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`tel:${SITE_CONFIG.phone}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black font-medium rounded-lg hover:from-[#FFD700] hover:to-[#D4AF37] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-gold text-background font-medium rounded-lg hover:shadow-gold-glow transition-all"
               >
                 <Phone className="w-5 h-5" />
                 התקשר עכשיו
@@ -235,7 +235,7 @@ const ContactFAQ = () => {
                 href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white font-medium rounded-lg hover:bg-[#128C7E] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-success-500 text-white font-medium rounded-lg hover:bg-success-600 transition-all"
               >
                 <MessageCircle className="w-5 h-5" />
                 וואטסאפ

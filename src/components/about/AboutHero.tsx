@@ -24,7 +24,7 @@ const AboutHero = () => {
       subtitle={
         <>
           צוות מתווכים מקצועי ומנוסה עם 
-          <span className="text-[#D4AF37] font-semibold"> מעל 18 שנות ניסיון</span>
+          <span className="text-text-gold font-semibold"> מעל 18 שנות ניסיון</span>
           <br className="hidden md:block" />
           בשוק הנדל&quot;ן בחיפה והצפון
         </>

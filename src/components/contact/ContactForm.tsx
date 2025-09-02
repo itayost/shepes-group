@@ -137,7 +137,7 @@ const ContactForm = () => {
       <Card 
         variant="default" 
         className={cn(
-          "bg-[#1a1a1a] border-[#D4AF37]/30 transition-all duration-700",
+          "transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}
       >
@@ -145,10 +145,10 @@ const ContactForm = () => {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <MessageSquare className="w-5 h-5 text-[#D4AF37]" />
-              <h2 className="text-2xl font-bold text-white">שלח לנו הודעה</h2>
+              <MessageSquare className="w-5 h-5 text-primary-500" />
+              <h2 className="text-2xl font-bold text-text-primary">שלח לנו הודעה</h2>
             </div>
-            <p className="text-gray-400">
+            <p className="text-text-muted">
               מלא את הפרטים ונחזור אליך בהקדם האפשרי
             </p>
           </div>
@@ -159,13 +159,13 @@ const ContactForm = () => {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Name Field */}
               <div className="relative">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-secondary mb-2">
                   שם מלא *
                 </label>
                 <div className="relative">
                   <div className={cn(
                     "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
-                    focusedField === 'name' ? "text-[#D4AF37]" : "text-gray-500"
+                    focusedField === 'name' ? "text-primary-500" : "text-text-muted"
                   )}>
                     <User className="w-5 h-5" />
                   </div>
@@ -177,18 +177,18 @@ const ContactForm = () => {
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
                     className={cn(
-                      "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
-                      "text-white placeholder-gray-500",
-                      "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                      "w-full pr-10 pl-4 py-3 bg-background/50 border rounded-lg",
+                      "text-text-primary placeholder-text-muted",
+                      "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500",
                       "transition-all duration-300",
                       errors.name 
-                        ? "border-red-500 focus:ring-red-500/50" 
-                        : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                        ? "border-error-500 focus:ring-error-500/50" 
+                        : "border-primary-500/20 hover:border-primary-500/40"
                     )}
                     placeholder="ישראל ישראלי"
                   />
                   {errors.name && (
-                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                    <p className="mt-1 text-xs text-error-500 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {errors.name}
                     </p>
@@ -198,13 +198,13 @@ const ContactForm = () => {
 
               {/* Phone Field */}
               <div className="relative">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-text-secondary mb-2">
                   טלפון
                 </label>
                 <div className="relative">
                   <div className={cn(
                     "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
-                    focusedField === 'phone' ? "text-[#D4AF37]" : "text-gray-500"
+                    focusedField === 'phone' ? "text-primary-500" : "text-text-muted"
                   )}>
                     <Phone className="w-5 h-5" />
                   </div>
@@ -216,19 +216,19 @@ const ContactForm = () => {
                     onFocus={() => setFocusedField('phone')}
                     onBlur={() => setFocusedField(null)}
                     className={cn(
-                      "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
-                      "text-white placeholder-gray-500",
-                      "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                      "w-full pr-10 pl-4 py-3 bg-background/50 border rounded-lg",
+                      "text-text-primary placeholder-text-muted",
+                      "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500",
                       "transition-all duration-300",
                       errors.phone 
-                        ? "border-red-500 focus:ring-red-500/50" 
-                        : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                        ? "border-error-500 focus:ring-error-500/50" 
+                        : "border-primary-500/20 hover:border-primary-500/40"
                     )}
                     placeholder="050-1234567"
                     dir="ltr"
                   />
                   {errors.phone && (
-                    <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                    <p className="mt-1 text-xs text-error-500 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" />
                       {errors.phone}
                     </p>
@@ -239,13 +239,13 @@ const ContactForm = () => {
 
             {/* Email Field */}
             <div className="relative">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">
                 אימייל *
               </label>
               <div className="relative">
                 <div className={cn(
                   "absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-colors",
-                  focusedField === 'email' ? "text-[#D4AF37]" : "text-gray-500"
+                  focusedField === 'email' ? "text-primary-500" : "text-text-muted"
                 )}>
                   <Mail className="w-5 h-5" />
                 </div>
@@ -257,19 +257,19 @@ const ContactForm = () => {
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
                   className={cn(
-                    "w-full pr-10 pl-4 py-3 bg-black/50 border rounded-lg",
-                    "text-white placeholder-gray-500",
-                    "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                    "w-full pr-10 pl-4 py-3 bg-background/50 border rounded-lg",
+                    "text-text-primary placeholder-text-muted",
+                    "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500",
                     "transition-all duration-300",
                     errors.email 
-                      ? "border-red-500 focus:ring-red-500/50" 
-                      : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                      ? "border-error-500 focus:ring-error-500/50" 
+                      : "border-primary-500/20 hover:border-primary-500/40"
                   )}
                   placeholder="example@email.com"
                   dir="ltr"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                  <p className="mt-1 text-xs text-error-500 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.email}
                   </p>
@@ -279,7 +279,7 @@ const ContactForm = () => {
 
             {/* Subject Field */}
             <div className="relative">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">
                 נושא הפנייה *
               </label>
               <input
@@ -290,13 +290,13 @@ const ContactForm = () => {
                 onFocus={() => setFocusedField('subject')}
                 onBlur={() => setFocusedField(null)}
                 className={cn(
-                  "w-full px-4 py-3 bg-black/50 border rounded-lg",
-                  "text-white placeholder-gray-500",
-                  "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                  "w-full px-4 py-3 bg-background/50 border rounded-lg",
+                  "text-text-primary placeholder-text-muted",
+                  "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500",
                   "transition-all duration-300",
                   errors.subject 
-                    ? "border-red-500 focus:ring-red-500/50" 
-                    : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                    ? "border-error-500 focus:ring-error-500/50" 
+                    : "border-primary-500/20 hover:border-primary-500/40"
                 )}
                 placeholder="במה נוכל לעזור?"
               />
@@ -310,10 +310,10 @@ const ContactForm = () => {
                     onClick={() => setFormData(prev => ({ ...prev, subject: suggestion }))}
                     className={cn(
                       "text-xs px-3 py-1 rounded-full transition-all",
-                      "border border-[#D4AF37]/20 hover:border-[#D4AF37]/40",
-                      "bg-[#D4AF37]/5 hover:bg-[#D4AF37]/10",
-                      "text-gray-400 hover:text-[#D4AF37]",
-                      formData.subject === suggestion && "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/50"
+                      "border border-primary-500/20 hover:border-primary-500/40",
+                      "bg-primary-500/5 hover:bg-primary-500/10",
+                      "text-text-muted hover:text-primary-500",
+                      formData.subject === suggestion && "bg-primary-500/20 text-primary-500 border-primary-500/50"
                     )}
                   >
                     {suggestion}
@@ -322,7 +322,7 @@ const ContactForm = () => {
               </div>
               
               {errors.subject && (
-                <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                <p className="mt-1 text-xs text-error-500 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
                   {errors.subject}
                 </p>
@@ -331,7 +331,7 @@ const ContactForm = () => {
 
             {/* Message Field */}
             <div className="relative">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">
                 הודעה *
               </label>
               <textarea
@@ -342,28 +342,28 @@ const ContactForm = () => {
                 onBlur={() => setFocusedField(null)}
                 rows={5}
                 className={cn(
-                  "w-full px-4 py-3 bg-black/50 border rounded-lg resize-none",
-                  "text-white placeholder-gray-500",
-                  "focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37]",
+                  "w-full px-4 py-3 bg-background/50 border rounded-lg resize-none",
+                  "text-text-primary placeholder-text-muted",
+                  "focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500",
                   "transition-all duration-300",
                   errors.message 
-                    ? "border-red-500 focus:ring-red-500/50" 
-                    : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                    ? "border-error-500 focus:ring-error-500/50" 
+                    : "border-primary-500/20 hover:border-primary-500/40"
                 )}
                 placeholder="ספר לנו איך נוכל לעזור לך..."
               />
               <div className="flex justify-between items-center mt-1">
                 {errors.message ? (
-                  <p className="text-xs text-red-500 flex items-center gap-1">
+                  <p className="text-xs text-error-500 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.message}
                   </p>
                 ) : (
-                  <span className="text-xs text-gray-500">* שדות חובה</span>
+                  <span className="text-xs text-text-muted">* שדות חובה</span>
                 )}
                 <span className={cn(
                   "text-xs transition-colors",
-                  formData.message.length > 900 ? "text-yellow-500" : "text-gray-500"
+                  formData.message.length > 900 ? "text-warning-500" : "text-text-muted"
                 )}>
                   {formData.message.length}/1000
                 </span>
@@ -372,16 +372,16 @@ const ContactForm = () => {
 
             {/* Submit Status Messages */}
             {submitStatus === 'success' && (
-              <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <p className="text-green-500">ההודעה נשלחה בהצלחה! נחזור אליך בהקדם.</p>
+              <div className="p-4 bg-success-500/10 border border-success-500/30 rounded-lg flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-success-500" />
+                <p className="text-success-500">ההודעה נשלחה בהצלחה! נחזור אליך בהקדם.</p>
               </div>
             )}
 
             {submitStatus === 'error' && (
-              <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-red-500" />
-                <p className="text-red-500">אופס! משהו השתבש. אנא נסה שוב.</p>
+              <div className="p-4 bg-error-500/10 border border-error-500/30 rounded-lg flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-error-500" />
+                <p className="text-error-500">אופס! משהו השתבש. אנא נסה שוב.</p>
               </div>
             )}
 
@@ -392,7 +392,6 @@ const ContactForm = () => {
               variant="primary"
               fullWidth
               disabled={isSubmitting}
-              className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#FFD700] hover:to-[#D4AF37]"
             >
               {isSubmitting ? (
                 <>
@@ -408,8 +407,8 @@ const ContactForm = () => {
             </Button>
 
             {/* Privacy Note */}
-            <p className="text-xs text-gray-500 text-center">
-              <Sparkles className="w-3 h-3 inline ml-1 text-[#D4AF37]" />
+            <p className="text-xs text-text-muted text-center">
+              <Sparkles className="w-3 h-3 inline ml-1 text-primary-500" />
               המידע שלך בטוח אצלנו ולא יועבר לצד שלישי
             </p>
           </form>

@@ -31,21 +31,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
           'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2',
-          'focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 focus-visible:ring-offset-black',
+          'focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
           'disabled:pointer-events-none disabled:opacity-50',
           {
-            // Variants - Updated for black & gold theme
-            'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
+            // Variants - Updated with Tailwind colors
+            'bg-gradient-to-r from-primary-500 to-primary-600 text-black hover:from-primary-400 hover:to-primary-500 shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
               variant === 'primary',
-            'bg-black text-[#D4AF37] border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black hover:shadow-gold': 
+            'bg-black text-primary-500 border-2 border-primary-500 hover:bg-primary-500 hover:text-black hover:shadow-gold': 
               variant === 'secondary',
-            'bg-transparent text-[#D4AF37] border-2 border-[#D4AF37]/50 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10': 
+            'bg-transparent text-primary-500 border-2 border-primary-500/50 hover:border-primary-500 hover:bg-primary-500/10': 
               variant === 'outline',
-            'text-gray-400 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]': 
+            'text-gray-400 hover:bg-primary-500/10 hover:text-primary-500': 
               variant === 'ghost',
-            'bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] text-black shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
+            'bg-gradient-gold text-black shadow-gold hover:shadow-gold-glow hover:-translate-y-0.5': 
               variant === 'gradient',
-            'bg-red-600 text-white hover:bg-red-700 shadow-lg hover:shadow-xl': 
+            'bg-error-600 text-white hover:bg-error-700 shadow-lg hover:shadow-xl': 
               variant === 'danger',
             
             // Sizes

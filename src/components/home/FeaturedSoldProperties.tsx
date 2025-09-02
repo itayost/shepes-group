@@ -80,10 +80,10 @@ const FeaturedSoldProperties = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-[#0a0a0a] to-black overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background-secondary to-background overflow-hidden"
     >
       {/* Background accent */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         {/* Section Header */}
@@ -91,7 +91,7 @@ const FeaturedSoldProperties = () => {
           <Badge 
             variant="outline" 
             className={cn(
-              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              "mb-6 border-primary-500 text-primary-500 bg-primary-500/10 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -103,7 +103,7 @@ const FeaturedSoldProperties = () => {
             "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
               הצלחות אחרונות
             </span>
             <span className="text-white"> שלנו</span>
@@ -123,24 +123,24 @@ const FeaturedSoldProperties = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-2">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
               <Home className="w-6 h-6 text-black" />
             </div>
-            <div className="text-2xl font-bold text-[#FFD700]">{stats.totalProperties}+</div>
+            <div className="text-2xl font-bold text-primary-400">{stats.totalProperties}+</div>
             <div className="text-sm text-gray-400">נכסים נמכרו</div>
           </div>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-2">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
               <Clock className="w-6 h-6 text-black" />
             </div>
-            <div className="text-2xl font-bold text-[#FFD700]">{stats.avgDaysOnMarket}</div>
+            <div className="text-2xl font-bold text-primary-400">{stats.avgDaysOnMarket}</div>
             <div className="text-sm text-gray-400">ימים בממוצע</div>
           </div>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-2">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
               <TrendingUp className="w-6 h-6 text-black" />
             </div>
-            <div className="text-2xl font-bold text-[#FFD700]">{stats.avgPriceAccuracy}%</div>
+            <div className="text-2xl font-bold text-primary-400">{stats.avgPriceAccuracy}%</div>
             <div className="text-sm text-gray-400">דיוק במחיר</div>
           </div>
         </div>
@@ -155,7 +155,7 @@ const FeaturedSoldProperties = () => {
               onTouchEnd={handleTouchEnd}
             >
               {/* Single Property Display - Fade Transition */}
-              <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#D4AF37]/20">
+              <div className="bg-background-card rounded-2xl overflow-hidden border border-primary-500/20">
               {featuredProperties.map((property, index) => (
                 <div
                   key={property.id}
@@ -173,12 +173,12 @@ const FeaturedSoldProperties = () => {
                       className="object-cover"
                     />
                     {/* Sold Badge */}
-                    <div className="absolute top-4 left-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+                    <div className="absolute top-4 left-4 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
                       <CheckCircle className="w-3 h-3" />
                       נמכר!
                     </div>
                     {/* Days on Market */}
-                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-[#FFD700] px-3 py-1 rounded-full text-xs font-medium">
+                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-primary-400 px-3 py-1 rounded-full text-xs font-medium">
                       {property.daysOnMarket} ימים בלבד
                     </div>
                   </div>
@@ -190,33 +190,33 @@ const FeaturedSoldProperties = () => {
                     </h3>
                     
                     <div className="flex items-center gap-2 text-gray-400 mb-4">
-                      <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                      <MapPin className="w-4 h-4 text-primary-500" />
                       <span>{property.neighborhood}</span>
                     </div>
                     
                     {/* Property Details */}
                     <div className="grid grid-cols-3 gap-3 mb-4">
-                      <div className="text-center p-2 bg-[#D4AF37]/10 rounded-lg">
-                        <Bed className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                        <Bed className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                         <span className="text-xs text-gray-300">{property.rooms} חד׳</span>
                       </div>
-                      <div className="text-center p-2 bg-[#D4AF37]/10 rounded-lg">
-                        <Maximize2 className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                        <Maximize2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                         <span className="text-xs text-gray-300">{property.size} מ״ר</span>
                       </div>
-                      <div className="text-center p-2 bg-[#D4AF37]/10 rounded-lg">
-                        <Building2 className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                        <Building2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                         <span className="text-xs text-gray-300">קומה {property.floor}</span>
                       </div>
                     </div>
                     
                     {/* Testimonial */}
                     {property.testimonial && (
-                      <div className="border-t border-[#D4AF37]/20 pt-4">
+                      <div className="border-t border-primary-500/20 pt-4">
                         <p className="text-sm text-gray-400 italic mb-2">
                           &rdquo;{property.testimonial.content}&rdquo;
                         </p>
-                        <p className="text-xs text-[#D4AF37] font-medium">
+                        <p className="text-xs text-primary-500 font-medium">
                           — {property.testimonial.name}
                         </p>
                       </div>
@@ -224,7 +224,7 @@ const FeaturedSoldProperties = () => {
                   </div>
                 </div>
               ))}
-                          </div>
+              </div>
             </div>
             
             {/* Mobile Navigation Dots */}
@@ -236,7 +236,7 @@ const FeaturedSoldProperties = () => {
                   className={cn(
                     "h-2 rounded-full transition-all duration-300",
                     index === currentIndex 
-                      ? "w-8 bg-gradient-to-r from-[#D4AF37] to-[#FFD700]" 
+                      ? "w-8 bg-gradient-to-r from-primary-500 to-primary-400" 
                       : "w-2 bg-gray-600"
                   )}
                   aria-label={`Go to property ${index + 1}`}
@@ -259,8 +259,8 @@ const FeaturedSoldProperties = () => {
             <div
               key={property.id}
               className={cn(
-                "group bg-[#1a1a1a] rounded-xl overflow-hidden border border-[#D4AF37]/20",
-                "hover:border-[#D4AF37]/40 hover:shadow-lg hover:-translate-y-1",
+                "group bg-background-card rounded-xl overflow-hidden border border-primary-500/20",
+                "hover:border-primary-500/40 hover:shadow-lg hover:-translate-y-1",
                 "transition-all duration-500",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               )}
@@ -280,7 +280,7 @@ const FeaturedSoldProperties = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Sold Badge */}
-                <div className="absolute top-4 left-4 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+                <div className="absolute top-4 left-4 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
                   <CheckCircle className="w-4 h-4" />
                   נמכר!
                 </div>
@@ -289,14 +289,14 @@ const FeaturedSoldProperties = () => {
                 <div className="absolute bottom-4 right-4 left-4 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <Badge 
                     variant="outline" 
-                    className="bg-black/80 backdrop-blur-sm border-[#D4AF37] text-[#FFD700]"
+                    className="bg-black/80 backdrop-blur-sm border-primary-500 text-primary-400"
                   >
                     <Clock className="w-3 h-3 ml-1" />
                     {property.daysOnMarket} ימים
                   </Badge>
                   <Badge 
                     variant="outline" 
-                    className="bg-black/80 backdrop-blur-sm border-[#D4AF37] text-[#FFD700]"
+                    className="bg-black/80 backdrop-blur-sm border-primary-500 text-primary-400"
                   >
                     <Calendar className="w-3 h-3 ml-1" />
                     {property.soldDate}
@@ -306,27 +306,27 @@ const FeaturedSoldProperties = () => {
               
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#FFD700] transition-colors">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
                   {property.title}
                 </h3>
                 
                 <div className="flex items-center gap-2 text-gray-400 mb-4">
-                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  <MapPin className="w-4 h-4 text-primary-500" />
                   <span>{property.neighborhood}</span>
                 </div>
                 
                 {/* Property Details Grid */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="text-center p-2 bg-[#D4AF37]/10 rounded group-hover:bg-[#D4AF37]/20 transition-colors">
-                    <Bed className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                  <div className="text-center p-2 bg-primary-500/10 rounded group-hover:bg-primary-500/20 transition-colors">
+                    <Bed className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                     <span className="text-xs text-gray-300">{property.rooms} חד׳</span>
                   </div>
-                  <div className="text-center p-2 bg-[#D4AF37]/10 rounded group-hover:bg-[#D4AF37]/20 transition-colors">
-                    <Maximize2 className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                  <div className="text-center p-2 bg-primary-500/10 rounded group-hover:bg-primary-500/20 transition-colors">
+                    <Maximize2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                     <span className="text-xs text-gray-300">{property.size} מ״ר</span>
                   </div>
-                  <div className="text-center p-2 bg-[#D4AF37]/10 rounded group-hover:bg-[#D4AF37]/20 transition-colors">
-                    <Building2 className="w-4 h-4 text-[#D4AF37] mx-auto mb-1" />
+                  <div className="text-center p-2 bg-primary-500/10 rounded group-hover:bg-primary-500/20 transition-colors">
+                    <Building2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
                     <span className="text-xs text-gray-300">קומה {property.floor}</span>
                   </div>
                 </div>
@@ -336,7 +336,7 @@ const FeaturedSoldProperties = () => {
                   {property.features.slice(0, 3).map((feature, i) => (
                     <span 
                       key={i}
-                      className="text-xs px-2 py-1 bg-[#D4AF37]/10 text-gray-400 rounded-full"
+                      className="text-xs px-2 py-1 bg-primary-500/10 text-gray-400 rounded-full"
                     >
                       {feature}
                     </span>
@@ -345,11 +345,11 @@ const FeaturedSoldProperties = () => {
                 
                 {/* Testimonial */}
                 {property.testimonial && (
-                  <div className="border-t border-[#D4AF37]/20 pt-4">
+                  <div className="border-t border-primary-500/20 pt-4">
                     <p className="text-sm text-gray-400 italic line-clamp-2">
                       &rdquo;{property.testimonial.content}&rdquo;
                     </p>
-                    <p className="text-xs text-[#D4AF37] font-medium mt-2">
+                    <p className="text-xs text-primary-500 font-medium mt-2">
                       — {property.testimonial.name}
                     </p>
                   </div>

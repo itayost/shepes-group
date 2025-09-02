@@ -88,11 +88,11 @@ const CTASection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background to-background-secondary overflow-hidden"
     >
       {/* Simple background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#D4AF37]/5 to-[#B8860B]/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary-500/5 to-primary-600/5 rounded-full blur-3xl" />
       </div>
       
       <div className="container relative z-10">
@@ -103,15 +103,15 @@ const CTASection = () => {
             "inline-flex items-center gap-2 mb-6 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+            <Sparkles className="w-4 h-4 text-primary-500" />
             <Badge 
               variant="outline" 
               size="lg" 
-              className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10"
+              className="border-primary-500 text-primary-500 bg-primary-500/10"
             >
               בואו נתחיל
             </Badge>
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+            <Sparkles className="w-4 h-4 text-primary-500" />
           </div>
           
           {/* Title */}
@@ -120,7 +120,7 @@ const CTASection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             <span className="text-white">מוכנים להתחיל את </span>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
               המסע לבית החדש
             </span>
             <span className="text-white"> שלכם?</span>
@@ -133,7 +133,7 @@ const CTASection = () => {
           )}>
             צוות המומחים שלנו כאן בשבילכם
             <br className="hidden md:block" />
-            <span className="text-[#D4AF37] font-medium">ליווי מקצועי ואישי בכל שלב</span>
+            <span className="text-primary-500 font-medium">ליווי מקצועי ואישי בכל שלב</span>
           </p>
           
           {/* Trust Indicators */}
@@ -146,9 +146,9 @@ const CTASection = () => {
               return (
                 <div 
                   key={index}
-                  className="flex flex-col items-center gap-2 p-3 bg-[#1a1a1a] rounded-lg border border-[#D4AF37]/20"
+                  className="flex flex-col items-center gap-2 p-3 bg-background-card rounded-lg border border-primary-500/20"
                 >
-                  <Icon className="w-5 h-5 text-[#D4AF37]" />
+                  <Icon className="w-5 h-5 text-primary-500" />
                   <span className="text-xs text-gray-400">{item.text}</span>
                 </div>
               );
@@ -172,10 +172,10 @@ const CTASection = () => {
                   {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="block"
                 >
-                  <div className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4 hover:border-[#D4AF37]/40 transition-all">
+                  <div className="bg-background-card border border-primary-500/20 rounded-xl p-4 hover:border-primary-500/40 transition-all">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                           <Icon className="w-6 h-6 text-black" />
                         </div>
                         <div className="text-right">
@@ -183,7 +183,7 @@ const CTASection = () => {
                           <p className="text-sm text-gray-400">{method.description}</p>
                         </div>
                       </div>
-                      <ArrowLeft className="w-5 h-5 text-[#D4AF37]" />
+                      <ArrowLeft className="w-5 h-5 text-primary-500" />
                     </div>
                   </div>
                 </LinkWrapper>
@@ -210,7 +210,7 @@ const CTASection = () => {
               >
                 <span className="relative z-10">חייגו עכשיו: {SITE_CONFIG.phone}</span>
                 <div className={cn(
-                  "absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#D4AF37] transition-opacity duration-300",
+                  "absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-500 transition-opacity duration-300",
                   hoveredButton === 'phone' ? "opacity-100" : "opacity-0"
                 )} />
               </Button>
@@ -261,7 +261,7 @@ const CTASection = () => {
             "flex items-center justify-center gap-2 text-sm text-gray-400 transition-all duration-700 delay-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <Calendar className="w-4 h-4 text-[#D4AF37]" />
+            <Calendar className="w-4 h-4 text-primary-500" />
             <span>ראשון - חמישי: 9:00-20:00 | שישי: 9:00-14:00</span>
           </div>
           
@@ -270,9 +270,9 @@ const CTASection = () => {
             "hidden md:flex items-center gap-4 max-w-md mx-auto mt-8 transition-all duration-700 delay-600",
             isVisible ? "opacity-100" : "opacity-0"
           )}>
-            <div className="flex-1 h-px bg-gradient-to-l from-[#D4AF37]/30 to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-l from-primary-500/30 to-transparent" />
             <span className="text-gray-500 text-sm">או</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/30 to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-primary-500/30 to-transparent" />
           </div>
           
           {/* Secondary CTA */}
@@ -284,7 +284,7 @@ const CTASection = () => {
               <Button
                 variant="ghost"
                 icon={ArrowLeft}
-                className="text-[#D4AF37] hover:text-[#FFD700] hover:bg-[#D4AF37]/10"
+                className="text-primary-500 hover:text-primary-400 hover:bg-primary-500/10"
               >
                 גלו את השירותים שלנו
               </Button>

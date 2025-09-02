@@ -27,14 +27,14 @@ export default function Badge({
       className={cn(
         'inline-flex items-center gap-1 font-medium transition-all duration-200',
         {
-          // Variants - Updated for black & gold theme
-          'bg-[#1a1a1a] text-gray-300 border border-[#D4AF37]/20': variant === 'default',
-          'bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30': variant === 'primary',
-          'bg-black text-[#FFD700] border border-[#D4AF37]/50': variant === 'secondary',
-          'bg-green-900/20 text-green-400 border border-green-400/30': variant === 'success',
-          'bg-yellow-900/20 text-yellow-400 border border-yellow-400/30': variant === 'warning',
-          'bg-red-900/20 text-red-400 border border-red-400/30': variant === 'danger',
-          'bg-transparent border-2 border-[#D4AF37]/50 text-[#D4AF37]': variant === 'outline',
+          // Variants - Updated with Tailwind colors
+          'bg-background-card text-gray-300 border border-primary-500/20': variant === 'default',
+          'bg-primary-500/20 text-primary-500 border border-primary-500/30': variant === 'primary',
+          'bg-black text-primary-400 border border-primary-500/50': variant === 'secondary',
+          'bg-success-900/20 text-success-400 border border-success-400/30': variant === 'success',
+          'bg-warning-900/20 text-warning-400 border border-warning-400/30': variant === 'warning',
+          'bg-error-900/20 text-error-400 border border-error-400/30': variant === 'danger',
+          'bg-transparent border-2 border-primary-500/50 text-primary-500': variant === 'outline',
           
           // Sizes
           'px-2 py-0.5 text-xs': size === 'xs',
@@ -56,11 +56,11 @@ export default function Badge({
           'w-1.5 h-1.5 rounded-full',
           {
             'bg-gray-400': variant === 'default',
-            'bg-[#D4AF37]': variant === 'primary',
-            'bg-[#FFD700]': variant === 'secondary',
-            'bg-green-400': variant === 'success',
-            'bg-yellow-400': variant === 'warning',
-            'bg-red-400': variant === 'danger',
+            'bg-primary-500': variant === 'primary',
+            'bg-primary-400': variant === 'secondary',
+            'bg-success-400': variant === 'success',
+            'bg-warning-400': variant === 'warning',
+            'bg-error-400': variant === 'danger',
           }
         )} />
       )}

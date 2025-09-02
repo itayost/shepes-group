@@ -25,7 +25,7 @@ const timelineEvents = [
     agent: 'גלית',
     icon: Calendar,
     highlight: 'התחלת המסע',
-    color: 'from-[#D4AF37] to-[#B8860B]'
+    color: 'from-primary-500 to-primary-600'
   },
   {
     year: '2009',
@@ -34,7 +34,7 @@ const timelineEvents = [
     agent: 'חיים',
     icon: Users,
     highlight: 'הרחבת הצוות',
-    color: 'from-[#B8860B] to-[#D4AF37]'
+    color: 'from-primary-600 to-primary-500'
   },
   {
     year: '2015',
@@ -43,7 +43,7 @@ const timelineEvents = [
     agent: 'גלית וחיים',
     icon: MapPin,
     highlight: 'אבן דרך',
-    color: 'from-[#FFD700] to-[#D4AF37]'
+    color: 'from-primary-400 to-primary-500'
   },
   {
     year: '2020',
@@ -52,7 +52,7 @@ const timelineEvents = [
     agent: 'גלית וחיים',
     icon: TrendingUp,
     highlight: 'צמיחה',
-    color: 'from-[#D4AF37] to-[#FFD700]'
+    color: 'from-primary-500 to-primary-400'
   },
   {
     year: '2024',
@@ -61,7 +61,7 @@ const timelineEvents = [
     agent: 'גלית וחיים',
     icon: Trophy,
     highlight: 'הישג',
-    color: 'from-[#B8860B] via-[#D4AF37] to-[#FFD700]'
+    color: 'bg-gradient-gold'
   }
 ];
 
@@ -102,10 +102,10 @@ const TimelineSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-black-gold overflow-hidden"
     >
       {/* Background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         {/* Section Header */}
@@ -113,7 +113,7 @@ const TimelineSection = () => {
           <Badge 
             variant="outline" 
             className={cn(
-              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              "mb-6 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -125,14 +125,14 @@ const TimelineSection = () => {
             "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-gold bg-clip-text text-transparent">
               הסיפור שלנו
             </span>
-            <span className="text-white"> לאורך השנים</span>
+            <span className="text-text-primary"> לאורך השנים</span>
           </h2>
           
           <p className={cn(
-            "text-lg md:text-xl text-gray-300 max-w-2xl mx-auto transition-all duration-700 delay-200",
+            "text-lg md:text-xl text-text-secondary max-w-2xl mx-auto transition-all duration-700 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             מסע של מקצועיות, אמינות והצלחה
@@ -143,7 +143,7 @@ const TimelineSection = () => {
         <div className="md:hidden">
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute right-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#B8860B] via-[#D4AF37] to-[#B8860B]" />
+            <div className="absolute right-8 top-0 bottom-0 w-0.5 bg-gradient-gold" />
             
             {/* Events */}
             <div className="space-y-8">
@@ -163,12 +163,12 @@ const TimelineSection = () => {
                       <div className={cn(
                         "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500",
                         activeIndex === index 
-                          ? `bg-gradient-to-br ${event.color} shadow-gold-glow` 
-                          : "bg-[#1a1a1a] border-2 border-[#D4AF37]/50"
+                          ? `${event.color} shadow-gold-glow` 
+                          : "bg-background-card border-2 border-primary-500/50"
                       )}>
                         <Icon className={cn(
                           "w-6 h-6",
-                          activeIndex === index ? "text-black" : "text-[#D4AF37]"
+                          activeIndex === index ? "text-background" : "text-primary-500"
                         )} />
                       </div>
                     </div>
@@ -181,10 +181,10 @@ const TimelineSection = () => {
                       <Card 
                         variant="default" 
                         className={cn(
-                          "bg-[#1a1a1a] border transition-all duration-300 cursor-pointer",
+                          "transition-all duration-300 cursor-pointer",
                           activeIndex === index 
-                            ? "border-[#D4AF37] shadow-gold" 
-                            : "border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                            ? "shadow-gold" 
+                            : "hover:border-primary-500/40"
                         )}
                       >
                         <CardContent className="p-4">
@@ -196,8 +196,8 @@ const TimelineSection = () => {
                               className={cn(
                                 "transition-all duration-300",
                                 activeIndex === index 
-                                  ? "bg-[#D4AF37]/20 border-[#D4AF37] text-[#FFD700]" 
-                                  : "border-[#D4AF37]/30 text-[#D4AF37]"
+                                  ? "bg-primary-500/20 text-text-gold-bright" 
+                                  : ""
                               )}
                             >
                               {event.year}
@@ -207,13 +207,13 @@ const TimelineSection = () => {
                           {/* Title */}
                           <h3 className={cn(
                             "text-lg font-bold mb-2 transition-colors",
-                            activeIndex === index ? "text-[#FFD700]" : "text-white"
+                            activeIndex === index ? "text-text-gold-bright" : "text-text-primary"
                           )}>
                             {event.title}
                           </h3>
                           
                           {/* Description */}
-                          <p className="text-sm text-gray-400 mb-3">
+                          <p className="text-sm text-text-muted mb-3">
                             {event.description}
                           </p>
                           
@@ -222,12 +222,11 @@ const TimelineSection = () => {
                             <Badge 
                               variant="outline" 
                               size="sm"
-                              className="bg-[#D4AF37]/10 border-[#D4AF37]/30 text-[#D4AF37]"
                             >
                               {event.agent}
                             </Badge>
                             {activeIndex === index && (
-                              <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                              <CheckCircle className="w-4 h-4 text-primary-500" />
                             )}
                           </div>
                         </CardContent>
@@ -244,7 +243,7 @@ const TimelineSection = () => {
         <div className="hidden md:block max-w-5xl mx-auto">
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#B8860B] via-[#D4AF37] to-[#B8860B]" />
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-gold" />
             
             {/* Events */}
             <div className="space-y-12">
@@ -270,7 +269,7 @@ const TimelineSection = () => {
                       <Card 
                         variant="default" 
                         hover
-                        className="group bg-[#1a1a1a] border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 hover:shadow-gold"
+                        className="group"
                       >
                         <CardContent className="p-6">
                           {/* Year Badge with gradient */}
@@ -278,19 +277,19 @@ const TimelineSection = () => {
                             <Badge 
                               variant="primary" 
                               size="lg"
-                              className={`bg-gradient-to-r ${event.color} text-black font-bold`}
+                              className={`${event.color} text-background font-bold`}
                             >
                               {event.year}
                             </Badge>
                           </div>
                           
                           {/* Title */}
-                          <h3 className="text-xl font-bold text-white group-hover:text-[#FFD700] transition-colors mb-3">
+                          <h3 className="text-xl font-bold text-text-primary group-hover:text-text-gold transition-colors mb-3">
                             {event.title}
                           </h3>
                           
                           {/* Description */}
-                          <p className="text-gray-400 mb-4">
+                          <p className="text-text-muted mb-4">
                             {event.description}
                           </p>
                           
@@ -299,12 +298,11 @@ const TimelineSection = () => {
                             <Badge 
                               variant="outline" 
                               size="sm"
-                              className="bg-[#D4AF37]/10 border-[#D4AF37]/30 text-[#D4AF37]"
                             >
                               {event.agent}
                             </Badge>
                             <ArrowRight className={cn(
-                              "w-4 h-4 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all",
+                              "w-4 h-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-all",
                               isLeft ? "" : "rotate-180"
                             )} />
                           </div>
@@ -317,8 +315,8 @@ const TimelineSection = () => {
                       "absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-700",
                       visibleItems[index] ? "scale-100 rotate-0" : "scale-0 rotate-180"
                     )}>
-                      <div className="w-14 h-14 bg-black border-2 border-[#D4AF37] rounded-full shadow-gold flex items-center justify-center group hover:bg-gradient-to-br hover:from-[#D4AF37] hover:to-[#B8860B] hover:shadow-gold-glow transition-all cursor-pointer">
-                        <Icon className="w-6 h-6 text-[#D4AF37] group-hover:text-black transition-colors" />
+                      <div className="w-14 h-14 bg-background border-2 border-primary-500 rounded-full shadow-gold flex items-center justify-center group hover:bg-gradient-gold hover:shadow-gold-glow transition-all cursor-pointer">
+                        <Icon className="w-6 h-6 text-primary-500 group-hover:text-background transition-colors" />
                       </div>
                     </div>
                   </div>
@@ -327,8 +325,6 @@ const TimelineSection = () => {
             </div>
           </div>
         </div>
-
-
       </div>
     </section>
   );

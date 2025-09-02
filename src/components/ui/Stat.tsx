@@ -36,16 +36,16 @@ export default function Stat({
         'p-4': size === 'sm',
         'p-6': size === 'md',
         'p-8': size === 'lg',
-        'border-r border-[#D4AF37]/20 last:border-r-0': variant === 'bordered',
-        'bg-[#1a1a1a] rounded-lg border border-[#D4AF37]/20': variant === 'filled',
+        'border-r border-primary-500/20 last:border-r-0': variant === 'bordered',
+        'bg-background-card rounded-lg border border-primary-500/20': variant === 'filled',
       },
       className
     )}>
       {Icon && (
         <div className="flex justify-center mb-3">
-          <div className="p-2 bg-[#D4AF37]/20 rounded-lg">
+          <div className="p-2 bg-primary-500/20 rounded-lg">
             <Icon className={cn(
-              'text-[#D4AF37]',
+              'text-primary-500',
               {
                 'w-4 h-4': size === 'sm',
                 'w-5 h-5': size === 'md',
@@ -56,7 +56,7 @@ export default function Stat({
         </div>
       )}
       <div className={cn(
-        'font-bold text-[#FFD700]',
+        'font-bold text-primary-400',
         {
           'text-lg': size === 'sm',
           'text-xl': size === 'md',
@@ -80,7 +80,7 @@ export default function Stat({
       {trend && (
         <div className={cn(
           'mt-2 text-xs font-medium',
-          trend.isPositive ? 'text-green-400' : 'text-red-400'
+          trend.isPositive ? 'text-success-400' : 'text-error-400'
         )}>
           {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
         </div>

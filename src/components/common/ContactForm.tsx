@@ -61,12 +61,12 @@ export default function ContactForm() {
 
   return (
     <>
-      <Card className="mx-auto w-full max-w-2xl bg-[#1a1a1a] border-[#D4AF37]/30 shadow-gold">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
-          <CardTitle className="text-center text-2xl bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+          <CardTitle className="text-center text-2xl bg-gradient-gold bg-clip-text text-transparent">
             צור קשר
           </CardTitle>
-          <p className="text-center text-gray-400">
+          <p className="text-center text-text-muted">
             נשמח לשמוע ממך! מלא את הטופס ונחזור אליך בהקדם
           </p>
         </CardHeader>
@@ -130,12 +130,13 @@ export default function ContactForm() {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow font-bold"
+                className="w-full font-bold"
                 disabled={isSubmitting}
+                variant="primary"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
                     שולח...
                   </span>
                 ) : (
@@ -143,7 +144,7 @@ export default function ContactForm() {
                 )}
               </Button>
               
-              <p className="text-center text-sm text-gray-500">
+              <p className="text-center text-sm text-text-muted">
                 * שדות חובה
               </p>
             </div>

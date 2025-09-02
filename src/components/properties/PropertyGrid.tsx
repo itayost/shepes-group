@@ -55,10 +55,10 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-luxury overflow-hidden"
     >
       {/* Simple background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         {/* Section Header */}
@@ -66,7 +66,7 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
           <Badge 
             variant="outline" 
             className={cn(
-              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              "mb-6 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -78,13 +78,13 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
             "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-gold bg-clip-text text-transparent">
               עסקאות אחרונות
             </span>
           </h2>
           
           <p className={cn(
-            "text-lg md:text-xl text-gray-300 max-w-2xl mx-auto transition-all duration-700 delay-200",
+            "text-lg md:text-xl text-text-secondary max-w-2xl mx-auto transition-all duration-700 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             {properties.length} נכסים נמכרו בהצלחה
@@ -131,14 +131,14 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
         {/* CTA Section */}
         {properties.length > 6 && (
           <div className={cn(
-            "text-center mt-16 p-8 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] rounded-xl border border-[#D4AF37]/20 transition-all duration-700",
+            "text-center mt-16 p-8 bg-gradient-to-r from-background-card to-background-secondary rounded-xl border border-primary-500/20 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ transitionDelay: '600ms' }}>
-            <Home className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-2">
+            <Home className="w-12 h-12 text-primary-500 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-text-primary mb-2">
               מעוניינים למכור את הנכס שלכם?
             </h3>
-            <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
+            <p className="text-text-muted mb-6 max-w-2xl mx-auto">
               הצטרפו למאות הלקוחות המרוצים שלנו וקבלו את המחיר הטוב ביותר
             </p>
             <Link href="/contact">

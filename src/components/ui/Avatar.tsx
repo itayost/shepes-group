@@ -46,14 +46,14 @@ export default function Avatar({
   return (
     <div className={cn('relative', sizeClasses[size], className)} {...props}>
       {gradient && (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full" />
       )}
       {border && (
         <div className="absolute inset-1 bg-black rounded-full" />
       )}
       <div className={cn(
         'relative w-full h-full rounded-full overflow-hidden',
-        border && 'ring-2 ring-[#D4AF37]'
+        border && 'ring-2 ring-primary-500'
       )}>
         {src ? (
           <Image
@@ -63,7 +63,7 @@ export default function Avatar({
             className="object-cover object-top"
           />
         ) : (
-          <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20">
+          <div className="w-full h-full bg-background-card flex items-center justify-center text-primary-500 border border-primary-500/20">
             {fallback || alt?.charAt(0).toUpperCase()}
           </div>
         )}
@@ -73,10 +73,10 @@ export default function Avatar({
           'absolute bottom-0 right-0 rounded-full ring-2 ring-black',
           statusSizeClasses[size],
           {
-            'bg-green-500': status === 'online',
+            'bg-success-500': status === 'online',
             'bg-gray-600': status === 'offline',
-            'bg-red-500': status === 'busy',
-            'bg-yellow-500': status === 'away',
+            'bg-error-500': status === 'busy',
+            'bg-warning-500': status === 'away',
           }
         )} />
       )}

@@ -24,7 +24,7 @@ const PropertyHero = () => {
         <>
           עשרות משפחות מרוצות שמצאו את הבית המושלם
           <br className="hidden md:block" />
-          <span className="text-[#D4AF37] font-semibold">כל נכס - סיפור הצלחה</span>
+          <span className="text-text-gold font-semibold">כל נכס - סיפור הצלחה</span>
         </>
       }
       features={features}

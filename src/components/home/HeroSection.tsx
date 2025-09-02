@@ -1,5 +1,3 @@
-// File: src/components/home/HeroSection.tsx
-
 'use client';
 
 import Button from '@/components/ui/Button';
@@ -56,39 +54,39 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80" />
       </div>
 
-      {/* Gold Glow Decorative Elements */}
+      {/* Gold Glow Decorative Elements - Updated with new gold colors */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-[#B8860B]/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl" />
       </div>
       
       <div className="container relative z-10 flex items-center justify-center min-h-screen">
         <div className="max-w-3xl text-center w-full">
-          {/* Logo with gold glow */}
+          {/* Logo with gold glow - Updated shadow color */}
           <div className="mb-8 animate-fade-in flex justify-center">
             <Image
               src="/shepes-group-white.png"
               alt="Company Logo"
               width={400}
               height={160}
-              className="w-auto h-50 md:h-80 lg:h-80 drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              className="w-auto h-50 md:h-80 lg:h-80 drop-shadow-[0_0_30px_rgba(193,167,103,0.3)]"
               priority
             />
           </div>
           
-          {/* Title with gold gradient */}
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 animate-slide-up drop-shadow-2xl leading-relaxed bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+          {/* Title with gold gradient - Updated with new palette */}
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 animate-slide-up drop-shadow-2xl leading-relaxed bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
             {HOME_HERO.title}
           </h1>
           
-          {/* CTA Buttons - Black & Gold theme */}
+          {/* CTA Buttons - Black & Gold theme with new colors */}
           <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-slide-up animation-delay-200 justify-center">
             <a href="tel:+972501234567">
               <Button
                 size="lg"
                 variant="gradient"
                 icon={Phone}
-                className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black hover:from-[#FFD700] hover:to-[#D4AF37] shadow-gold hover:shadow-gold-glow backdrop-blur-sm text-lg font-bold"
+                className="bg-gradient-to-r from-primary-500 to-primary-600 text-black hover:from-primary-400 hover:to-primary-500 shadow-gold hover:shadow-gold-glow backdrop-blur-sm text-lg font-bold"
               >
                 התקשרו עכשיו
               </Button>
@@ -99,7 +97,7 @@ const HeroSection = () => {
                 size="lg"
                 variant="outline"
                 icon={Briefcase}
-                className="bg-black/30 backdrop-blur-md text-[#D4AF37] border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black text-lg font-bold"
+                className="bg-black/30 backdrop-blur-md text-primary-500 border-2 border-primary-500 hover:bg-primary-500 hover:text-black text-lg font-bold"
               >
                 השירותים שלנו
               </Button>
@@ -110,7 +108,7 @@ const HeroSection = () => {
 
       {/* Scroll Indicator - Gold */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <ChevronDown className="w-8 h-8 text-[#D4AF37]" />
+        <ChevronDown className="w-8 h-8 text-primary-500" />
       </div>
     </section>
   );

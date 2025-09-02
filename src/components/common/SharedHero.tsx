@@ -101,7 +101,7 @@ const SharedHero = ({
     <section 
       ref={sectionRef}
       className={cn(
-        "relative bg-gradient-to-b from-[#0a0a0a] via-[#111111] to-[#0a0a0a] overflow-hidden flex flex-col justify-center",
+        "relative bg-gradient-to-b from-background-secondary via-background-tertiary to-background-secondary overflow-hidden flex flex-col justify-center",
         currentSize.section,
         className
       )}
@@ -111,7 +111,7 @@ const SharedHero = ({
         {/* Central animated glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px]">
           <div 
-            className="absolute inset-0 bg-gradient-radial from-[#D4AF37]/15 via-[#FFD700]/8 to-transparent blur-3xl"
+            className="absolute inset-0 bg-gradient-radial from-primary-500/15 via-primary-400/8 to-transparent blur-3xl"
             style={{
               animation: 'pulse 4s ease-in-out infinite'
             }}
@@ -125,7 +125,7 @@ const SharedHero = ({
             animation: 'moveOrb1 15s ease-in-out infinite'
           }}
         >
-          <div className="w-full h-full bg-gradient-radial from-[#D4AF37]/12 to-transparent blur-3xl" />
+          <div className="w-full h-full bg-gradient-radial from-primary-500/12 to-transparent blur-3xl" />
         </div>
         
         {/* Moving orb 2 - right side */}
@@ -135,7 +135,7 @@ const SharedHero = ({
             animation: 'moveOrb2 20s ease-in-out infinite'
           }}
         >
-          <div className="w-full h-full bg-gradient-radial from-[#FFD700]/10 to-transparent blur-3xl" />
+          <div className="w-full h-full bg-gradient-radial from-primary-400/10 to-transparent blur-3xl" />
         </div>
         
         {/* Moving orb 3 - bottom */}
@@ -145,7 +145,7 @@ const SharedHero = ({
             animation: 'moveOrb3 18s ease-in-out infinite'
           }}
         >
-          <div className="w-full h-full bg-gradient-radial from-[#B8860B]/12 to-transparent blur-3xl" />
+          <div className="w-full h-full bg-gradient-radial from-primary-600/12 to-transparent blur-3xl" />
         </div>
         
         {/* Floating particles */}
@@ -153,7 +153,7 @@ const SharedHero = ({
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-[#D4AF37]/30 rounded-full"
+              className="absolute w-1 h-1 bg-primary-500/30 rounded-full"
               style={{
                 left: `${20 + i * 15}%`,
                 top: `${10 + i * 12}%`,
@@ -169,9 +169,9 @@ const SharedHero = ({
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 50%, #D4AF37 0%, transparent 50%),
-              radial-gradient(circle at 80% 50%, #FFD700 0%, transparent 50%),
-              radial-gradient(circle at 50% 80%, #B8860B 0%, transparent 50%)
+              radial-gradient(circle at 20% 50%, #c1a767 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, #d5c385 0%, transparent 50%),
+              radial-gradient(circle at 50% 80%, #a88d54 0%, transparent 50%)
             `
           }}
         />
@@ -193,16 +193,16 @@ const SharedHero = ({
               "inline-flex items-center gap-2 mb-6 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
-              <Sparkles className="w-4 h-4 text-[#D4AF37] animate-pulse" />
+              <Sparkles className="w-4 h-4 text-primary-500 animate-pulse" />
               <Badge 
                 variant="outline" 
                 size="lg" 
-                className="border-[#D4AF37]/60 text-[#D4AF37] bg-gradient-to-r from-[#D4AF37]/15 to-[#FFD700]/10 backdrop-blur-md"
+                className="border-primary-500/60 text-primary-500 bg-gradient-to-r from-primary-500/15 to-primary-400/10 backdrop-blur-md"
               >
                 {badgeIcon && <BadgeIcon className="w-3 h-3 ml-1" />}
                 {badge}
               </Badge>
-              <Sparkles className="w-4 h-4 text-[#D4AF37] animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <Sparkles className="w-4 h-4 text-primary-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
             </div>
 
             {/* Title */}
@@ -213,7 +213,7 @@ const SharedHero = ({
             )}>
               {typeof title === 'string' ? (
                 <span className="relative">
-                  <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-shift">
+                  <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-shift">
                     {title}
                   </span>
                 </span>
@@ -243,9 +243,9 @@ const SharedHero = ({
                 {features.map((feature, index) => (
                   <div 
                     key={index}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#1a1a1a]/80 to-[#222]/80 rounded-full border border-[#D4AF37]/20 backdrop-blur-md"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-background-card/80 to-background-elevated/80 rounded-full border border-primary-500/20 backdrop-blur-md"
                   >
-                    <feature.icon className="w-3 h-3 text-[#D4AF37]" />
+                    <feature.icon className="w-3 h-3 text-primary-500" />
                     <span className="text-xs text-gray-400">{feature.text}</span>
                   </div>
                 ))}
@@ -264,7 +264,7 @@ const SharedHero = ({
                     key={index}
                     className="flex items-center gap-2"
                   >
-                    <feature.icon className="w-5 h-5 text-[#D4AF37]" />
+                    <feature.icon className="w-5 h-5 text-primary-500" />
                     <span className="text-gray-400">{feature.text}</span>
                   </div>
                 ))}
@@ -311,9 +311,9 @@ const SharedHero = ({
           className="flex flex-col items-center gap-1 group cursor-pointer p-2"
           aria-label="Scroll down"
         >
-          <div className="w-[1px] h-6 bg-gradient-to-b from-transparent via-[#D4AF37]/30 to-[#D4AF37]/50" />
+          <div className="w-[1px] h-6 bg-gradient-to-b from-transparent via-primary-500/30 to-primary-500/50" />
           <svg 
-            className="w-4 h-4 text-[#D4AF37]/50 group-hover:text-[#D4AF37] transition-colors animate-bounce-slow"
+            className="w-4 h-4 text-primary-500/50 group-hover:text-primary-500 transition-colors animate-bounce-slow"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

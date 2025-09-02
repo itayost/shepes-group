@@ -15,12 +15,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       className={cn(
         'rounded-xl overflow-hidden transition-all duration-300',
         {
-          // Updated for black & gold theme
-          'bg-[#1a1a1a] border border-[#D4AF37]/20 shadow-dark': variant === 'default',
-          'bg-[#1a1a1a] shadow-gold border border-[#D4AF37]/30': variant === 'elevated',
-          'bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20': variant === 'gradient',
-          'bg-black border-2 border-[#D4AF37]/40': variant === 'outlined',
-          'hover:shadow-gold hover:-translate-y-1 hover:border-[#D4AF37]/40': hover && variant === 'default',
+          // Updated with Tailwind colors
+          'bg-background-card border border-primary-500/20 shadow-dark': variant === 'default',
+          'bg-background-card shadow-gold border border-primary-500/30': variant === 'elevated',
+          'bg-gradient-to-b from-background-card to-background-secondary border border-primary-500/20': variant === 'gradient',
+          'bg-black border-2 border-primary-500/40': variant === 'outlined',
+          'hover:shadow-gold hover:-translate-y-1 hover:border-primary-500/40': hover && variant === 'default',
           'hover:shadow-gold-glow': hover && variant === 'elevated',
         },
         className

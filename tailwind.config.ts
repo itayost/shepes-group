@@ -11,17 +11,17 @@ const config: Config = {
       colors: {
         // צבע ראשי - זהב יוקרתי
         primary: {
-          50: '#fffef7',
-          100: '#fffce8',
-          200: '#fff5c2',
-          300: '#ffe88c',
-          400: '#FFD700', // Gold
-          500: '#D4AF37', // Luxury gold - main
-          600: '#B8860B', // Dark gold
-          700: '#996515',
-          800: '#7a4f11',
-          900: '#5c3a0d',
-          950: '#3d2507',
+          50: '#fdfcf8',
+          100: '#faf8ed',
+          200: '#f3edd4',
+          300: '#e9ddb0',
+          400: '#d5c385',
+          500: '#c1a767', // Luxury gold - main
+          600: '#a88d54',
+          700: '#8a7143',
+          800: '#6d5836',
+          900: '#574630',
+          950: '#3a2f1f',
         },
         // צבע משני - שחור
         secondary: {
@@ -39,16 +39,16 @@ const config: Config = {
         },
         // צבע הדגשה - זהב מטאלי בהיר
         accent: {
-          50: '#fffdf7',
-          100: '#fffaeb',
-          200: '#fff3c7',
-          300: '#FFE55C', // Light gold
-          400: '#FFD700', // Pure gold
-          500: '#D4AF37', // Classic metallic gold
-          600: '#B8860B', // Dark metallic gold
-          700: '#996515',
-          800: '#7a4f11',
-          900: '#5c3a0d',
+          50: '#fdfcf8',
+          100: '#faf8ed',
+          200: '#f3edd4',
+          300: '#e9ddb0',
+          400: '#d5c385',
+          500: '#c1a767', // Classic metallic gold
+          600: '#a88d54',
+          700: '#8a7143',
+          800: '#6d5836',
+          900: '#574630',
         },
         // צבעי רקע - שחור
         background: {
@@ -65,8 +65,8 @@ const config: Config = {
           secondary: '#e5e5e5',   // Light gray
           muted: '#a3a3a3',      // Muted gray
           light: '#ffffff',      // White
-          gold: '#D4AF37',       // Gold text
-          'gold-bright': '#FFD700', // Bright gold
+          gold: '#c1a767',       // Gold text
+          'gold-bright': '#d5c385', // Bright gold
         },
         // צבעי תמיכה
         success: {
@@ -124,15 +124,15 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-luxury': 'linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
-        'gradient-gold': 'linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #FFD700 100%)',
-        'gradient-gold-subtle': 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)',
+        'gradient-gold': 'linear-gradient(135deg, #8a7143 0%, #c1a767 50%, #d5c385 100%)',
+        'gradient-gold-subtle': 'linear-gradient(135deg, #c1a767 0%, #a88d54 100%)',
         'gradient-black-gold': 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #141414 100%)',
       },
       boxShadow: {
-        'gold': '0 4px 20px -2px rgba(212, 175, 55, 0.25)',
-        'gold-lg': '0 10px 40px -3px rgba(212, 175, 55, 0.3)',
-        'gold-glow': '0 0 30px rgba(212, 175, 55, 0.4)',
-        'luxury': '0 20px 50px -12px rgba(212, 175, 55, 0.15)',
+        'gold': '0 4px 20px -2px rgba(193, 167, 103, 0.25)',
+        'gold-lg': '0 10px 40px -3px rgba(193, 167, 103, 0.3)',
+        'gold-glow': '0 0 30px rgba(193, 167, 103, 0.4)',
+        'luxury': '0 20px 50px -12px rgba(193, 167, 103, 0.15)',
         'dark': '0 10px 30px -5px rgba(0, 0, 0, 0.8)',
       },
       animation: {
@@ -156,17 +156,17 @@ const config: Config = {
           '100%': { backgroundPosition: '200% 0' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px rgba(212, 175, 55, 0.5)' },
-          '100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.8)' },
+          '0%': { boxShadow: '0 0 5px rgba(193, 167, 103, 0.5)' },
+          '100%': { boxShadow: '0 0 20px rgba(193, 167, 103, 0.8)' },
         },
         goldPulse: {
           '0%, 100%': { 
-            boxShadow: '0 0 10px rgba(212, 175, 55, 0.3)',
-            borderColor: 'rgba(212, 175, 55, 0.5)',
+            boxShadow: '0 0 10px rgba(193, 167, 103, 0.3)',
+            borderColor: 'rgba(193, 167, 103, 0.5)',
           },
           '50%': { 
-            boxShadow: '0 0 30px rgba(212, 175, 55, 0.5)',
-            borderColor: 'rgba(212, 175, 55, 0.8)',
+            boxShadow: '0 0 30px rgba(193, 167, 103, 0.5)',
+            borderColor: 'rgba(193, 167, 103, 0.8)',
           },
         },
       },

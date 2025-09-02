@@ -13,7 +13,7 @@ interface IconProps extends LucideProps {
  * Renders a Lucide icon by name
  * 
  * @example
- * <Icon name="Home" className="w-6 h-6 text-[#D4AF37]" />
+ * <Icon name="Home" className="w-6 h-6 text-primary-500" />
  * <Icon name="Phone" size={32} />
  */
 export const Icon = ({ name, fallback, ...props }: IconProps) => {
@@ -37,26 +37,26 @@ export const iconSizes = {
   '2xl': 48,
 } as const;
 
-// Wrapper components for specific use cases - Updated for black & gold theme
+// Wrapper components for specific use cases - Updated with Tailwind colors
 export const FeatureIcon = ({ name, ...props }: IconProps) => (
-  <div className="inline-flex items-center justify-center w-12 h-12 bg-[#D4AF37]/20 text-[#D4AF37] rounded-lg">
+  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-500/20 text-primary-500 rounded-lg">
     <Icon name={name} size={iconSizes.md} {...props} />
   </div>
 );
 
 export const ServiceIcon = ({ name, ...props }: IconProps) => (
-  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-black rounded-full">
+  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-black rounded-full">
     <Icon name={name} size={iconSizes.lg} {...props} />
   </div>
 );
 
 export const StatIcon = ({ name, color = 'primary', ...props }: IconProps & { color?: string }) => {
   const colorClasses = {
-    primary: 'bg-[#D4AF37]/20 text-[#D4AF37]',
-    green: 'bg-green-900/20 text-green-400',
+    primary: 'bg-primary-500/20 text-primary-500',
+    green: 'bg-success-900/20 text-success-400',
     blue: 'bg-blue-900/20 text-blue-400',
     purple: 'bg-purple-900/20 text-purple-400',
-    gold: 'bg-[#FFD700]/20 text-[#FFD700]',
+    gold: 'bg-primary-400/20 text-primary-400',
   };
 
   return (
@@ -66,7 +66,7 @@ export const StatIcon = ({ name, color = 'primary', ...props }: IconProps & { co
   );
 };
 
-// Button with icon component - Updated for black & gold theme
+// Button with icon component - Updated with Tailwind colors
 interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: string;
   children: React.ReactNode;
@@ -82,7 +82,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button 
-      className={`inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#FFD700] ${className}`}
+      className={`inline-flex items-center gap-2 text-primary-500 hover:text-primary-400 ${className}`}
       {...props}
     >
       {iconPosition === 'left' && <Icon name={icon} size={iconSizes.sm} />}

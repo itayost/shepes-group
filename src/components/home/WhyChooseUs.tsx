@@ -89,10 +89,10 @@ const WhyChooseUs = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-[#0a0a0a] to-black overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background-secondary to-background overflow-hidden"
     >
       {/* Subtle gradient accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-[#D4AF37]/5 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-primary-500/5 to-transparent blur-3xl pointer-events-none" />
       
       <div className="container relative">
         {/* Section Header */}
@@ -100,7 +100,7 @@ const WhyChooseUs = () => {
           <Badge 
             variant="outline" 
             className={cn(
-              "mb-6 border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10 transition-all duration-700",
+              "mb-6 border-primary-500 text-primary-500 bg-primary-500/10 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -112,7 +112,7 @@ const WhyChooseUs = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             <span className="text-white">למה לבחור ב</span>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
               שפס נדל״ן?
             </span>
           </h2>
@@ -131,44 +131,44 @@ const WhyChooseUs = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
           {/* Properties Sold */}
-          <div className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4 md:p-6 text-center hover:border-[#D4AF37]/40 transition-all">
-            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-3">
+          <div className="bg-background-card border border-primary-500/20 rounded-xl p-4 md:p-6 text-center hover:border-primary-500/40 transition-all">
+            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-3">
               <Award className="w-5 h-5 md:w-6 md:h-6 text-black" />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl md:text-3xl font-bold text-primary-400 mb-1">
               {counters.properties}+
             </div>
             <div className="text-sm text-gray-400">נכסים נמכרו</div>
           </div>
 
           {/* Customer Satisfaction */}
-          <div className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4 md:p-6 text-center hover:border-[#D4AF37]/40 transition-all">
-            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-3">
+          <div className="bg-background-card border border-primary-500/20 rounded-xl p-4 md:p-6 text-center hover:border-primary-500/40 transition-all">
+            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-3">
               <Star className="w-5 h-5 md:w-6 md:h-6 text-black" />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl md:text-3xl font-bold text-primary-400 mb-1">
               {counters.satisfaction}%
             </div>
             <div className="text-sm text-gray-400">לקוחות מרוצים</div>
           </div>
 
           {/* Days to Sell */}
-          <div className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4 md:p-6 text-center hover:border-[#D4AF37]/40 transition-all">
-            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-3">
+          <div className="bg-background-card border border-primary-500/20 rounded-xl p-4 md:p-6 text-center hover:border-primary-500/40 transition-all">
+            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-3">
               <Clock className="w-5 h-5 md:w-6 md:h-6 text-black" />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl md:text-3xl font-bold text-primary-400 mb-1">
               {counters.days}
             </div>
             <div className="text-sm text-gray-400">ימים למכירה</div>
           </div>
 
           {/* Years Experience */}
-          <div className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4 md:p-6 text-center hover:border-[#D4AF37]/40 transition-all">
-            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-lg mb-3">
+          <div className="bg-background-card border border-primary-500/20 rounded-xl p-4 md:p-6 text-center hover:border-primary-500/40 transition-all">
+            <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-3">
               <Users className="w-5 h-5 md:w-6 md:h-6 text-black" />
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-[#FFD700] mb-1">
+            <div className="text-2xl md:text-3xl font-bold text-primary-400 mb-1">
               {counters.years}+
             </div>
             <div className="text-sm text-gray-400">שנות ניסיון</div>
@@ -185,8 +185,8 @@ const WhyChooseUs = () => {
               <div
                 key={index}
                 className={cn(
-                  "bg-[#1a1a1a] border rounded-xl transition-all duration-300",
-                  isActive ? "border-[#D4AF37]" : "border-[#D4AF37]/20"
+                  "bg-background-card border rounded-xl transition-all duration-300",
+                  isActive ? "border-primary-500" : "border-primary-500/20"
                 )}
               >
                 <button
@@ -196,25 +196,25 @@ const WhyChooseUs = () => {
                   <div className={cn(
                     "flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center transition-all",
                     isActive 
-                      ? "bg-gradient-to-br from-[#D4AF37] to-[#B8860B]" 
-                      : "bg-[#D4AF37]/10"
+                      ? "bg-gradient-to-br from-primary-500 to-primary-600" 
+                      : "bg-primary-500/10"
                   )}>
                     <Icon className={cn(
                       "w-6 h-6",
-                      isActive ? "text-black" : "text-[#D4AF37]"
+                      isActive ? "text-black" : "text-primary-500"
                     )} />
                   </div>
                   <div className="flex-1 text-right">
                     <h3 className={cn(
                       "font-bold transition-colors",
-                      isActive ? "text-[#FFD700]" : "text-white"
+                      isActive ? "text-primary-400" : "text-white"
                     )}>
                       {item.title}
                     </h3>
                   </div>
                   <Sparkles className={cn(
                     "w-5 h-5 transition-all",
-                    isActive ? "text-[#D4AF37] rotate-180" : "text-gray-500"
+                    isActive ? "text-primary-500 rotate-180" : "text-gray-500"
                   )} />
                 </button>
                 <div className={cn(
@@ -239,8 +239,8 @@ const WhyChooseUs = () => {
               <div
                 key={index}
                 className={cn(
-                  "group relative bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-6",
-                  "hover:border-[#D4AF37]/40 hover:shadow-lg hover:-translate-y-1",
+                  "group relative bg-background-card border border-primary-500/20 rounded-xl p-6",
+                  "hover:border-primary-500/40 hover:shadow-lg hover:-translate-y-1",
                   "transition-all duration-300",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
@@ -249,19 +249,19 @@ const WhyChooseUs = () => {
                 }}
               >
                 {/* Number badge */}
-                <div className="absolute top-4 left-4 w-8 h-8 bg-[#D4AF37]/10 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-[#D4AF37]">0{index + 1}</span>
+                <div className="absolute top-4 left-4 w-8 h-8 bg-primary-500/10 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary-500">0{index + 1}</span>
                 </div>
                 
                 {/* Icon */}
                 <div className="mb-4">
-                  <div className="inline-flex items-center justify-center w-14 h-14 bg-[#D4AF37]/10 rounded-xl group-hover:bg-gradient-to-br group-hover:from-[#D4AF37] group-hover:to-[#B8860B] transition-all duration-300">
-                    <Icon className="w-7 h-7 text-[#D4AF37] group-hover:text-black transition-colors" />
+                  <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-500/10 rounded-xl group-hover:bg-gradient-to-br group-hover:from-primary-500 group-hover:to-primary-600 transition-all duration-300">
+                    <Icon className="w-7 h-7 text-primary-500 group-hover:text-black transition-colors" />
                   </div>
                 </div>
                 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#FFD700] transition-colors">
+                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
                   {item.title}
                 </h3>
                 
@@ -271,7 +271,7 @@ const WhyChooseUs = () => {
                 </p>
                 
                 {/* Hover accent line */}
-                <div className="absolute bottom-0 right-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 right-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             );
           })}

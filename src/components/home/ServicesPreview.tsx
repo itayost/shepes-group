@@ -61,7 +61,7 @@ const ServicesPreview = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-16 md:py-24 bg-gradient-to-b from-black via-[#0a0a0a] to-black"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background via-background-secondary to-background"
     >
       <div className="container">
         {/* Section Header */}
@@ -70,18 +70,18 @@ const ServicesPreview = () => {
             "inline-flex items-center gap-2 mb-6 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-            <Badge variant="outline" className="border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/10">
+            <Sparkles className="w-4 h-4 text-primary-500" />
+            <Badge variant="outline" className="border-primary-500 text-primary-500 bg-primary-500/10">
               השירותים שלנו
             </Badge>
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+            <Sparkles className="w-4 h-4 text-primary-500" />
           </div>
           
           <h2 className={cn(
             "text-3xl md:text-5xl font-bold mb-4 transition-all duration-700 delay-100",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <span className="bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 bg-clip-text text-transparent">
               פתרונות נדל&quot;ן
             </span>
             <span className="text-white"> מקיפים</span>
@@ -99,7 +99,7 @@ const ServicesPreview = () => {
         <div className="md:hidden">
           {/* Active Service Display */}
           <div className="mb-8">
-            <div className="relative bg-[#1a1a1a] rounded-2xl border border-[#D4AF37]/30 p-6 shadow-lg">
+            <div className="relative bg-background-card rounded-2xl border border-primary-500/30 p-6 shadow-lg">
               {services.map((service, index) => {
                 const Icon = iconMap[service.icon] || Home;
                 return (
@@ -112,7 +112,7 @@ const ServicesPreview = () => {
                   >
                     {/* Icon */}
                     <div className="mb-4">
-                      <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-xl shadow-lg">
+                      <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl shadow-lg">
                         <Icon className="w-7 h-7 text-black" />
                       </div>
                     </div>
@@ -129,7 +129,7 @@ const ServicesPreview = () => {
                     <div className="space-y-2 mb-6">
                       {serviceFeatures[index].map((feature, i) => (
                         <div key={i} className="flex items-center gap-2 text-sm">
-                          <Check className="w-4 h-4 text-[#D4AF37]" />
+                          <Check className="w-4 h-4 text-primary-500" />
                           <span className="text-gray-400">{feature}</span>
                         </div>
                       ))}
@@ -162,18 +162,18 @@ const ServicesPreview = () => {
                   className={cn(
                     "p-4 rounded-lg border transition-all duration-300 text-left",
                     activeIndex === index 
-                      ? "bg-[#D4AF37]/10 border-[#D4AF37] shadow-md" 
-                      : "bg-[#1a1a1a] border-[#D4AF37]/20 hover:border-[#D4AF37]/40"
+                      ? "bg-primary-500/10 border-primary-500 shadow-md" 
+                      : "bg-background-card border-primary-500/20 hover:border-primary-500/40"
                   )}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className={cn(
                       "w-5 h-5",
-                      activeIndex === index ? "text-[#D4AF37]" : "text-gray-400"
+                      activeIndex === index ? "text-primary-500" : "text-gray-400"
                     )} />
                     <span className={cn(
                       "text-sm font-medium",
-                      activeIndex === index ? "text-[#D4AF37]" : "text-gray-300"
+                      activeIndex === index ? "text-primary-500" : "text-gray-300"
                     )}>
                       {service.title}
                     </span>
@@ -203,9 +203,9 @@ const ServicesPreview = () => {
                 <div
                   className={cn(
                     "relative h-full p-6 rounded-xl",
-                    "bg-[#1a1a1a] border border-[#D4AF37]/20",
+                    "bg-background-card border border-primary-500/20",
                     "transition-all duration-300",
-                    "hover:border-[#D4AF37]/40 hover:shadow-lg hover:-translate-y-1",
+                    "hover:border-primary-500/40 hover:shadow-lg hover:-translate-y-1",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   )}
                   style={{
@@ -218,15 +218,15 @@ const ServicesPreview = () => {
                     <div className="mb-4">
                       <div className={cn(
                         "inline-flex items-center justify-center transition-all duration-300",
-                        "w-12 h-12 bg-[#D4AF37]/10 rounded-lg",
-                        "group-hover:bg-gradient-to-br group-hover:from-[#D4AF37] group-hover:to-[#B8860B]"
+                        "w-12 h-12 bg-primary-500/10 rounded-lg",
+                        "group-hover:bg-gradient-to-br group-hover:from-primary-500 group-hover:to-primary-600"
                       )}>
-                        <Icon className="w-6 h-6 text-[#D4AF37] group-hover:text-black transition-colors" />
+                        <Icon className="w-6 h-6 text-primary-500 group-hover:text-black transition-colors" />
                       </div>
                     </div>
                     
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-500 transition-colors">
                       {service.title}
                     </h3>
                     
@@ -240,7 +240,7 @@ const ServicesPreview = () => {
                       <div className="space-y-1 mb-4">
                         {serviceFeatures[index].slice(0, 2).map((feature, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm">
-                            <Check className="w-3 h-3 text-[#D4AF37]" />
+                            <Check className="w-3 h-3 text-primary-500" />
                             <span className="text-gray-500">{feature}</span>
                           </div>
                         ))}
@@ -248,7 +248,7 @@ const ServicesPreview = () => {
                     )}
                     
                     {/* CTA */}
-                    <div className="flex items-center text-[#D4AF37] font-medium group-hover:text-[#FFD700] transition-colors">
+                    <div className="flex items-center text-primary-500 font-medium group-hover:text-primary-400 transition-colors">
                       <span className="text-sm">למידע נוסף</span>
                       <ChevronRight className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-transform" />
                     </div>

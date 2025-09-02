@@ -15,7 +15,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label 
             htmlFor={id} 
-            className="mb-2 block text-sm font-medium text-[#D4AF37]"
+            className="mb-2 block text-sm font-medium text-primary-500"
           >
             {label}
           </label>
@@ -24,20 +24,20 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={id}
           className={cn(
             'flex min-h-[120px] w-full rounded-md px-3 py-2 text-sm',
-            'bg-[#1a1a1a] text-white border border-[#D4AF37]/30',
+            'bg-background-card text-white border border-primary-500/30',
             'placeholder:text-gray-500',
-            'hover:border-[#D4AF37]/50',
-            'focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent',
+            'hover:border-primary-500/50',
+            'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
             'disabled:cursor-not-allowed disabled:opacity-50',
             'transition-all duration-200',
-            error && 'border-red-500 focus:ring-red-500',
+            error && 'border-error-500 focus:ring-error-500',
             className
           )}
           ref={ref}
           {...props}
         />
         {error && (
-          <p className="mt-1 text-sm text-red-400">{error}</p>
+          <p className="mt-1 text-sm text-error-400">{error}</p>
         )}
       </div>
     );
@@ -45,5 +45,4 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 
 Textarea.displayName = 'Textarea';
-
 export default Textarea;
