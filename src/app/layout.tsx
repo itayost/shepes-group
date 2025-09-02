@@ -20,6 +20,9 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
+  // ADD THIS LINE to fix the metadataBase warning
+  metadataBase: new URL(SITE_CONFIG.url || 'https://shepes-group.com'),
+  
   title: {
     default: SITE_CONFIG.name,
     template: `%s | ${SITE_CONFIG.name}`,
@@ -94,52 +97,53 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`}>
-      <head>
-        {/* תגי Meta נוספים */}
-        {/* FIXED: Changed from orange (#f59e0b) to black to match your site design */}
-        <meta name="theme-color" content="#000000" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        {/* IMPROVED: Changed to black-translucent for better visual integration */}
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
-        {/* Schema.org לנדל"ן */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'RealEstateAgent',
-              name: SITE_CONFIG.name,
-              description: SITE_CONFIG.description,
-              url: SITE_CONFIG.url,
-              logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
-              image: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
-              telephone: SITE_CONFIG.phone,
-              email: SITE_CONFIG.email,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: SITE_CONFIG.address.street,
-                addressLocality: SITE_CONFIG.address.city,
-                postalCode: SITE_CONFIG.address.zip,
-                addressCountry: 'IL',
-              },
-              areaServed: [
-                {
-                  '@type': 'City',
-                  name: 'חיפה',
-                },
-                {
-                  '@type': 'State',
-                  name: 'צפון',
-                }
-              ],
-              priceRange: '₪₪₪',
-              sameAs: Object.values(SITE_CONFIG.social),
-            }),
-          }}
-        />
-      </head>
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`} data-scroll-behavior="smooth">
+<head>
+  {/* תגי Meta נוספים */}
+  <meta name="theme-color" content="#000000" />
+  {/* ADD the new mobile-web-app-capable */}
+  <meta name="mobile-web-app-capable" content="yes" />
+  {/* Keep for backward compatibility but marked as deprecated */}
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  {/* Schema.org לנדל"ן */}
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'RealEstateAgent',
+        name: SITE_CONFIG.name,
+        description: SITE_CONFIG.description,
+        url: SITE_CONFIG.url,
+        logo: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
+        image: `${SITE_CONFIG.url}${SITE_CONFIG.logo}`,
+        telephone: SITE_CONFIG.phone,
+        email: SITE_CONFIG.email,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: SITE_CONFIG.address.street,
+          addressLocality: SITE_CONFIG.address.city,
+          postalCode: SITE_CONFIG.address.zip,
+          addressCountry: 'IL',
+        },
+        areaServed: [
+          {
+            '@type': 'City',
+            name: 'חיפה',
+          },
+          {
+            '@type': 'State',
+            name: 'צפון',
+          }
+        ],
+        priceRange: '₪₪₪',
+        sameAs: Object.values(SITE_CONFIG.social),
+      }),
+    }}
+  />
+</head>
       <body className={`${heebo.className} antialiased min-h-screen flex flex-col`}>
         {/* Header */}
         <Header />

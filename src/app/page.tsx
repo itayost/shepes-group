@@ -5,7 +5,6 @@ import FeaturedSoldProperties from '@/components/home/FeaturedSoldProperties';
 import HeroSection from '@/components/home/HeroSection';
 import ServicesPreview from '@/components/home/ServicesPreview';
 import Testimonials from '@/components/home/Testimonials';
-import WhyChooseUs from '@/components/home/WhyChooseUs';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
@@ -24,9 +23,6 @@ export default function HomePage() {
       
       {/* Featured Properties */}
       <FeaturedSoldProperties />
-      
-      {/* Why Choose Us */}
-      <WhyChooseUs />
       
       {/* Testimonials */}
       <Testimonials />

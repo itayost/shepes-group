@@ -15,11 +15,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  Home,
   MapPin,
   Maximize2,
-  Sparkles,
-  TrendingUp
+  Sparkles
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -115,34 +113,6 @@ const FeaturedSoldProperties = () => {
           )}>
             הצטרפו למאות לקוחות מרוצים שמכרו במחיר הטוב ביותר
           </p>
-        </div>
-
-        {/* Stats Bar */}
-        <div className={cn(
-          "grid grid-cols-3 gap-4 mb-12 max-w-3xl mx-auto transition-all duration-700 delay-300",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        )}>
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
-              <Home className="w-6 h-6 text-black" />
-            </div>
-            <div className="text-2xl font-bold text-primary-400">{stats.totalProperties}+</div>
-            <div className="text-sm text-gray-400">נכסים נמכרו</div>
-          </div>
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
-              <Clock className="w-6 h-6 text-black" />
-            </div>
-            <div className="text-2xl font-bold text-primary-400">{stats.avgDaysOnMarket}</div>
-            <div className="text-sm text-gray-400">ימים בממוצע</div>
-          </div>
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg mb-2">
-              <TrendingUp className="w-6 h-6 text-black" />
-            </div>
-            <div className="text-2xl font-bold text-primary-400">{stats.avgPriceAccuracy}%</div>
-            <div className="text-sm text-gray-400">דיוק במחיר</div>
-          </div>
         </div>
 
         {/* Mobile Carousel */}
