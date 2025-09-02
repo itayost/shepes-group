@@ -1,5 +1,3 @@
-// File: src/components/home/Testimonials.tsx
-
 'use client';
 
 import Badge from '@/components/ui/Badge';
@@ -18,10 +16,12 @@ import { useEffect, useRef, useState } from 'react';
 
 const Testimonials = () => {
   const testimonials = getHomePageTestimonials();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(Math.floor(testimonials.length / 2));
   const [isVisible, setIsVisible] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Intersection Observer for fade-in animation
@@ -54,26 +54,43 @@ const Testimonials = () => {
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(e.targetTouches[0].clientX);
+    setIsDragging(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (!isDragging) return;
+    
+    const currentTouch = e.targetTouches[0].clientX;
+    setTouchEnd(currentTouch);
+    
+    // Calculate drag offset for visual feedback
+    const diff = currentTouch - touchStart;
+    setDragOffset(diff);
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      setDragOffset(0);
+      return;
+    }
     
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    // RTL: Swipe right-to-left goes next, left-to-right goes previous
-    if (isLeftSwipe) {
-      nextTestimonial();
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(distance) > threshold) {
+      if (distance > 0) {
+        // Swipe left - go to previous in RTL
+        prevTestimonial();
+      } else {
+        // Swipe right - go to next in RTL
+        nextTestimonial();
+      }
     }
-    if (isRightSwipe) {
-      prevTestimonial();
-    }
+    
+    setIsDragging(false);
+    setDragOffset(0);
   };
 
   // Keyboard navigation
@@ -129,80 +146,87 @@ const Testimonials = () => {
 
         {/* Mobile Carousel */}
         <div className="md:hidden">
-          <div 
-            className="relative mx-4"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Single Testimonial Display - Show one at a time */}
-            <div className="bg-background-card border border-primary-500/30 rounded-2xl p-6">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className={cn(
-                    "transition-opacity duration-300",
-                    currentIndex === index ? "block" : "hidden"
-                  )}
-                >
-                  {/* Rating */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className="w-4 h-4 text-primary-400 fill-primary-400"
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Quote */}
-                  <div className="relative mb-6">
-                    <Quote className="absolute -top-2 -right-2 w-8 h-8 text-primary-500/20" />
-                    <p className="text-gray-200 leading-relaxed pr-6">
-                      {testimonial.content}
-                    </p>
-                  </div>
-                  
-                  {/* Property Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {testimonial.propertyType && (
-                      <Badge 
-                        variant="outline" 
-                        size="sm"
-                        className="border-primary-500/30 text-gray-400 bg-transparent"
-                      >
-                        <Home className="w-3 h-3 ml-1" />
-                        {testimonial.propertyType}
-                      </Badge>
-                    )}
-                    {testimonial.neighborhood && (
-                      <Badge 
-                        variant="outline" 
-                        size="sm"
-                        className="border-primary-500/30 text-gray-400 bg-transparent"
-                      >
-                        <MapPin className="w-3 h-3 ml-1" />
-                        {testimonial.neighborhood}
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  {/* Author */}
-                  <div className="flex items-center justify-between border-t border-primary-500/20 pt-4">
-                    <div>
-                      <p className="font-bold text-primary-400">{testimonial.name}</p>
-                      <p className="text-sm text-gray-400">{testimonial.type}</p>
+          <div className="relative px-4">
+            {/* Carousel Container */}
+            <div 
+              className="relative overflow-hidden rounded-2xl"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              {/* Sliding Container */}
+              <div 
+                className="flex transition-transform duration-300 ease-out"
+                style={{
+                  transform: `translateX(${currentIndex * 100}%)${isDragging ? ` translateX(${dragOffset}px)` : ''}`,
+                }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={testimonial.id}
+                    className="w-full flex-shrink-0"
+                  >
+                    <div className="bg-background-card border border-primary-500/30 p-6">
+                      {/* Rating */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className="w-4 h-4 text-primary-400 fill-primary-400"
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Quote */}
+                      <div className="relative mb-6">
+                        <Quote className="absolute -top-2 -right-2 w-8 h-8 text-primary-500/20" />
+                        <p className="text-gray-200 leading-relaxed pr-6">
+                          {testimonial.content}
+                        </p>
+                      </div>
+                      
+                      {/* Property Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {testimonial.propertyType && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
+                          >
+                            <Home className="w-3 h-3 ml-1" />
+                            {testimonial.propertyType}
+                          </Badge>
+                        )}
+                        {testimonial.neighborhood && (
+                          <Badge 
+                            variant="outline" 
+                            size="sm"
+                            className="border-primary-500/30 text-gray-400 bg-transparent"
+                          >
+                            <MapPin className="w-3 h-3 ml-1" />
+                            {testimonial.neighborhood}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      {/* Author */}
+                      <div className="flex items-center justify-between border-t border-primary-500/20 pt-4">
+                        <div>
+                          <p className="font-bold text-primary-400">{testimonial.name}</p>
+                          <p className="text-sm text-gray-400">{testimonial.type}</p>
+                        </div>
+                        <Badge 
+                          variant="outline" 
+                          size="sm"
+                          className="border-primary-500 text-primary-500 bg-primary-500/10"
+                        >
+                          {testimonial.agent}
+                        </Badge>
+                      </div>
                     </div>
-                    <Badge 
-                      variant="outline" 
-                      size="sm"
-                      className="border-primary-500 text-primary-500 bg-primary-500/10"
-                    >
-                      {testimonial.agent}
-                    </Badge>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             
             {/* Navigation Dots */}
@@ -215,18 +239,16 @@ const Testimonials = () => {
                     "h-2 rounded-full transition-all duration-300",
                     index === currentIndex 
                       ? "w-8 bg-gradient-to-r from-primary-500 to-primary-400" 
-                      : "w-2 bg-gray-600"
+                      : "w-2 bg-gray-600 hover:bg-gray-500"
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
             
-            {/* Swipe Hint */}
-            <p className="text-center text-xs text-gray-500 mt-4 flex items-center justify-center gap-2">
-              <ChevronRight className="w-3 h-3" />
-              <span>החליקו לצדדים לעוד המלצות</span>
-              <ChevronLeft className="w-3 h-3" />
+            {/* Counter */}
+            <p className="text-center text-xs text-gray-500 mt-2">
+              {currentIndex + 1} / {testimonials.length}
             </p>
           </div>
         </div>

@@ -1,5 +1,3 @@
-// File: src/components/home/FeaturedSoldProperties.tsx
-
 'use client';
 
 import Badge from '@/components/ui/Badge';
@@ -12,8 +10,6 @@ import {
   Building2,
   Calendar,
   CheckCircle,
-  ChevronLeft,
-  ChevronRight,
   Clock,
   MapPin,
   Maximize2,
@@ -26,11 +22,14 @@ import { useEffect, useRef, useState } from 'react';
 const FeaturedSoldProperties = () => {
   const featuredProperties = getFeaturedProperties();
   const stats = getPropertyStats();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(Math.floor(featuredProperties.length / 2));
   const [isVisible, setIsVisible] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Intersection Observer
   useEffect(() => {
@@ -53,27 +52,54 @@ const FeaturedSoldProperties = () => {
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(e.targetTouches[0].clientX);
+    setIsDragging(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (!isDragging) return;
+    
+    const currentTouch = e.targetTouches[0].clientX;
+    setTouchEnd(currentTouch);
+    
+    // Calculate drag offset for visual feedback
+    const diff = currentTouch - touchStart;
+    setDragOffset(diff);
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      setDragOffset(0);
+      return;
+    }
     
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    // RTL: Swipe right-to-left goes next, left-to-right goes previous
-    if (isLeftSwipe) {
-      setCurrentIndex(prev => (prev + 1) % featuredProperties.length);
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(distance) > threshold) {
+      if (distance > 0) {
+        // Swipe left - go to previous in RTL
+        handlePrevious();
+      } else {
+        // Swipe right - go to next in RTL
+        handleNext();
+      }
     }
-    if (isRightSwipe) {
-      setCurrentIndex(prev => (prev - 1 + featuredProperties.length) % featuredProperties.length);
-    }
+    
+    setIsDragging(false);
+    setDragOffset(0);
   };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % featuredProperties.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + featuredProperties.length) % featuredProperties.length);
+  };
+
+
 
   return (
     <section 
@@ -117,83 +143,91 @@ const FeaturedSoldProperties = () => {
 
         {/* Mobile Carousel */}
         <div className="md:hidden">
-          <div className="px-4">
+          <div className="relative px-4">
+            {/* Carousel Container */}
             <div 
-              className="relative"
+              ref={carouselRef}
+              className="relative overflow-hidden rounded-2xl"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              {/* Single Property Display - Fade Transition */}
-              <div className="bg-background-card rounded-2xl overflow-hidden border border-primary-500/20">
-              {featuredProperties.map((property, index) => (
-                <div
-                  key={property.id}
-                  className={cn(
-                    "transition-opacity duration-300",
-                    currentIndex === index ? "block" : "hidden"
-                  )}
-                >
-                  {/* Image */}
-                  <div className="relative h-48">
-                    <Image
-                      src={property.images[0]}
-                      alt={property.title}
-                      fill
-                      className="object-cover"
-                    />
-                    {/* Sold Badge */}
-                    <div className="absolute top-4 left-4 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
-                      <CheckCircle className="w-3 h-3" />
-                      נמכר!
-                    </div>
-                    {/* Days on Market */}
-                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-primary-400 px-3 py-1 rounded-full text-xs font-medium">
-                      {property.daysOnMarket} ימים בלבד
+              {/* Sliding Container */}
+              <div 
+                className="flex transition-transform duration-300 ease-out"
+                style={{
+                  transform: `translateX(${currentIndex * 100}%)${isDragging ? ` translateX(${dragOffset}px)` : ''}`,
+                }}
+              >
+                {featuredProperties.map((property, index) => (
+                  <div
+                    key={property.id}
+                    className="w-full flex-shrink-0"
+                  >
+                    <div className="bg-background-card overflow-hidden border border-primary-500/20">
+                      {/* Image */}
+                      <div className="relative h-48">
+                        <Image
+                          src={property.images[0]}
+                          alt={property.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority={index === 0}
+                        />
+                        {/* Sold Badge */}
+                        <div className="absolute top-4 left-4 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3" />
+                          נמכר!
+                        </div>
+                        {/* Days on Market */}
+                        <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-primary-400 px-3 py-1 rounded-full text-xs font-medium">
+                          {property.daysOnMarket} ימים בלבד
+                        </div>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="p-5">
+                        <h3 className="text-xl font-bold text-white mb-2">
+                          {property.title}
+                        </h3>
+                        
+                        <div className="flex items-center gap-2 text-gray-400 mb-4">
+                          <MapPin className="w-4 h-4 text-primary-500" />
+                          <span>{property.neighborhood}</span>
+                        </div>
+                        
+                        {/* Property Details */}
+                        <div className="grid grid-cols-3 gap-3 mb-4">
+                          <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                            <Bed className="w-4 h-4 text-primary-500 mx-auto mb-1" />
+                            <span className="text-xs text-gray-300">{property.rooms} חד׳</span>
+                          </div>
+                          <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                            <Maximize2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
+                            <span className="text-xs text-gray-300">{property.size} מ״ר</span>
+                          </div>
+                          <div className="text-center p-2 bg-primary-500/10 rounded-lg">
+                            <Building2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
+                            <span className="text-xs text-gray-300">קומה {property.floor}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Testimonial */}
+                        {property.testimonial && (
+                          <div className="border-t border-primary-500/20 pt-4">
+                            <p className="text-sm text-gray-400 italic mb-2">
+                              &ldquo;{property.testimonial.content}&rdquo;
+                            </p>
+                            <p className="text-xs text-primary-500 font-medium">
+                              — {property.testimonial.name}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  
-                  {/* Content */}
-                  <div className="p-5">
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      {property.title}
-                    </h3>
-                    
-                    <div className="flex items-center gap-2 text-gray-400 mb-4">
-                      <MapPin className="w-4 h-4 text-primary-500" />
-                      <span>{property.neighborhood}</span>
-                    </div>
-                    
-                    {/* Property Details */}
-                    <div className="grid grid-cols-3 gap-3 mb-4">
-                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
-                        <Bed className="w-4 h-4 text-primary-500 mx-auto mb-1" />
-                        <span className="text-xs text-gray-300">{property.rooms} חד׳</span>
-                      </div>
-                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
-                        <Maximize2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
-                        <span className="text-xs text-gray-300">{property.size} מ״ר</span>
-                      </div>
-                      <div className="text-center p-2 bg-primary-500/10 rounded-lg">
-                        <Building2 className="w-4 h-4 text-primary-500 mx-auto mb-1" />
-                        <span className="text-xs text-gray-300">קומה {property.floor}</span>
-                      </div>
-                    </div>
-                    
-                    {/* Testimonial */}
-                    {property.testimonial && (
-                      <div className="border-t border-primary-500/20 pt-4">
-                        <p className="text-sm text-gray-400 italic mb-2">
-                          &rdquo;{property.testimonial.content}&rdquo;
-                        </p>
-                        <p className="text-xs text-primary-500 font-medium">
-                          — {property.testimonial.name}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+                ))}
               </div>
             </div>
             
@@ -207,18 +241,16 @@ const FeaturedSoldProperties = () => {
                     "h-2 rounded-full transition-all duration-300",
                     index === currentIndex 
                       ? "w-8 bg-gradient-to-r from-primary-500 to-primary-400" 
-                      : "w-2 bg-gray-600"
+                      : "w-2 bg-gray-600 hover:bg-gray-500"
                   )}
                   aria-label={`Go to property ${index + 1}`}
                 />
               ))}
             </div>
             
-            {/* Swipe Hint */}
-            <p className="text-center text-xs text-gray-500 mt-4 flex items-center justify-center gap-2">
-              <ChevronRight className="w-3 h-3" />
-              <span>החליקו לצדדים לעוד נכסים</span>
-              <ChevronLeft className="w-3 h-3" />
+            {/* Property Counter */}
+            <p className="text-center text-xs text-gray-500 mt-2">
+              {currentIndex + 1} / {featuredProperties.length}
             </p>
           </div>
         </div>
@@ -245,6 +277,7 @@ const FeaturedSoldProperties = () => {
                   alt={property.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -317,7 +350,7 @@ const FeaturedSoldProperties = () => {
                 {property.testimonial && (
                   <div className="border-t border-primary-500/20 pt-4">
                     <p className="text-sm text-gray-400 italic line-clamp-2">
-                      &rdquo;{property.testimonial.content}&rdquo;
+                      &ldquo;{property.testimonial.content}&rdquo;
                     </p>
                     <p className="text-xs text-primary-500 font-medium mt-2">
                       — {property.testimonial.name}

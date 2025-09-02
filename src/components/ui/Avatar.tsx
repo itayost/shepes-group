@@ -43,6 +43,16 @@ export default function Avatar({
     '2xl': 'w-7 h-7',
   };
 
+  // Map sizes to actual pixel values for the sizes prop
+  const sizePixels = {
+    xs: '24px',    // w-6 = 1.5rem = 24px
+    sm: '32px',    // w-8 = 2rem = 32px
+    md: '40px',    // w-10 = 2.5rem = 40px
+    lg: '64px',    // w-16 = 4rem = 64px
+    xl: '96px',    // w-24 = 6rem = 96px
+    '2xl': '160px' // w-40 = 10rem = 160px
+  };
+
   return (
     <div className={cn('relative', sizeClasses[size], className)} {...props}>
       {gradient && (
@@ -60,6 +70,7 @@ export default function Avatar({
             src={src}
             alt={alt}
             fill
+            sizes={sizePixels[size]}
             className="object-cover object-top"
           />
         ) : (
