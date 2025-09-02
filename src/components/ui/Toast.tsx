@@ -4,7 +4,7 @@
 
 import { cn } from '@/lib/utils';
 import { AlertTriangle, CheckCircle, Info, X, XCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface ToastProps {
@@ -32,6 +32,14 @@ export default function Toast({
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
+  const handleClose = useCallback(() => {
+    setIsExiting(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      onClose?.();
+    }, 300);
+  }, [onClose]);
+
   useEffect(() => {
     if (duration > 0) {
       const timer = setTimeout(() => {
@@ -39,15 +47,7 @@ export default function Toast({
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [duration]);
-
-  const handleClose = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      setIsVisible(false);
-      onClose?.();
-    }, 300);
-  };
+  }, [duration, handleClose]);
 
   const icons = {
     success: <CheckCircle className="w-5 h-5" />,

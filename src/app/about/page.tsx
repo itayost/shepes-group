@@ -1,7 +1,6 @@
 // File: src/app/about/page.tsx
 
 import AboutHero from '@/components/about/AboutHero';
-import AboutTestimonials from '@/components/about/AboutTestimonials';
 import AgentSection from '@/components/about/AgentSection';
 import TimelineSection from '@/components/about/TimelineSection';
 import CTASection from '@/components/home/CTASection';
@@ -23,9 +22,6 @@ export default function AboutPage() {
 
       {/* Timeline Section - Using redesigned component */}
       <TimelineSection />
-
-      {/* Testimonials */}
-      <AboutTestimonials />
 
       {/* CTA Section - Using the redesigned CTASection from home */}
       <CTASection />
