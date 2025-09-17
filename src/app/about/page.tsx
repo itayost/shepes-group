@@ -8,7 +8,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
   title: 'אודות | ' + SITE_CONFIG.name,
-  description: 'הכירו את צוות שפס נדל"ן - גלית וחיים שפס, מתווכים מובילים בחיפה עם ניסיון של 18+ שנים',
+  description: 'הכירו את צוות שפס גרופ - גלית וחיים שפס, צוות מומחה נדל״ן מקצועי ומנוסה עם מעל 10 שנות ניסיון בשוק הנדל״ן החיפאי והסביבה',
 };
 
 export default function AboutPage() {

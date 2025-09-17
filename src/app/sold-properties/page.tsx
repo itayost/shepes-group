@@ -4,9 +4,9 @@ import SoldPropertiesClient from '@/components/properties/SoldPropertiesClient';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata = {
-  title: 'נכסים שמכרנו | ' + SITE_CONFIG.name,
-  description: 'גלריית נכסים שמכרנו בהצלחה בחיפה והצפון - 150+ עסקאות מוצלחות, 98% שביעות רצון',
-  keywords: ['נכסים למכירה', 'דירות שנמכרו', 'הצלחות', 'שפס נדל"ן', 'חיפה', 'נדל"ן'],
+  title: 'עסקאות אחרונות | ' + SITE_CONFIG.name,
+  description: 'מבחר עסקאות אחרונות שביצענו בהצלחה בחיפה והצפון - 150+ עסקאות מוצלחות, 98% שביעות רצון',
+  keywords: ['עסקאות אחרונות', 'נכסים שנמכרו', 'דירות שנמכרו', 'הצלחות', 'שפס גרופ', 'חיפה', 'נדל"ן'],
 };
 
 export default function SoldPropertiesPage() {

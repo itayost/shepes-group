@@ -22,6 +22,8 @@ import { useEffect, useRef, useState } from 'react';
 const iconMap: Record<string, typeof Home> = {
   '🏠': Home,
   '🔑': Key,
+  '🏗️': Home,
+  '🏡': Home,
   '📋': FileText,
   '📊': TrendingUp,
 };
@@ -54,6 +56,8 @@ const ServicesPreview = () => {
   const serviceFeatures = [
     ['הערכת שווי חינם', 'צילום מקצועי', 'שיווק דיגיטלי'],
     ['מאגר נכסים אקסקלוסיבי', 'ליווי משכנתאות', 'בדיקות מקיפות'],
+    ['שיווק מקיף ליזמים', 'קמפיינים דיגיטליים', 'ליווי עד אכלוס'],
+    ['חשיפה מקסימלית', 'שיווק ממוקד', 'מכירה מהירה'],
     ['סינון שוכרים', 'חוזים מקצועיים', 'ניהול נכס'],
     ['ניתוח שוק מעמיק', 'ייעוץ השקעות', 'דוחות מפורטים']
   ];
@@ -127,7 +131,7 @@ const ServicesPreview = () => {
                     
                     {/* Quick Features */}
                     <div className="space-y-2 mb-6">
-                      {serviceFeatures[index].map((feature, i) => (
+                      {serviceFeatures[index] && serviceFeatures[index].map((feature, i) => (
                         <div key={i} className="flex items-center gap-2 text-sm">
                           <Check className="w-4 h-4 text-primary-500" />
                           <span className="text-gray-400">{feature}</span>
@@ -238,7 +242,7 @@ const ServicesPreview = () => {
                     {/* Show features on wider cards */}
                     {(index === 0 || index === 3) && (
                       <div className="space-y-1 mb-4">
-                        {serviceFeatures[index].slice(0, 2).map((feature, i) => (
+                        {serviceFeatures[index] && serviceFeatures[index].slice(0, 2).map((feature, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm">
                             <Check className="w-3 h-3 text-primary-500" />
                             <span className="text-gray-500">{feature}</span>

@@ -8,7 +8,7 @@ import { SITE_CONFIG } from '@/lib/constants';
 export const metadata = {
   title: 'צור קשר | ' + SITE_CONFIG.name,
   description: 'נשמח לשמוע ממך! צור איתנו קשר וניצור קשר בהקדם - טלפון, וואטסאפ או שלחו לנו הודעה',
-  keywords: ['צור קשר', 'יצירת קשר', 'שפס נדל"ן', 'חיפה', 'נדל"ן'],
+  keywords: ['צור קשר', 'יצירת קשר', 'שפס גרופ', 'חיפה', 'נדל"ן'],
 };
 
 export default function ContactPage() {

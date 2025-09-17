@@ -1,24 +1,26 @@
 export const SITE_CONFIG = {
-  name: 'שפס נדל״ן',
-  tagline: 'מומחים בנדל״ן בחיפה והצפון - מכירה, קנייה והשכרה',
-  description: 'שפס נדל״ן - גלית וחיים שפס, מתווכים מובילים בחיפה עם ניסיון של 18+ שנים. מומחים במכירה, קנייה והשכרת נכסים באזור חיפה והצפון.',
+  name: 'שפס גרופ',
+  tagline: 'צוות מוביל לשיווק נדל״ן בחיפה - מכירה, קנייה והשכרה',
+  description: 'שפס גרופ - גלית וחיים שפס, צוות מומחה נדל״ן מקצועי ומנוסה עם מעל 10 שנות ניסיון בשוק הנדל״ן החיפאי והסביבה. מומחים בשיווק, מכירה, קנייה והשכרת נכסים.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.co.il',
   logo: '/shepes-group.png', // הוספת נתיב הלוגו
   ogImage: '/shepes-group.png', // שימוש בלוגו עבור תמונת שיתוף
-  phone: '054-1234567',
-  whatsapp: '972541234567',
-  email: 'info@shepesrealestate.co.il',
-  address: {
-    street: 'רחוב הרצל 100',
-    city: 'חיפה',
-    zip: '3500000'
+  phone: '055-9979975',
+  whatsapp: '972559979975',
+  email: 'shepes@me.com',
+  workingHours: {
+    weekdays: 'ראשון-חמישי: 8:00-20:00',
+    friday: 'שישי: 8:00-15:00'
   },
   social: {
     facebook: 'https://facebook.com/shepesrealestate',
     instagram: 'https://instagram.com/shepesrealestate',
     linkedin: 'https://linkedin.com/in/shepesrealestate'
   },
-  license: 'מספר רישיון: 12345', // להחליף למספר האמיתי
+  licenses: {
+    galit: 'מספר רישיון: 3174759',
+    haim: 'מספר רישיון: 3227224'
+  },
   twitterHandle: '@shepesrealestate'
 };
 
@@ -32,7 +34,7 @@ export const NAV_ITEMS = [
 
 // Home Page Hero Content
 export const HOME_HERO = {
-  title: 'הצוות המוביל לנדל״ן בחיפה',
+  title: 'צוות מוביל לשיווק נדל״ן בחיפה',
   subtitle: 'גלית וחיים שפס - ליווי מקצועי ואישי בקנייה, מכירה והשכרה',
   cta1: 'הערכת שווי חינם',
   cta2: 'צור קשר',
@@ -43,7 +45,7 @@ export const HOME_HERO = {
 export const WHY_CHOOSE_US = [
   {
     icon: 'Trophy', // Lucide icon name
-    title: 'ניסיון של 18+ שנים',
+    title: 'ניסיון של 10+ שנים',
     description: 'ניסיון עשיר בשוק הנדל״ן בחיפה והצפון'
   },
   {
@@ -167,7 +169,7 @@ export const STATISTICS = {
   propertiesSold: '150+',
   satisfiedClients: '98%',
   avgDaysToSell: '21',
-  yearsExperience: '18+'
+  yearsExperience: '10+'
 };
 
 // Statistics for display with icons (as array)

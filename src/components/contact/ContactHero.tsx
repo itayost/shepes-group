@@ -13,7 +13,7 @@ import {
 const ContactHero = () => {
   const subtitle = (
     <>
-      צוות שפס נדל&quot;ן זמין עבורך בכל שאלה, ייעוץ או בקשה
+      צוות שפס גרופ זמין עבורך בכל שאלה, ייעוץ או בקשה
       <br className="hidden md:block" />
       <span className="text-text-gold font-semibold">{SITE_CONFIG.phone}</span> | {SITE_CONFIG.email}
     </>

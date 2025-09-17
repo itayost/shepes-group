@@ -19,12 +19,12 @@ const PropertyHero = () => {
   return (
     <SharedHero
       badge="סיפורי הצלחה"
-      title="נכסים שמכרנו"
+      title="עסקאות אחרונות"
       subtitle={
         <>
-          עשרות משפחות מרוצות שמצאו את הבית המושלם
+          מבחר מעסקאות האחרונות שביצענו בהצלחה
           <br className="hidden md:block" />
-          <span className="text-text-gold font-semibold">כל נכס - סיפור הצלחה</span>
+          <span className="text-text-gold font-semibold">כל עסקה - סיפור הצלחה</span>
         </>
       }
       features={features}

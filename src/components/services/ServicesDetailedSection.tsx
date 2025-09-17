@@ -5,13 +5,15 @@ import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import Tabs from '@/components/ui/Tabs';
 import { services } from '@/data/services';
-import { CheckCircle, FileText, Home, Key, Phone, TrendingUp } from 'lucide-react';
+import { Building2, CheckCircle, FileText, Home, Key, Phone, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const iconMap = {
   'selling': Home,
   'buying': Key,
+  'project-marketing': Building2,
+  'secondhand-marketing': Home,
   'rental': FileText,
   'valuation': TrendingUp,
 };

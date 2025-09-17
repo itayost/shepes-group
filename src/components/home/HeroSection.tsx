@@ -69,7 +69,7 @@ const HeroSection = () => {
               alt="Company Logo"
               width={400}
               height={160}
-              className="w-auto h-50 md:h-80 lg:h-80 drop-shadow-[0_0_30px_rgba(193,167,103,0.3)]"
+              className="w-auto h-32 md:h-40 lg:h-48 drop-shadow-[0_0_30px_rgba(193,167,103,0.3)]"
               priority
             />
           </div>

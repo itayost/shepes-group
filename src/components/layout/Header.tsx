@@ -59,7 +59,7 @@ const Header = () => {
             <Link href="/" className="flex items-center group">
               <Image
                 src="/shepes-group-white.png"
-                alt="שפס נדל״ן - לוגו"
+                alt="שפס גרופ - לוגו"
                 width={160}
                 height={60}
                 className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
@@ -148,7 +148,7 @@ const Header = () => {
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
             <Image
               src="/shepes-group-white.png"
-              alt="שפס נדל״ן - לוגו"
+              alt="שפס גרופ - לוגו"
               width={120}
               height={45}
               className="h-10 w-auto object-contain"

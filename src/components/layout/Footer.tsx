@@ -34,8 +34,8 @@ const Footer = () => {
   ];
 
   const trustIndicators = [
-    { icon: Shield, label: 'רישיון מתווך מוסמך', value: '12345' },
-    { icon: Award, label: 'שנות ניסיון', value: '18+' },
+    { icon: Shield, label: 'רישיון מתווך מוסמך', value: 'מאושר' },
+    { icon: Award, label: 'שנות ניסיון', value: '10+' },
     { icon: Star, label: 'לקוחות מרוצים', value: '500+' },
     { icon: Clock, label: 'זמן תגובה', value: '24 שעות' },
   ];
@@ -56,7 +56,7 @@ const Footer = () => {
             <Link href="/" className="inline-block">
               <Image
                 src="/shepes-group-white.png"
-                alt="שפס נדל״ן - לוגו"
+                alt="שפס גרופ - לוגו"
                 width={160}
                 height={60}
                 className="h-14 w-auto object-contain"
@@ -149,23 +149,23 @@ const Footer = () => {
               {/* Contact Cards */}
               <Card className="bg-background-card border-primary-500/20 p-4 hover:border-primary-500/40 transition-all">
                 <p className="text-xs text-gray-400 mb-2">גלית שפס</p>
-                <a 
-                  href="tel:054-1234567"
+                <a
+                  href="tel:055-9979975"
                   className="flex items-center gap-2 text-primary-500 hover:text-primary-400 transition-colors font-medium"
                 >
                   <Phone className="w-4 h-4" />
-                  054-1234567
+                  055-9979975
                 </a>
               </Card>
 
               <Card className="bg-background-card border-primary-500/20 p-4 hover:border-primary-500/40 transition-all">
                 <p className="text-xs text-gray-400 mb-2">חיים שפס</p>
-                <a 
-                  href="tel:054-7654321"
+                <a
+                  href="tel:053-2765599"
                   className="flex items-center gap-2 text-primary-500 hover:text-primary-400 transition-colors font-medium"
                 >
                   <Phone className="w-4 h-4" />
-                  054-7654321
+                  053-2765599
                 </a>
               </Card>
 
@@ -178,11 +178,12 @@ const Footer = () => {
               </a>
 
               <div className="flex items-start gap-2 text-gray-300">
-                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary-500" />
-                <span className="text-sm">
-                  {SITE_CONFIG.address.street}<br />
-                  {SITE_CONFIG.address.city}
-                </span>
+                <Clock className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary-500" />
+                <div className="text-sm">
+                  <p className="font-medium">שעות פעילות:</p>
+                  <p>{SITE_CONFIG.workingHours.weekdays}</p>
+                  <p>{SITE_CONFIG.workingHours.friday}</p>
+                </div>
               </div>
             </div>
 

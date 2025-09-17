@@ -20,13 +20,13 @@ const AboutHero = () => {
   return (
     <SharedHero
       badge="הצוות שלנו"
-      title="צוות שפס נדל&quot;ן"
+      title="צוות שפס גרופ"
       subtitle={
         <>
-          צוות מתווכים מקצועי ומנוסה עם 
-          <span className="text-text-gold font-semibold"> מעל 18 שנות ניסיון</span>
+          צוות מומחה נדל״ן מקצועי ומנוסה עם
+          <span className="text-text-gold font-semibold"> מעל 10 שנות ניסיון</span>
           <br className="hidden md:block" />
-          בשוק הנדל&quot;ן בחיפה והצפון
+          בשוק הנדל״ן החיפאי והסביבה
         </>
       }
       features={highlights}

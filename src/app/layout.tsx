@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'קניית דירה חיפה',
     'הערכת שווי נדל"ן',
     'ייעוץ נדל"ן חיפה',
-    'שפס נדל"ן',
+    'שפס גרופ',
     'גלית שפס',
     'חיים שפס'
   ],
@@ -123,9 +123,7 @@ export default function RootLayout({
         email: SITE_CONFIG.email,
         address: {
           '@type': 'PostalAddress',
-          streetAddress: SITE_CONFIG.address.street,
-          addressLocality: SITE_CONFIG.address.city,
-          postalCode: SITE_CONFIG.address.zip,
+          addressLocality: 'חיפה',
           addressCountry: 'IL',
         },
         areaServed: [

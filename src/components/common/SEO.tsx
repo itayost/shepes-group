@@ -115,9 +115,7 @@ export function Schema({ type, data = {} }: SchemaProps) {
       telephone: SITE_CONFIG.phone,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: SITE_CONFIG.address.street,
-        addressLocality: SITE_CONFIG.address.city,
-        postalCode: SITE_CONFIG.address.zip,
+        addressLocality: 'חיפה',
         addressCountry: 'IL',
       },
       ...data,
@@ -132,9 +130,7 @@ export function Schema({ type, data = {} }: SchemaProps) {
       email: SITE_CONFIG.email,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: SITE_CONFIG.address.street,
-        addressLocality: SITE_CONFIG.address.city,
-        postalCode: SITE_CONFIG.address.zip,
+        addressLocality: 'חיפה',
         addressCountry: 'IL',
       },
       areaServed: {

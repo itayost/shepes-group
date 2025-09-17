@@ -193,17 +193,17 @@ const ContactInfo = () => {
         <CardContent className="p-6">
           {/* Header */}
           <div className="flex items-center gap-2 mb-6">
-            <MapPin className="w-5 h-5 text-primary-500" />
-            <h2 className="text-xl font-bold text-text-primary">כתובת המשרד</h2>
+            <Clock className="w-5 h-5 text-primary-500" />
+            <h2 className="text-xl font-bold text-text-primary">שעות פעילות</h2>
           </div>
 
-          {/* Address */}
-          <div className="mb-4">
-            <p className="text-text-secondary font-medium mb-1">
-              {SITE_CONFIG.address.street}
+          {/* Working Hours */}
+          <div className="mb-4 space-y-2">
+            <p className="text-text-secondary font-medium">
+              {SITE_CONFIG.workingHours.weekdays}
             </p>
-            <p className="text-text-muted">
-              {SITE_CONFIG.address.city}, {SITE_CONFIG.address.zip}
+            <p className="text-text-secondary font-medium">
+              {SITE_CONFIG.workingHours.friday}
             </p>
           </div>
 
@@ -224,18 +224,14 @@ const ContactInfo = () => {
             })}
           </div>
 
-          {/* Navigation Button */}
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              `${SITE_CONFIG.address.street} ${SITE_CONFIG.address.city}`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Contact Button */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-gold text-background font-medium rounded-lg hover:shadow-gold-glow transition-all"
           >
-            <Navigation className="w-4 h-4" />
-            נווט למשרד
-          </a>
+            <Phone className="w-4 h-4" />
+            צור קשר
+          </button>
         </CardContent>
       </Card>
 

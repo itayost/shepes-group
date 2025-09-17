@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const timelineEvents = [
   {
-    year: '2006',
+    year: '2015',
     title: 'ההתחלה',
     description: 'גלית מתחילה את דרכה בתחום הנדל"ן בחיפה',
     agent: 'גלית',
@@ -28,34 +28,34 @@ const timelineEvents = [
     color: 'from-primary-500 to-primary-600'
   },
   {
-    year: '2009',
-    title: 'הצטרפות לצוות',
-    description: 'חיים מצטרף לתחום ומתמחה בנכסים מסחריים',
+    year: '2020',
+    title: 'הצטרפות',
+    description: 'חיים מצטרף לצוות עם מומחיות בשיווק נדל"ן',
     agent: 'חיים',
     icon: Users,
     highlight: 'הרחבת הצוות',
     color: 'from-primary-600 to-primary-500'
   },
   {
-    year: '2015',
-    title: 'הקמת שפס נדל"ן',
-    description: 'פתיחת המשרד המשותף והתחלת שיתוף הפעולה המלא',
+    year: '2024',
+    title: 'הקמת שפס גרופ',
+    description: 'הקמת משרד תיווך שפס גרופ - צוות מוביל לשיווק נדל"ן',
     agent: 'גלית וחיים',
     icon: MapPin,
     highlight: 'אבן דרך',
     color: 'from-primary-400 to-primary-500'
   },
   {
-    year: '2020',
-    title: 'הרחבת השירותים',
-    description: 'הוספת שירותי ניהול נכסים והערכות שווי מקצועיות',
+    year: '2024',
+    title: 'שיווק מקצועי של נדל"ן',
+    description: 'התמקדות בשיווק מקצועי ומתקדם של נכסים',
     agent: 'גלית וחיים',
     icon: TrendingUp,
     highlight: 'צמיחה',
     color: 'from-primary-500 to-primary-400'
   },
   {
-    year: '2024',
+    year: '2025',
     title: 'מובילים בחיפה',
     description: 'מעל 150 נכסים נמכרו, 98% שביעות רצון',
     agent: 'גלית וחיים',
