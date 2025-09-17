@@ -316,10 +316,13 @@ const ContactInfo = () => {
             })}
           </div>
 
-          {/* License */}
+          {/* Licenses */}
           <div className="mt-6 pt-6 border-t border-primary-500/20">
             <p className="text-sm text-text-muted">
-              {SITE_CONFIG.license}
+              {SITE_CONFIG.licenses.galit}
+            </p>
+            <p className="text-sm text-text-muted">
+              {SITE_CONFIG.licenses.haim}
             </p>
           </div>
         </CardContent>
