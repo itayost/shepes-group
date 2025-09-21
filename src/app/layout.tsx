@@ -97,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`} data-scroll-behavior="smooth">
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${rubik.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
 <head>
   {/* תגי Meta נוספים */}
   <meta name="theme-color" content="#000000" />

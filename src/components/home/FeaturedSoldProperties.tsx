@@ -22,14 +22,23 @@ import { useEffect, useRef, useState } from 'react';
 const FeaturedSoldProperties = () => {
   const featuredProperties = getFeaturedProperties();
   const stats = getPropertyStats();
-  const [currentIndex, setCurrentIndex] = useState(Math.floor(featuredProperties.length / 2));
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [touchStartY, setTouchStartY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
+  const [isHorizontalSwipe, setIsHorizontalSwipe] = useState<boolean | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Set initial index to middle after mount to avoid hydration issues
+  useEffect(() => {
+    if (featuredProperties.length > 0) {
+      setCurrentIndex(Math.floor(featuredProperties.length / 2));
+    }
+  }, [featuredProperties.length]);
 
   // Intersection Observer
   useEffect(() => {
@@ -53,30 +62,51 @@ const FeaturedSoldProperties = () => {
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
     setTouchEnd(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
     setIsDragging(true);
+    setIsHorizontalSwipe(null);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
-    
-    const currentTouch = e.targetTouches[0].clientX;
-    setTouchEnd(currentTouch);
-    
+
+    const currentTouchX = e.targetTouches[0].clientX;
+    const currentTouchY = e.targetTouches[0].clientY;
+
+    // Determine if this is a horizontal or vertical swipe
+    if (isHorizontalSwipe === null) {
+      const diffX = Math.abs(currentTouchX - touchStart);
+      const diffY = Math.abs(currentTouchY - touchStartY);
+
+      // Only consider it a horizontal swipe if X movement is greater than Y
+      if (diffX > 5 || diffY > 5) {
+        setIsHorizontalSwipe(diffX > diffY);
+      }
+    }
+
+    // Only handle horizontal swipes
+    if (isHorizontalSwipe === false) {
+      return;
+    }
+
+    setTouchEnd(currentTouchX);
+
     // Calculate drag offset for visual feedback
-    const diff = currentTouch - touchStart;
+    const diff = currentTouchX - touchStart;
     setDragOffset(diff);
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) {
+    if (!touchStart || !touchEnd || isHorizontalSwipe !== true) {
       setIsDragging(false);
       setDragOffset(0);
+      setIsHorizontalSwipe(null);
       return;
     }
-    
+
     const distance = touchStart - touchEnd;
     const threshold = 50; // Minimum swipe distance
-    
+
     if (Math.abs(distance) > threshold) {
       if (distance > 0) {
         // Swipe left - go to previous in RTL
@@ -86,9 +116,10 @@ const FeaturedSoldProperties = () => {
         handleNext();
       }
     }
-    
+
     setIsDragging(false);
     setDragOffset(0);
+    setIsHorizontalSwipe(null);
   };
 
   const handleNext = () => {
@@ -145,18 +176,19 @@ const FeaturedSoldProperties = () => {
         <div className="md:hidden">
           <div className="relative px-4">
             {/* Carousel Container */}
-            <div 
+            <div
               ref={carouselRef}
-              className="relative overflow-hidden rounded-2xl"
+              className="relative overflow-hidden rounded-2xl touch-pan-y"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              style={{ touchAction: 'pan-y pinch-zoom' }}
             >
               {/* Sliding Container */}
               <div 
                 className="flex transition-transform duration-300 ease-out"
                 style={{
-                  transform: `translateX(${currentIndex * 100}%)${isDragging ? ` translateX(${dragOffset}px)` : ''}`,
+                  transform: `translateX(calc(${currentIndex * 100}% + ${isDragging && isHorizontalSwipe ? dragOffset : 0}px))`,
                 }}
               >
                 {featuredProperties.map((property, index) => (
