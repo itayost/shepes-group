@@ -13,8 +13,8 @@ export const SITE_CONFIG = {
     friday: 'שישי: 8:00-15:00'
   },
   social: {
-    facebook: 'https://facebook.com/shepesrealestate',
-    instagram: 'https://instagram.com/shepesrealestate',
+    facebook: 'https://www.facebook.com/shepes.group',
+    instagram: 'https://www.instagram.com/shepes_group_realestate',
     linkedin: 'https://linkedin.com/in/shepesrealestate'
   },
   licenses: {
