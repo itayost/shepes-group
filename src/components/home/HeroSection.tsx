@@ -67,9 +67,9 @@ const HeroSection = () => {
             <Image
               src="/shepes-group-white.png"
               alt="Company Logo"
-              width={400}
-              height={160}
-              className="w-auto h-32 md:h-40 lg:h-48 drop-shadow-[0_0_30px_rgba(193,167,103,0.3)]"
+              width={600}
+              height={240}
+              className="w-auto h-[300px] md:h-[400px] lg:h-[500px] drop-shadow-[0_0_30px_rgba(193,167,103,0.3)]"
               priority
             />
           </div>
