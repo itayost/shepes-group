@@ -2,7 +2,7 @@ export const SITE_CONFIG = {
   name: 'שפס גרופ',
   tagline: 'צוות מוביל לשיווק נדל״ן בחיפה - מכירה, קנייה והשכרה',
   description: 'שפס גרופ - גלית וחיים שפס, צוות מומחה נדל״ן מקצועי ומנוסה עם מעל 10 שנות ניסיון בשוק הנדל״ן החיפאי והסביבה. מומחים בשיווק, מכירה, קנייה והשכרת נכסים.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.co.il',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.shepes-group.co.il',
   logo: '/shepes-group.png', // הוספת נתיב הלוגו
   ogImage: '/shepes-group.png', // שימוש בלוגו עבור תמונת שיתוף
   phone: '055-9979975',
