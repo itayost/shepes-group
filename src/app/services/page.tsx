@@ -5,10 +5,21 @@ import ServicesFAQ from '@/components/services/ServicesFAQ';
 import ServicesHeroSection from '@/components/services/ServicesHeroSection';
 import { SITE_CONFIG } from '@/lib/constants';
 
+const pageDescription = 'שירותי נדל"ן מקיפים - מכירה, קנייה, השכרה והערכת שווי נכסים בחיפה והצפון. ליווי מקצועי ואישי עם ניסיון של 18+ שנים';
+
 export const metadata = {
   title: 'השירותים שלנו | ' + SITE_CONFIG.name,
-  description: 'שירותי נדל"ן מקיפים - מכירה, קנייה, השכרה והערכת שווי נכסים בחיפה והצפון. ליווי מקצועי ואישי עם ניסיון של 18+ שנים',
+  description: pageDescription,
   keywords: ['שירותי נדל"ן', 'מכירת נכס', 'קניית דירה', 'השכרה', 'הערכת שווי', 'שפס גרופ', 'חיפה'],
+  alternates: {
+    canonical: `${SITE_CONFIG.url}/services`,
+  },
+  openGraph: {
+    title: 'השירותים שלנו | ' + SITE_CONFIG.name,
+    description: pageDescription,
+    url: `${SITE_CONFIG.url}/services`,
+    type: 'website',
+  },
 };
 
 export default function ServicesPage() {
