@@ -230,7 +230,18 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-primary-500/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400 text-center md:text-right">
-              © {currentYear} ItayOst. כל הזכויות שמורות.
+              © {currentYear} Shepes Group. כל הזכויות שמורות.
+              <span className="block md:inline md:ms-2 text-xs">
+                עוצב ופותח על ידי{' '}
+                <a
+                  href="https://www.itayost.com"
+                  target="_blank"
+                  rel="noopener"
+                  className="hover:text-primary-400 transition-colors"
+                >
+                  ITAYOST
+                </a>
+              </span>
             </p>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
