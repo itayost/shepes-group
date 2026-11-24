@@ -231,23 +231,23 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400 text-center md:text-right">
               © {currentYear} Shepes Group. כל הזכויות שמורות.
-              <span className="block md:inline md:ms-2 text-xs">
-                עוצב ופותח על ידי{' '}
-                <a
-                  href="https://www.itayost.com"
-                  target="_blank"
-                  rel="noopener"
-                  className="hover:text-primary-400 transition-colors"
-                >
-                  ITAYOST
-                </a>
-              </span>
             </p>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
               <span className="text-xs text-primary-500">Shepes Group</span>
             </div>
           </div>
+          <p className="mt-6 text-center text-xs text-gray-400">
+            עוצב ופותח על ידי{' '}
+            <a
+              href="https://www.itayost.com"
+              target="_blank"
+              rel="noopener"
+              className="text-primary-500 hover:text-primary-400 transition-colors"
+            >
+              ITAYOST
+            </a>
+          </p>
         </div>
       </div>
     </footer>
